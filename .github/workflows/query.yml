@@ -28,4 +28,4 @@ jobs:
         git config --global user.name "Antonio Feregrino"
         git add data/
         git diff --quiet && git diff --staged --quiet || git commit -m "$msg"
-
+        git push
