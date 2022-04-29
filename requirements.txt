@@ -1,2 +1,7 @@
 -i https://pypi.org/simple
 mind-the-gap==2.1.1
+pandas==1.4.2
+geopandas==0.10.2
+seaborn==0.11.2
+astral==2.2
+pytz==2022.1
