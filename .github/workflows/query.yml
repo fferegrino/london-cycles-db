@@ -1,0 +1,29 @@
+name: Download dataset
+
+on:
+  schedule:
+  - cron: "*/15 * * * *"
+
+jobs:
+  tweet:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: "3.8"
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Download dataset
+      run: python dataset.py
+    - name: Commit changes
+      run: |
+        msg="Updated: `date +'%Y-%m-%d %H:%M'`"
+        git add data/
+        git diff --quiet && git diff --staged --quiet || git commit -m "$msg"
+
