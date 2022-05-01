@@ -14,11 +14,13 @@ import pandas as pd
 import seaborn as sns
 from matplotlib.colors import Colormap
 from matplotlib.lines import Line2D
+import matplotlib.patches as patches
 from matplotlib.offsetbox import AnchoredText
 from matplotlib.animation import FuncAnimation
 from astral.sun import sun
 from astral import LocationInfo
 import pytz
+from matplotlib import font_manager as fm
 
 utc = pytz.timezone('UTC')
 
@@ -105,6 +107,9 @@ def set_custom_legend(ax: plt.Axes, cmap: Colormap) -> None:
 
 # -
 
+roboto_mono = fm.FontProperties(fname="Roboto_Mono/RobotoMono-Italic-VariableFont_wght.ttf", size=30)
+
+
 def create_frame(step, ax):
     ax.cla()
     time = times[step]
@@ -119,32 +124,50 @@ def create_frame(step, ax):
     min_x, max_x, min_y, max_y = prepare_axes(ax, cycles_info)
     cmap = plt.get_cmap("OrRd")
     ax.fill_between([min_x, max_x], min_y, max_y, color="#9CC0F9")
+    
+    map_color = "#F4F6F7"
         
-    london_map.plot(ax=ax, linewidth=0.5, color="#F4F6F7", edgecolor="black")
+    london_map.plot(ax=ax, linewidth=0.5, color=map_color, edgecolor="black")
     sns.scatterplot(
         y="lat", x="lon", hue="proportion", edgecolor="k", linewidth=0.1,palette=cmap, data=cycles_info, s=25, ax=ax
     )
-    
-    text_year = time_dt.strftime("%Y/%m/%d")
-    text_time = time_dt.strftime("%H:%M")
-    
-    ax.text(-0.063368, 51.477, text_year, fontsize=9, ha="center")
-    ax.text(-0.063368, 51.470, text_time, fontsize=20, ha="center")
-    
+
+    plot_clock(ax, map_color, time_dt)
+
     text = AnchoredText("u/fferegrino – Data from TFL", loc=4, prop={"size": 5}, frameon=True)
     ax.add_artist(text)
     
     set_custom_legend(ax, cmap)
+
+
+def plot_clock(ax, map_color, time_dt):
+    text_year = time_dt.strftime("%A, %d %B").upper()
+    text_time = time_dt.strftime("%H:%M")
+    clock_center = (-0.063368, 51.4745)
+    width = 0.04 / 2
+    height = 0.011 / 2
+    rect = patches.Rectangle(
+        (clock_center[0] - width, clock_center[1] - height),
+        width * 2, height * 2, linewidth=0.5, edgecolor='k', facecolor=map_color)
+    ax.add_patch(rect)
+    ax.text(clock_center[0], clock_center[1] + 0.0025, text_year, fontsize=6, ha="center", fontproperties=roboto_mono)
+    ax.text(clock_center[0], clock_center[1] - 0.004, text_time, fontsize=20, ha="center", fontproperties=roboto_mono)
+
 
 # +
 fig = plt.Figure(figsize=(6, 4), dpi=200, frameon=False)
 ax = plt.Axes(fig, [0.0, 0.0, 1.0, 1.0])
 fig.add_axes(ax)
 
-animation = FuncAnimation(fig, create_frame, frames=len(times), fargs=(ax,))
+create_frame(0, ax)
+show_figure(fig)
 
 # +
-# times[:]
+fig = plt.Figure(figsize=(6, 4), dpi=200, frameon=False)
+ax = plt.Axes(fig, [0.0, 0.0, 1.0, 1.0])
+fig.add_axes(ax)
+
+animation = FuncAnimation(fig, create_frame, frames=len(times[:15]), fargs=(ax,))
 
 # +
 from IPython.display import HTML
