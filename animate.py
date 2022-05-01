@@ -172,7 +172,7 @@ animation = FuncAnimation(fig, create_frame, frames=len(times[:15]), fargs=(ax,)
 # +
 from IPython.display import HTML
 
-animation.save('animation.mp4', writer='ffmpeg', fps=10);
+animation.save('animation.mp4', writer='ffmpeg',codec="libx264", bitrate=-1, fps=10);
 # HTML(animation.to_jshtml())
 # -
 
