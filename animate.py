@@ -11,7 +11,7 @@ import seaborn as sns
 # %% [markdown]
 # ## Load all the data
 #
-# The data for the cycles stations is split by days, I can use a *glob* pattern to read all of them into a list only to concatenate them into a single dataframe afterwards:
+# The data for the cycles stations is split by days; I can use a *glob* pattern to read all of them into a list only to concatenate them into a single dataframe afterwards:
 
 # %% gist="read_frames.py" dataframe="initial_data.png"
 frames = []
@@ -25,7 +25,7 @@ all_data.sample(10, random_state=42)
 # %% [markdown]
 # As you can see, due to the data collection process, the times are not evenly distributed. The following lines do two things:
 #
-#  - Modifies the `query_time` column: The dataset dates are in UTC, but when read from using *pandas* this information is not reflected, with `dt.tz_localize("utc")` I set UTC as the timezone, then with `dt.tz_convert("Europe/London")` I change them to the London timezone, and with `dt.floor("15min")` I round (or floor) the times to the nearest 15 minute.
+#  - Modifies the `query_time` column: The dataset dates are in UTC, but when read from using *pandas*, this information is not taken into account. With `dt.tz_localize("utc")`, I set UTC as the timezone, then with `dt.tz_convert("Europe/London")` I change them to the London timezone and with `dt.floor("15min")` I round (or floor) the times to the nearest 15 minute.
 #  - Calculates the `proportion`, a value ranging from 0 to 1 that summarises how empty or full the bike station is
 
 # %% gist="transform_dataframe.py" dataframe="rounded.png"
@@ -44,7 +44,7 @@ all_data.sample(10, random_state=42)
 # %% [markdown]
 # ### Filter a specific timeframe
 #
-# This is entirely optional, for the time being I'll restrict the animation to a week's worth of data. Keeping in mind that the more data I include, the more time it will take the proccessing to be done.
+# This is entirely optional; for the time being, I'll restrict the animation to a week's worth of data. Keep in mind that the more data I include, the more time it will take the processing to be done.
 
 # %% gist="select_timeframe.py"
 beginning = datetime.datetime(2022, 5, 7, tzinfo=london_tz)
@@ -58,20 +58,20 @@ else:
 # %% [markdown]
 # ## Are there problems in the data?
 #
-# Since the way I get the data is somewhat unreliable, I want to perform a quick check to see how the data looks like. A group by `query_time` should reveal any missing data:
+# Since the way I get the data is somewhat unreliable, I want to perform a quick check to see what the data looks like. A group by `query_time` should reveal any missing data:
 
 # %% gist="show_times.py" dataframe="show_missing_times.png"
 data_to_plot.groupby("query_time").count().head(5)
 
 # %% [markdown]
-# And there it is, see the jumps betweent he first and second row? it goes from `01:15:00` to `01:45:00`, also from the second to the third row there is almost hour of missing data!
-
+# And there it is, see the jumps between the first and second row? It goes from `01:15:00` to `01:45:00`, and from the second to the third row there is almost an hour of missing data!
+#
 # There is a way to fix this problem... or at least make it less bad.
 
 # %% [markdown]
 # ### Resampling
 #
-# I need to do a bit of resampling to get this to work as I want it to, let's start small, with a single bike point.
+# I need to do a bit of resampling to get this to work as I want it to. Let's start small, with a single bike point.
 
 # %% gist="select_single.py" dataframe="single_bikepoint.png"
 bikepoint = data_to_plot[data_to_plot["place_id"] == "BikePoints_87"]
@@ -79,23 +79,23 @@ bikepoint_resampled = bikepoint.copy()
 bikepoint.head()
 
 # %% [markdown]
-# In order to use *pandas*'s resampling utilities, I need to set a time index in our dataframe, in this case, `query_time` will be my time index:
+# In order to use *pandas*'s resampling utilities, I need to set a time index in our dataframe; in this case, `query_time` will be my time index:
 
 # %% gist="set_index.py" dataframe="resampled.png"
 bikepoint_resampled = bikepoint_resampled.set_index("query_time")
 bikepoint_resampled.head()
 
 # %% [markdown]
-# Then I can use `.resample` passing on the value `"15min"` since I want 15 minute intervals, what resample returns is still not what I am after, I need to specify what to do with the newly resampled times that do not have value assigned to them, I can use `.median()` to achieve my goal:
+# Then I can use `.resample` passing on the value `"15min"` since I want 15-minute intervals. But what resample returns is still not what I am after, I need to specify what to do with the newly resampled times that do not have a value assigned to them, I can use `.median()` to achieve my goal:
 
 # %% gist="resampled_to_15minutes.py" dataframe="resampled_to_15.png"
 bikepoint_resampled = bikepoint_resampled.resample("15min").median()
 bikepoint_resampled.head()
 
 # %% [markdown]
-# Now it is possible to see the gaps, in the previous dataframe, the second, fourth and fifth row were missing now they appear but have no value; I will take care of that next with the `.interpolate` method for data frames.
+# Now it is possible to see the gaps; in the previous dataframe, the second, fourth and fifth rows were missing, and now they appear but have no value; I will take care of that next with the `.interpolate` method for data frames.
 #
-# The `.interpolate` method allows us to specify how we want this interpolation to happen via the `method` argument, it defaults to `linear` which is something I can work with for the purposes of this post, but if you have other requirements make sure you us the right method.
+# The `.interpolate` method allows us to specify how we want this interpolation to happen via the `method` argument, it defaults to `linear`, which is something I can work with for the purposes of this post, but if you have other requirements, make sure you use the proper method.
 
 # %% gist="interpolated_data.py" dataframe="interpolated.png"
 bikepoint_resampled = bikepoint_resampled.interpolate()
@@ -110,10 +110,10 @@ bikepoint_resampled.head()
 
 
 # %% [markdown]
-# Did you notice it? throughout all our transformations, we lost the bike point the dataframe refers to! nothing to worry since we know it is the `BikePoint_87`, but we need to be careful when applying these transformations to the whole dataset.
+# Did you notice it? We lost the bike point the dataframe refers to throughout all our transformations! Nothing to worry about since we know it is the `BikePoint_87`, but we need to be careful when applying these transformations to the whole dataset.
 
 # %% [markdown]
-# And to apply those transformations to the whole dataset the only thing that came to my mind was to create a function that does everything we have been discussing so far:
+# And to apply those transformations to the whole dataset, the only thing that came to my mind was to create a function that does everything we have been discussing so far:
 
 # %% gist="interpolate_function.py"
 def interpolate_bikepoint(dataframe):
@@ -149,11 +149,11 @@ data_to_plot.groupby("query_time").count().head(5)
 # %% [markdown]
 # ## Making the plot geographically realistic
 #
-# Let's try to convey more information in the plots, since I have the feeling that bike usage has to do with dalylight, let's create a function that gives us a color pallette that depends on the time of day.
+# Let's try to convey more information in the plots; since I have the feeling that bike usage has to do with daylight, let's create a function that gives us a colour palette that depends on the time of day.
 #
 # I discovered some neat packages in the process:
 #
-#  - [Astral](https://github.com/sffjunkie/astral) that provides calculations of the sun and moon position. I will be using this to know the when the sunrise and sunset are happening in London.
+#  - [Astral](https://github.com/sffjunkie/astral) provides calculations of the sun and moon position. I will be using this to know when the sunrise and sunset are happening in London.
 #  - [Colour](https://github.com/vaab/colour) to manipulate colours. I will be using this package to create nice transitions between different colours.
 #
 #  I will not spend too much time explaining the functions; please refer to the documentation, read the inline comments or reach out to me for further clarification.
@@ -216,7 +216,7 @@ def get_colors_by_time(date):
 
 
 # %% [markdown]
-# Together, the above functions allow me to get a color gradient for a specific date. For example, to check today's gradient, we can do:
+# Together, the above functions allow me to get a colour gradient for a specific date. For example, to check today's gradient, we can do the following:
 
 # %% gist="print_gradients.py"
 today = datetime.datetime.today()
@@ -256,12 +256,12 @@ fig.tight_layout()
 # %% [markdown]
 # ## Plotting a (single) map
 #
-# I have discussed most of the following functions [in a previous post](https://dev.to/fferegrino/maps-with-geopandas-tweeting-from-a-lambda-81k), feel free to check them out, in this case I will just describe briefly what they do.
+# I have discussed most of the following functions [in a previous post](https://dev.to/fferegrino/maps-with-geopandas-tweeting-from-a-lambda-81k) feel free to check them out. In this case, I will just describe briefly what they do.
 
 # %% [markdown]
 # #### Zooming in
 #
-# The function `prepare_axes` adjusts the "view" for the plot, centering it on the actual bycicle stations.
+# The function `prepare_axes` adjusts the "view" for the plot, centring it on the actual bicycle stations.
 
 # %% gist="prepare_axes.py"
 PADDING = 0.005
@@ -348,7 +348,7 @@ def plot_map(ax, cycles_info, map_color):
 # %% [markdown]
 # #### A clock?
 #
-# Aside from my whole "let's make day and night happen", I think it is a good idea to provide people with a visual reference of what the actual time of day is.
+# Aside from my whole "let's make day and night happen", I think it is good to provide people with a visual reference of the actual time of day.
 #
 # The following snippet adds a patch in the plot with the time of the day. I wanted to add a nice touch by using a custom font via *matplotlib*'s `font_manager`; you can see that there are some *hardcoded* values to position the patch, but aside from that, the rest is standard *matplotlib* code.
 
@@ -398,7 +398,7 @@ def show_figure(figure):
 
 
 # %% [markdown]
-# For example, plotting the data corresponding to the 30th of april 2022 at 1:30 PM
+# For example, plotting the data corresponding to the 30th of April 2022 at 1:30 PM.
 
 # %% gist="sow_figure_test.py" dataframe="single_date_figure.png" image="test_fig.png"
 fig, ax = get_fig_and_ax()
@@ -416,7 +416,7 @@ show_figure(fig)
 #
 # Animations with *matplotlib* are... weird.
 #
-# To begin with, since I want to animate a timelapse, one frame for each unique time available in my dataset, I will create an array named `times` with each unique time in the my dataset, I am turning these times to datetimes and making sure all of them are UTC too:
+# To begin with, since I want to animate a timelapse, one frame for each unique time available in my dataset, I will create an array named `times` with each unique time in my dataset; I am turning these times to datetimes and making sure all of them are UTC too:
 
 # %% gist="times_array.py"
 times = [pd.to_datetime(time).replace(tzinfo=london_tz) for time in sorted(data_to_plot["query_time"].unique())]
@@ -425,16 +425,16 @@ print(times[0], times[-1])
 
 
 # %% [markdown]
-# *matplotlib* animations work in terms of frames, meaning you have to draw the entire contet of your plot for each frame.
+# *matplotlib* animations work in terms of frames, meaning you have to draw the entire content of your plot for each frame.
 #
-# In this case, I created a function called `create_frame` that receives two parameters: a `step` which is an integer that specifies which frame we are drawing next, and `ax` that represents the axes I will be drawing on.
+# In this case, I created a function called `create_frame` that receives two parameters: a `step` which is an integer that specifies which frame I am drawing next, and `ax` that represents the axes I will be drawing on.
 #
 # The function does the following:
 #
-#  1. Clear the axes using `cla`, this is important otherwise our animation will get messy
-#  2. For each `step` I am getting the corresponding date from the `times` array I created above.
+#  1. Clear the axes using `cla`; this is important or otherwise our animation will get messy
+#  2. For each `step`, I am getting the corresponding date from the `times` array I created above.
 #  3. Use `get_colors_by_time` to get the sunlight gradient for that day
-#  4. Choose the right color for the previously selected time
+#  4. Choose the right colour for the previously selected time
 #  5. Plot the map
 #  6. Add the clock to the map
 #
@@ -463,13 +463,13 @@ create_frame(50, ax)
 show_figure(fig)
 
 # %% [markdown]
-# Great! it works. Then we can actually create the animation.
+# Great! It works. Then we can actually create the animation.
 #
 # Using an instance of `FuncAnimation` which receives:
 #
 #  - `fig`, the figure it is supposed to be drawing on
 #  - `create_frame`, the function that does all the drawing
-#  - `frames`, which specifies how many frames our animation has, in this case I want as many frames as the length of the `times` array)
+#  - `frames`, which specifies how many frames our animation has. In this case, I want as many frames as the length of the `times` array)
 #  - `fargs`, a tuple of extra arguments to the `create_frame` function, I am passing the axes instance in here
 #
 # Lastly, I call `save` on the `animation` variable, render the animation into an *mp4* file, at 10 frames per second, as specified with the `fps` argument.
