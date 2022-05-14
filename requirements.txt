@@ -1,2 +1,9 @@
 -i https://pypi.org/simple
+astral==2.2
+colour==0.1.5
+geopandas==0.10.2
+matplotlib==3.5.1
 mind-the-gap==2.1.1
+pandas==1.4.2
+pytz==2022.1
+seaborn==0.11.2

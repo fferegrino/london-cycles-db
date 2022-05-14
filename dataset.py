@@ -1,5 +1,5 @@
-from datetime import datetime
 import csv
+from datetime import datetime
 from pathlib import Path
 
 from tfl.api import bike_point
