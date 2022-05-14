@@ -5,6 +5,7 @@ from pathlib import Path
 
 import matplotlib.pyplot as plt
 import pandas as pd
+import pytz
 import seaborn as sns
 
 # %% [markdown]
@@ -12,7 +13,7 @@ import seaborn as sns
 #
 # The data for the cycles stations is split by days, I can use a *glob* pattern to read all of them into a list only to concatenate them into a single dataframe afterwards:
 
-# %%
+# %% gist="read_frames.py" dataframe="initial_data.png"
 frames = []
 for csv_file in Path("data").glob("*.csv"):
     df = pd.read_csv(csv_file, parse_dates=["query_time"])
@@ -24,11 +25,15 @@ all_data.sample(10, random_state=42)
 # %% [markdown]
 # As you can see, due to the data collection process, the times are not evenly distributed. The following lines do two things:
 #
-#  - Modifies the `query_time` column: The dataset dates are in UTC, but when read from using *pandas* this information is not reflected, with `dt.tz_localize("utc")` I set UTC as the timezone, and with `dt.floor("15min")` I round (or floor) the times to the nearest 15 minute.
+#  - Modifies the `query_time` column: The dataset dates are in UTC, but when read from using *pandas* this information is not reflected, with `dt.tz_localize("utc")` I set UTC as the timezone, then with `dt.tz_convert("Europe/London")` I change them to the London timezone, and with `dt.floor("15min")` I round (or floor) the times to the nearest 15 minute.
 #  - Calculates the `proportion`, a value ranging from 0 to 1 that summarises how empty or full the bike station is
 
-# %%
-all_data["query_time"] = pd.to_datetime(all_data["query_time"].dt.tz_localize("utc").dt.floor("15min"))
+# %% gist="transform_dataframe.py" dataframe="rounded.png"
+london_tz = pytz.timezone("Europe/London")
+
+all_data["query_time"] = pd.to_datetime(
+    all_data["query_time"].dt.tz_localize("utc").dt.tz_convert(london_tz).dt.floor("15min")
+)
 all_data["proportion"] = (all_data["docks"] - all_data["empty_docks"]) / all_data["docks"]
 
 all_data.sample(10, random_state=42)
@@ -37,18 +42,16 @@ all_data.sample(10, random_state=42)
 # And with that, data is evenly spaced and I now have a single column that tells how empty is a station at that specific point in time.
 
 # %% [markdown]
-# ### Filter a specific day
+# ### Filter a specific timeframe
 #
-# This is entirely optional, for the time being I'll restrict myself to work with a day's worth of data. Keeping in mind that the more data I include, the more time it will take the proccessing to be done.
+# This is entirely optional, for the time being I'll restrict the animation to a week's worth of data. Keeping in mind that the more data I include, the more time it will take the proccessing to be done.
 
-# %%
-single_day = datetime.datetime(2022, 5, 1)
+# %% gist="select_timeframe.py"
+beginning = datetime.datetime(2022, 5, 7, tzinfo=london_tz)
+end = datetime.datetime(2022, 5, 14, tzinfo=london_tz)
 
-if single_day:
-    data_to_plot = all_data[
-        (all_data["query_time"].dt.date >= single_day.date())
-        & (all_data["query_time"].dt.date < single_day.date() + datetime.timedelta(days=1))
-    ]
+if beginning and end:
+    data_to_plot = all_data[(all_data["query_time"] >= beginning) & (all_data["query_time"] <= end)]
 else:
     data_to_plot = all_data
 
@@ -57,12 +60,12 @@ else:
 #
 # Since the way I get the data is somewhat unreliable, I want to perform a quick check to see how the data looks like. A group by `query_time` should reveal any missing data:
 
-# %%
+# %% gist="show_times.py" dataframe="show_missing_times.png"
 data_to_plot.groupby("query_time").count().head(5)
 
 # %% [markdown]
-# And there it is, see the jumps betweent he first and the second row? it goes from 00:15 to 00:30, also from the third to the fourth row there is an hour of missing data!
-#
+# And there it is, see the jumps betweent he first and second row? it goes from `01:15:00` to `01:45:00`, also from the second to the third row there is almost hour of missing data!
+
 # There is a way to fix this problem... or at least make it less bad.
 
 # %% [markdown]
@@ -70,7 +73,7 @@ data_to_plot.groupby("query_time").count().head(5)
 #
 # I need to do a bit of resampling to get this to work as I want it to, let's start small, with a single bike point.
 
-# %%
+# %% gist="select_single.py" dataframe="single_bikepoint.png"
 bikepoint = data_to_plot[data_to_plot["place_id"] == "BikePoints_87"]
 bikepoint_resampled = bikepoint.copy()
 bikepoint.head()
@@ -78,14 +81,14 @@ bikepoint.head()
 # %% [markdown]
 # In order to use *pandas*'s resampling utilities, I need to set a time index in our dataframe, in this case, `query_time` will be my time index:
 
-# %%
+# %% gist="set_index.py" dataframe="resampled.png"
 bikepoint_resampled = bikepoint_resampled.set_index("query_time")
 bikepoint_resampled.head()
 
 # %% [markdown]
 # Then I can use `.resample` passing on the value `"15min"` since I want 15 minute intervals, what resample returns is still not what I am after, I need to specify what to do with the newly resampled times that do not have value assigned to them, I can use `.median()` to achieve my goal:
 
-# %%
+# %% gist="resampled_to_15minutes.py" dataframe="resampled_to_15.png"
 bikepoint_resampled = bikepoint_resampled.resample("15min").median()
 bikepoint_resampled.head()
 
@@ -94,14 +97,14 @@ bikepoint_resampled.head()
 #
 # The `.interpolate` method allows us to specify how we want this interpolation to happen via the `method` argument, it defaults to `linear` which is something I can work with for the purposes of this post, but if you have other requirements make sure you us the right method.
 
-# %%
+# %% gist="interpolated_data.py" dataframe="interpolated.png"
 bikepoint_resampled = bikepoint_resampled.interpolate()
 bikepoint_resampled.head()
 
 # %% [markdown]
 # Finally, we can reset the index to return our `query_time` to the dataframe columns:
 
-# %%
+# %% gist="reset_index.py" dataframe="reset_index.png"
 bikepoint_resampled = bikepoint_resampled.reset_index()
 bikepoint_resampled.head()
 
@@ -112,7 +115,7 @@ bikepoint_resampled.head()
 # %% [markdown]
 # And to apply those transformations to the whole dataset the only thing that came to my mind was to create a function that does everything we have been discussing so far:
 
-# %%
+# %% gist="interpolate_function.py"
 def interpolate_bikepoint(dataframe):
     resampled = dataframe.copy()
     resampled = resampled.set_index("query_time")
@@ -124,7 +127,7 @@ def interpolate_bikepoint(dataframe):
 # %% [markdown]
 # And apply it to subsets (one *bikepoint* per subset) of our big dataframe while keeping track of the corresponding *bikepoint*:
 
-# %%
+# %% gist="interpolate_point_by_point.py" dataframe="all_interpolated.png"
 all_bikepoints = data_to_plot["place_id"].unique()
 
 resampled_frames = []
@@ -140,7 +143,7 @@ data_to_plot.head()
 # %% [markdown]
 # We can check that there are no more gaps:
 
-# %%
+# %% gist="no_more_gaps.py" dataframe="gapless.png"
 data_to_plot.groupby("query_time").count().head(5)
 
 # %% [markdown]
@@ -155,7 +158,7 @@ data_to_plot.groupby("query_time").count().head(5)
 #
 #  I will not spend too much time explaining the functions; please refer to the documentation, read the inline comments or reach out to me for further clarification.
 
-# %%
+# %% gist="sun_intervals.py"
 from astral import LocationInfo
 from astral.sun import sun
 
@@ -175,7 +178,7 @@ def get_sun_intervals(date):
     ]
 
 
-# %%
+# %% gist="get_colors_by_time.py"
 import math
 
 import pytz
@@ -185,7 +188,7 @@ utc = pytz.timezone("UTC")
 
 
 def get_colors_by_time(date):
-    date = date.replace(minute=0, hour=0, second=0, microsecond=0, tzinfo=utc)
+    date = date.replace(minute=0, hour=0, second=0, microsecond=0, tzinfo=london_tz)
     sun_intervals = get_sun_intervals(date)
 
     # Calculate the time between sun positions in seconds
@@ -193,9 +196,9 @@ def get_colors_by_time(date):
 
     # Change if you want a different colour palette
     darkness = Color("#5D5D5E")
-    night = Color("#8B8B8D")
-    mid = Color("#D1D2D3")
-    noon = Color("#F4F6F7")
+    night = Color("#7f7f7f")
+    mid = Color("#a2a2a2")
+    noon = Color("#c7c7c7")
 
     # Create an array of colours going from darkness to noon to darkness,
     # taking into consideration the minutes it takes to go from one state to the other
@@ -215,7 +218,7 @@ def get_colors_by_time(date):
 # %% [markdown]
 # Together, the above functions allow me to get a color gradient for a specific date. For example, to check today's gradient, we can do:
 
-# %%
+# %% gist="print_gradients.py"
 today = datetime.datetime.today()
 
 today_gradients = get_colors_by_time(today)
@@ -228,20 +231,22 @@ for idx, (date, colour) in enumerate(today_gradients.items()):
 # %% [markdown]
 # If you want to visualize this transition a bit better, let's do some trick with *pandas* and *matplotlib*:
 
-# %%
+# %% gist="show_gradients.py" image="gradients.png"
 winter_solstice = get_colors_by_time(datetime.datetime(2022, 12, 21))
 summer_solstice = get_colors_by_time(datetime.datetime(2022, 6, 21))
 
 winter_solstice = pd.DataFrame.from_dict(winter_solstice, orient="index")
 summer_solstice = pd.DataFrame.from_dict(summer_solstice, orient="index")
 
-fig, axes = plt.subplots(2, 1, figsize=(12, 4))
+fig, axes = plt.subplots(2, 1, figsize=(16, 4))
 
 for ax, gradients in zip(axes, [winter_solstice, summer_solstice]):
 
     for date, colour in gradients.iterrows():
-        ax.axvline(date, c=colour[0])
-    ax.set_xlim((gradients.index.min(), gradients.index.max()))
+        ax.axvline(date, c=colour[0], linewidth=6)
+    ax.set_xlim(
+        (gradients.index.min() - datetime.timedelta(minutes=15), gradients.index.max() + datetime.timedelta(minutes=15))
+    )
     ax.axis("off")
 
 axes[0].set_title("Winter solstice gradient")
@@ -258,7 +263,7 @@ fig.tight_layout()
 #
 # The function `prepare_axes` adjusts the "view" for the plot, centering it on the actual bycicle stations.
 
-# %%
+# %% gist="prepare_axes.py"
 PADDING = 0.005
 
 
@@ -278,7 +283,7 @@ def prepare_axes(ax: plt.Axes, cycles_info: pd.DataFrame):
 #
 # The function `set_custom_legend` creates a nice legend for the plot, one where only three values are visible: *"Empty"*, *"Busy"* and *"Full"*.
 
-# %%
+# %% gist="prepare_axes_and_custom_legend.py"
 from functools import partial
 
 from matplotlib.colors import Colormap
@@ -319,7 +324,7 @@ def set_custom_legend(ax: plt.Axes, cmap: Colormap):
 #
 # The function `plot_map` uses the previous two functions to actually plot the bike stations and the outline of the London boroughs.
 
-# %%
+# %% gist="plot_map.py"
 import geopandas as gpd
 
 
@@ -335,7 +340,7 @@ def plot_map(ax, cycles_info, map_color):
     ax.fill_between([min_x, max_x], min_y, max_y, color="#9CC0F9")
     london_map.plot(ax=ax, linewidth=0.5, color=map_color, edgecolor="black")
     sns.scatterplot(
-        y="lat", x="lon", hue="proportion", edgecolor="k", linewidth=0.1, palette=cmap, data=cycles_info, s=25, ax=ax
+        y="lat", x="lon", hue="proportion", edgecolor="k", linewidth=0.4, palette=cmap, data=cycles_info, s=25, ax=ax
     )
     set_custom_legend(ax, cmap)
 
@@ -347,7 +352,7 @@ def plot_map(ax, cycles_info, map_color):
 #
 # The following snippet adds a patch in the plot with the time of the day. I wanted to add a nice touch by using a custom font via *matplotlib*'s `font_manager`; you can see that there are some *hardcoded* values to position the patch, but aside from that, the rest is standard *matplotlib* code.
 
-# %%
+# %% gist="plot_clock.py"
 import matplotlib.patches as patches
 from matplotlib import font_manager as fm
 
@@ -376,9 +381,9 @@ def plot_clock(axes, time_of_day):
 # %% [markdown]
 # It is possible to test the above functions by plotting the data for a specific time – to do so, I will create a couple of helper functions:
 
-# %%
+# %% gist="get_fig_and_ax.py"
 def get_fig_and_ax():
-    fig = plt.Figure(figsize=(6, 4), dpi=200, frameon=False)
+    fig = plt.Figure(figsize=(6, 4), dpi=170, frameon=False)
     ax = plt.Axes(fig, [0.0, 0.0, 1.0, 1.0])
     fig.add_axes(ax)
 
@@ -395,7 +400,7 @@ def show_figure(figure):
 # %% [markdown]
 # For example, plotting the data corresponding to the 30th of april 2022 at 1:30 PM
 
-# %%
+# %% gist="sow_figure_test.py" dataframe="single_date_figure.png" image="test_fig.png"
 fig, ax = get_fig_and_ax()
 
 date_to_plot = datetime.datetime(2022, 4, 30, 13, 30, tzinfo=utc)
@@ -413,8 +418,8 @@ show_figure(fig)
 #
 # To begin with, since I want to animate a timelapse, one frame for each unique time available in my dataset, I will create an array named `times` with each unique time in the my dataset, I am turning these times to datetimes and making sure all of them are UTC too:
 
-# %%
-times = [pd.to_datetime(time).replace(tzinfo=utc) for time in sorted(data_to_plot["query_time"].unique())]
+# %% gist="times_array.py"
+times = [pd.to_datetime(time).replace(tzinfo=london_tz) for time in sorted(data_to_plot["query_time"].unique())]
 
 print(times[0], times[-1])
 
@@ -434,7 +439,7 @@ print(times[0], times[-1])
 #  6. Add the clock to the map
 #
 
-# %%
+# %% gist="create_frame.py"
 def create_frame(step, ax):
     ax.cla()
     selected_time = times[step]
@@ -450,10 +455,10 @@ def create_frame(step, ax):
 # %% [markdown]
 # Quick test for the `create_frame` function:
 
-# %%
+# %% gist="test_create_frame.py" image="single_entry.png" image="test_fig.png"
 fig, ax = get_fig_and_ax()
 
-create_frame(10, ax)
+create_frame(50, ax)
 
 show_figure(fig)
 
@@ -469,19 +474,19 @@ show_figure(fig)
 #
 # Lastly, I call `save` on the `animation` variable, render the animation into an *mp4* file, at 10 frames per second, as specified with the `fps` argument.
 
-# %%
+# %% gist="create_animation.py"
 from matplotlib.animation import FuncAnimation
 
 fig, ax = get_fig_and_ax()
 
 animation = FuncAnimation(fig, create_frame, frames=len(times), fargs=(ax,))
 
-animation.save("animation.mp4", fps=10)
+animation.save("animation.mp4", fps=15)
 
 # %% [markdown]
 # If all went well, you should see a video playing below:
 
-# %%
+# %% gist="show_animation.py"
 from IPython.display import Video
 
 Video("animation.mp4")
