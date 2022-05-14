@@ -9,6 +9,11 @@ import pytz
 import seaborn as sns
 
 # %% [markdown]
+# ## Gathering the data
+#
+# Transport for London (TfL) offers an API that one can query to know the status of the London Cycle Network. A while ago I got curious about how the usage varies across the city troughout the day, so I wrote a script that creates a snapshot of the status roughly every 15 minutes. The following is an example of what can be done with these snapshots.
+
+# %% [markdown]
 # ## Load all the data
 #
 # The data for the cycles stations is split by days; I can use a *glob* pattern to read all of them into a list only to concatenate them into a single dataframe afterwards:
@@ -490,5 +495,12 @@ animation.save("animation.mp4", fps=15)
 from IPython.display import Video
 
 Video("animation.mp4")
+
+# %% [markdown]
+# ## Conclusion and resources
+#
+# In this post, I shared with you how to: resample time series data, use third-party packages to get information about the sun's position and to work with colours, and finally, how to create matplotlib animations.
+#
+# As always, the code for this post [is available here](https://github.com/fferegrino/london-cycles-db/blob/main/animate.ipynb) along with [the full repo](https://github.com/fferegrino/london-cycles-db), the dataset is not yet available in Kaggle, but it will be soon (in the meantime,  you can find it on the repositry). Questions? comments? I am open for discussion on Twitter [at @io_exception](https://twitter.com/io_exception).
 
 # %%
