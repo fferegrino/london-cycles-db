@@ -1,15 +1,15 @@
 {
   "title": "London's rental bicycle network usage",
   "subtitle": "15-minute snapshots of the status of the bicycle network usage in London",
-  "description": "On the 14 of february the mods of r/worldnews started creating \"live\" threads to aggregate all the comments related to what was then catalogued as the \"*Ukraine-Russia Tensions*\", over time the interest in these threads (measured in terms of how many comments they accure) has varied as the conflict advances.\n\nThis dataset aims to capture all the comments user have made so far in these threads, useful if you want to examine how the discourse around the war has been evolving, or if you have an interest on seeing which comments get upvoted the most, or simply want to toy around with some dataset that contains categorical, numeric and text data.",
+  "description": "Data collected form the London's TfL API. The API is queried approximately every 15 minutes and the result is stored in the file for that day.",
   "id": "ioexception/london-cycles",
-  "licenses": [{"name": "Reddit API Terms"}],
+  "licenses": [{"name": "CC-BY-SA-3.0"}],
   "resources": [
   ],
   "keywords": [
-    "News",
-    "Social Networks",
-    "Economics",
-    "Politics"
+    "Tabular Data",
+    "Europe",
+    "Urban Planning",
+    "Transportation"
   ]
 }
