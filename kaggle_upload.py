@@ -26,7 +26,12 @@ today = date.today()
 
 
 for file in sorted(glob("data/*.csv")):
-    date_parts = [int(part) for part in file[5:-4].split("-")]
+    date_parts = file[5:-4].split("-")
+    if len(date_parts) == 4:
+        print("Skipping stations info")
+        continue
+
+    date_parts = [int(part) for part in date_parts]
     file_date = date(*date_parts)
 
     if file_date >= today:
@@ -53,4 +58,4 @@ with open("data/dataset-metadata.json", "w") as w:
 
 update_message = f"Data from {min(dates)} to {max(dates)}"
 
-api.dataset_create_version("data", update_message, dir_mode="zip", quiet=False)
+# api.dataset_create_version("data", update_message, dir_mode="zip", quiet=False)
