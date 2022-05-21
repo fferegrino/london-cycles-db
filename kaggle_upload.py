@@ -58,4 +58,4 @@ with open("data/dataset-metadata.json", "w") as w:
 
 update_message = f"Data from {min(dates)} to {max(dates)}"
 
-# api.dataset_create_version("data", update_message, dir_mode="zip", quiet=False)
+api.dataset_create_version("data", update_message, dir_mode="zip", quiet=False)
