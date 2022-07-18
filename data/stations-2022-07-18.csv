@@ -1,0 +1,789 @@
+temporary,installed,terminal_name,install_date,locked,removal_date,common_name,place_id
+false,true,001023,1278947280000,false,,"River Street , Clerkenwell",BikePoints_1
+false,true,001018,1278585780000,false,,"Phillimore Gardens, Kensington",BikePoints_2
+false,true,001012,1278240360000,false,,"Christopher Street, Liverpool Street",BikePoints_3
+false,true,001013,1278241080000,false,,"St. Chad's Street, King's Cross",BikePoints_4
+false,true,003420,1278241440000,false,,"Sedding Street, Sloane Square",BikePoints_5
+false,true,003424,1278241680000,false,,"Broadcasting House, Marylebone",BikePoints_6
+false,true,003422,1278241800000,false,,"Charlbert Street, St. John's Wood",BikePoints_7
+false,true,003423,1540984560000,false,,"Maida Vale, Maida Vale",BikePoints_8
+false,true,001015,1278242340000,false,,"New Globe Walk, Bankside",BikePoints_9
+false,true,001024,1278242460000,false,,"Park Street, Bankside",BikePoints_10
+false,true,001022,1278340440000,false,,"Brunswick Square, Bloomsbury",BikePoints_11
+false,true,000980,1278340620000,false,,"Malet Street, Bloomsbury",BikePoints_12
+false,true,000970,1278340800000,false,,"Scala Street, Fitzrovia",BikePoints_13
+false,true,001011,1278341040000,false,,"Belgrove Street , King's Cross",BikePoints_14
+false,true,000988,1278341220000,false,,"Great Russell Street, Bloomsbury",BikePoints_15
+false,true,001010,1278341400000,false,,"Cartwright Gardens , Bloomsbury",BikePoints_16
+false,true,001008,1278423720000,false,,"Hatton Wall, Holborn",BikePoints_17
+false,true,001007,1278426300000,false,,"Drury Lane, Covent Garden",BikePoints_18
+false,true,001009,1278426720000,false,,"Taviton Street, Bloomsbury",BikePoints_19
+false,true,000993,1544659200000,false,,"Drummond Street , Euston",BikePoints_20
+false,true,003426,1278427740000,false,,"Lansdowne Drive, Hackney Central",BikePoints_21
+false,true,003425,1278428880000,false,,"Northington Street , Holborn",BikePoints_22
+false,true,003421,1278429300000,false,,"Red Lion Square, Holborn",BikePoints_23
+false,true,000981,1278430140000,false,,"British Museum, Bloomsbury",BikePoints_24
+false,true,001004,1278433200000,false,,"Doric Way , Somers Town",BikePoints_25
+false,true,001019,1278434160000,false,,"Ampton Street , Clerkenwell",BikePoints_26
+false,true,001021,1278500160000,false,,"Bouverie Street, Temple",BikePoints_27
+false,true,001025,1278500460000,false,,"Bolsover Street, Fitzrovia",BikePoints_28
+false,true,001016,1278501180000,false,,"Hereford Road, Bayswater",BikePoints_29
+false,true,001029,1278501420000,false,,"Windsor Terrace, Hoxton",BikePoints_30
+false,true,003427,1278501600000,false,,"Fanshaw Street, Hoxton",BikePoints_31
+false,true,001020,1278506700000,false,,"Leonard Circus , Shoreditch",BikePoints_32
+false,true,003430,1278506940000,false,,"Central House, Aldgate",BikePoints_33
+false,true,003428,1278507060000,false,,"Pancras Road, King's Cross",BikePoints_34
+false,true,003446,1278519900000,false,,"De Vere Gardens, Kensington",BikePoints_36
+false,true,003444,1278520020000,false,,"Penywern Road, Earl's Court",BikePoints_37
+false,true,003442,1278584880000,false,,"Abingdon Villas, Kensington",BikePoints_38
+false,true,003445,1278601740000,false,,"Shoreditch High Street, Shoreditch",BikePoints_39
+false,true,001083,1278601980000,false,,"Commercial Street, Shoreditch",BikePoints_40
+false,true,001084,1278602280000,false,,"Pindar Street, Liverpool Street",BikePoints_41
+false,true,000979,1278602700000,false,,"Wenlock Road , Hoxton",BikePoints_42
+false,true,001036,1278687720000,false,,"Crawford Street, Marylebone",BikePoints_43
+false,true,001034,1278687900000,false,,"Bruton Street, Mayfair",BikePoints_44
+false,true,001035,1278691320000,false,,"Boston Place, Marylebone",BikePoints_45
+false,true,001031,1278691800000,false,,"Nesham Street, Wapping",BikePoints_46
+false,true,001027,1278749160000,false,,"Warwick Avenue Station, Maida Vale",BikePoints_47
+false,true,000971,1278749460000,false,,"Godliman Street, St. Paul's",BikePoints_48
+false,true,003437,1278749940000,false,,"Curzon Street, Mayfair",BikePoints_49
+false,true,001054,1278750240000,false,,"East Road, Hoxton",BikePoints_50
+false,true,000986,1278750540000,false,,"Finsbury Library , Finsbury",BikePoints_51
+false,true,001026,1278750840000,false,,"Roscoe Street, St. Luke's",BikePoints_52
+false,true,003431,1278752580000,false,,"Grafton Street, Mayfair",BikePoints_53
+false,true,000967,1278766740000,false,,"Golden Lane, Barbican",BikePoints_54
+false,true,000984,1278766980000,false,,"Finsbury Circus, Liverpool Street",BikePoints_55
+false,true,001033,1278767220000,false,,"Paddington Street, Marylebone",BikePoints_56
+false,true,000974,1278767460000,false,,"Guilford Street , Bloomsbury",BikePoints_57
+false,true,001032,1278767700000,false,,"New Inn Yard, Shoreditch",BikePoints_58
+false,true,001030,1278769140000,false,,"Lisson Grove, St. John's Wood",BikePoints_60
+false,true,001017,1278773820000,false,,"Great Dover Street, The Borough",BikePoints_61
+false,true,000990,1278773940000,false,,"Cotton Garden Estate, Kennington",BikePoints_62
+false,true,000989,1278774120000,false,,"Murray Grove , Hoxton",BikePoints_63
+false,true,001028,1278774300000,false,,"William IV Street, Strand",BikePoints_64
+false,true,000982,1278845280000,false,,"Holborn Circus, Holborn",BikePoints_66
+false,true,000985,1278847440000,false,,"Hatton Garden, Holborn",BikePoints_67
+false,true,000975,1278857040000,false,,"Theobald's Road , Holborn",BikePoints_68
+false,true,000983,1278861540000,false,,"Euston Road, Euston",BikePoints_69
+false,true,001066,1278863340000,false,,"Calshot Street , King's Cross",BikePoints_70
+false,true,001074,1278924900000,false,,"Newgate Street , St. Paul's",BikePoints_71
+false,true,003432,1276948860000,false,,"Farringdon Lane, Clerkenwell",BikePoints_72
+false,true,001064,1278941040000,false,,"Old Street Station, St. Luke's",BikePoints_73
+false,true,001000,1278941160000,false,,"Vauxhall Cross, Vauxhall",BikePoints_74
+false,true,001060,1278945180000,false,,"Torrens Street, Angel",BikePoints_75
+false,true,000976,1278946560000,false,,"Longford Street, The Regent's Park",BikePoints_76
+false,true,000978,1278946860000,false,,"Russell Square Station, Bloomsbury",BikePoints_77
+false,true,003433,1278948480000,false,,"Sadlers Sports Centre, Finsbury",BikePoints_78
+false,true,003455,1509018360000,false,,"Arundel Street, Temple",BikePoints_79
+false,true,003448,1278952440000,false,,"Webber Street , Southwark",BikePoints_80
+false,true,003450,1279012980000,false,,"Great Titchfield Street, Fitzrovia",BikePoints_81
+false,true,003453,1279015680000,false,,"Chancery Lane, Holborn",BikePoints_82
+false,true,003452,1279015800000,false,,"Panton Street, West End",BikePoints_83
+false,true,003449,1279020240000,false,,"Breams Buildings, Holborn",BikePoints_84
+false,true,001202,1280158740000,false,,"Wellington Street , Strand",BikePoints_338
+false,true,001127,1280160600000,false,,"Risinghill Street, Angel",BikePoints_339
+false,true,001201,1280248620000,false,,"Bank of England Museum, Bank",BikePoints_340
+false,true,001160,1280222160000,false,,"Craven Street, Strand",BikePoints_341
+false,true,001188,1280224260000,false,,"London Zoo Car Park, The Regent's Park",BikePoints_343
+false,true,001222,1280226120000,false,,"Goswell Road (City Uni), Finsbury",BikePoints_344
+false,true,001218,1280229720000,false,,"Flood Street, Chelsea",BikePoints_345
+false,true,001219,1283762460000,false,,"Lower Marsh, Waterloo",BikePoints_347
+false,true,010627,1284540540000,false,,"Grosvenor Square, Mayfair",BikePoints_348
+false,true,001221,1284543120000,false,,"St. George Street, Mayfair",BikePoints_349
+false,true,001231,1285756260000,false,,"Queen's Gate, Kensington Gardens",BikePoints_350
+false,true,001226,1286790480000,false,,"Macclesfield Rd, St Lukes",BikePoints_351
+false,true,001224,1286796360000,false,,"Vauxhall Street, Vauxhall",BikePoints_352
+false,true,010623,1287652080000,false,,"Greycoat Street , Westminster",BikePoints_353
+false,true,001097,,false,,"Northumberland Avenue, Strand",BikePoints_354
+false,true,002694,1287752460000,false,,"Clapham Common Station, Clapham Common",BikePoints_355
+false,true,002685,1288009080000,false,,"South Kensington Station, South Kensington",BikePoints_356
+false,true,002691,1288092420000,false,,"Howland Street, Fitzrovia",BikePoints_357
+false,true,001229,1290079860000,false,,"High Holborn , Covent Garden",BikePoints_358
+false,true,002662,1288950960000,false,,"Butler Place, Westminster",BikePoints_359
+false,true,002666,1288958160000,false,,"Howick Place, Westminster",BikePoints_360
+false,true,002692,1291902600000,false,,"Waterloo Station 2, Waterloo",BikePoints_361
+false,true,002686,1290080220000,false,,"Royal College Street, Camden Town",BikePoints_362
+false,true,002665,1289911800000,false,,"Lord's, St. John's Wood",BikePoints_363
+false,true,003507,1290080640000,false,,"Store Street, Bloomsbury",BikePoints_364
+false,true,002690,1290603600000,false,,"City Road, Angel",BikePoints_365
+false,true,002680,,false,,"Harrowby Street, Marylebone",BikePoints_367
+false,true,002681,1291201680000,false,,"Harriet Street, Knightsbridge",BikePoints_368
+false,true,002670,1291647300000,false,,"Paddington Green, Paddington",BikePoints_370
+false,true,002639,1291712820000,false,,"King Edward Walk, Waterloo",BikePoints_371
+false,true,002649,1291713000000,false,,"Sardinia Street, Holborn",BikePoints_372
+false,true,003499,1295428320000,false,,"Prince Consort Road, Knightsbridge",BikePoints_373
+false,true,002696,1291725720000,false,,"Waterloo Station 1, Waterloo",BikePoints_374
+false,true,010632,1291805820000,false,,"Kensington Town Hall, Kensington",BikePoints_375
+false,true,002683,1294660980000,false,,"Millbank Tower, Pimlico",BikePoints_376
+false,true,002648,1295265420000,false,,"Waterloo Bridge, South Bank",BikePoints_377
+false,true,002677,1296121500000,false,,"Natural History Museum, South Kensington",BikePoints_378
+false,true,002682,1296121680000,false,,"Turquoise Island, Notting Hill",BikePoints_379
+false,true,003506,1296125400000,false,,"Stanhope Gate, Mayfair",BikePoints_380
+false,true,002669,1296203760000,false,,"Charlotte Street, Fitzrovia",BikePoints_381
+false,true,002678,1297159320000,false,,"Farm Street, Mayfair",BikePoints_382
+false,true,002660,1296649200000,false,,"Frith Street, Soho",BikePoints_383
+false,true,003505,1296731880000,false,,"Marloes Road, Kensington",BikePoints_384
+false,true,003504,1296732540000,false,,"Moor Street, Soho",BikePoints_386
+false,true,002703,1297077540000,false,,"Fire Brigade Pier, Vauxhall",BikePoints_387
+false,true,001228,1297182180000,false,,"Southampton Street, Strand",BikePoints_388
+false,true,010621,1297347960000,false,,"Upper Grosvenor Street, Mayfair",BikePoints_389
+false,true,001223,1297764360000,false,,"Buxton Street 1, Shoreditch",BikePoints_390
+false,true,002688,1297956480000,false,1539846000000,"Clifford Street, Mayfair",BikePoints_391
+false,true,001220,1297958700000,false,,"Imperial College, Knightsbridge",BikePoints_392
+false,true,002699,1298545440000,false,,"Snow Hill, Farringdon",BikePoints_393
+false,true,002698,,false,,"Aberdeen Place, St. John's Wood",BikePoints_394
+false,true,002695,1298908800000,false,,"Cadogan Gardens, Chelsea",BikePoints_395
+false,true,002693,1299075120000,false,,"Shouldham Street, Marylebone",BikePoints_396
+false,true,001227,1299075900000,false,,"Devonshire Terrace, Bayswater",BikePoints_397
+false,true,010631,1299076440000,false,,"Holland Park, Kensington",BikePoints_398
+false,true,002687,1299582900000,false,,"Brick Lane Market, Shoreditch",BikePoints_399
+false,true,001225,1299583260000,false,,"George Street, Marylebone",BikePoints_400
+false,true,002701,1299592500000,false,,"Columbia Road, Shoreditch",BikePoints_401
+false,true,010625,1299592860000,false,,"Penfold Street, Marylebone",BikePoints_402
+false,true,010630,1299593640000,false,,"George Place Mews, Marylebone",BikePoints_403
+false,true,001110,1299669180000,false,,"Palace Gate, Kensington Gardens",BikePoints_404
+false,true,001107,1299669300000,false,,"Gloucester Road Station, South Kensington",BikePoints_405
+false,true,001129,,false,,"Sun Street, Liverpool Street",BikePoints_408
+false,true,010624,,false,,"Strata, Elephant & Castle",BikePoints_409
+false,true,001058,,false,,"Edgware Road Station, Marylebone",BikePoints_410
+false,true,010629,,false,,"Rotherhithe Roundabout, Rotherhithe",BikePoints_411
+false,true,010628,1302006180000,false,,"Cleaver Street, Kennington",BikePoints_412
+false,true,022160,1308735300000,false,,"Chelsea Bridge, Pimlico",BikePoints_419
+false,true,022162,1309258380000,false,,"Southwark Station 1, Southwark",BikePoints_420
+false,true,022163,1309258440000,false,,"Southwark Station 2, Southwark",BikePoints_421
+false,true,022164,1309860240000,false,,"Eaton Square (South), Belgravia",BikePoints_423
+false,true,022159,1324551120000,false,,"Ebury Bridge, Pimlico",BikePoints_424
+false,true,022161,1310463720000,false,,"Vincent Street, Pimlico",BikePoints_426
+false,true,022180,1310725680000,false,,"Cheapside, Bank",BikePoints_427
+false,true,022179,1318496100000,false,,"Exhibition Road, Knightsbridge",BikePoints_428
+false,true,022182,1324549980000,false,,"South Parade, Chelsea",BikePoints_430
+false,true,022183,1323355020000,false,,"Crinan Street, King's Cross",BikePoints_431
+false,true,022158,1319448720000,false,,"Exhibition Road Museums 1, South Kensington",BikePoints_432
+false,true,022169,1323361560000,false,,"Wren Street, Holborn",BikePoints_433
+false,true,200121,1384254300000,false,,"Shoreditch Court, Haggerston",BikePoints_698
+false,true,200057,1384256040000,false,,"Belford House, Haggerston",BikePoints_699
+false,true,200201,1384343280000,false,,"Battersea Church Road, Battersea",BikePoints_700
+false,true,200077,1384345080000,false,,"Vicarage Crescent, Battersea",BikePoints_701
+false,true,200213,1384345860000,false,,"Durant Street, Bethnal Green",BikePoints_702
+false,true,200094,1384357800000,false,,"St. Bride Street, Holborn",BikePoints_703
+false,true,200063,1384443480000,false,,"Mexfield Road, East Putney",BikePoints_704
+true,true,300042,1384453020000,false,1539845700000,"Upper Richmond Road, Putney",BikePoints_705
+false,true,200193,1384420920000,false,,"Snowsfields, London Bridge",BikePoints_706
+false,true,200197,1384435680000,false,,"Barons Court Station, West Kensington",BikePoints_707
+false,true,200217,1384530180000,false,,"Disraeli Road, Putney",BikePoints_708
+false,true,200205,1384510140000,false,,"Montserrat Road , Putney",BikePoints_709
+false,true,300045,1384520580000,false,,"Albert Bridge Road, Battersea Park",BikePoints_710
+false,true,300028,1384791540000,false,,"Everington Street, Fulham",BikePoints_711
+false,true,300056,1384797120000,false,,"Mile End Stadium, Mile End",BikePoints_712
+false,true,300055,1384865400000,false,,"Stewart's Road, Wandsworth Road",BikePoints_714
+false,true,300049,1384868460000,false,,"Aylward Street, Stepney",BikePoints_715
+false,true,300024,1384952400000,false,,"Dunston Road , Haggerston",BikePoints_717
+false,true,300040,1384962840000,false,,"Ada Street, Hackney Central",BikePoints_718
+false,true,300011,1384968480000,false,,"Victoria Park Road, Hackney Central",BikePoints_719
+false,true,300038,1385025840000,false,,"Star Road, West Kensington",BikePoints_720
+false,true,300039,1385028480000,false,,"Wendon Street, Old Ford",BikePoints_721
+false,true,300041,1385028600000,false,,"Finnis Street, Bethnal Green",BikePoints_722
+false,true,300053,1385035380000,false,,"Stephendale Road, Sands End",BikePoints_723
+false,true,300046,1385125380000,false,,"Alma Road, Wandsworth",BikePoints_724
+false,true,300050,1563352500000,false,,"Walworth Square, Walworth",BikePoints_725
+false,true,300047,1385128740000,false,,"Alfreda Street, Battersea Park",BikePoints_726
+false,true,300054,1385132160000,false,,"Chesilton Road, Fulham",BikePoints_727
+false,true,300044,1385466780000,false,,"Putney Bridge Road, East Putney",BikePoints_728
+false,true,300043,1385391300000,false,,"St. Peter's Terrace, Fulham",BikePoints_729
+false,true,300082,1385132580000,false,,"Bridge Avenue, Hammersmith",BikePoints_730
+false,true,300095,1385394720000,false,,"Michael Road, Walham Green",BikePoints_731
+false,true,300083,1385458020000,false,,"Duke Street Hill, London Bridge",BikePoints_732
+false,true,300093,1385460840000,false,,"Park Lane, Mayfair",BikePoints_733
+false,true,300094,1385464500000,false,,"Plough Terrace, Clapham Junction",BikePoints_734
+false,true,200120,1385383080000,false,,"Grant Road East, Clapham Junction",BikePoints_735
+false,true,300088,1385472900000,false,,"Queensdale Road, Shepherd's Bush",BikePoints_736
+false,true,300086,1385554620000,false,,"Fulham Broadway, Walham Green",BikePoints_737
+false,true,300087,1385563380000,false,,"Imperial Road, Sands End",BikePoints_738
+false,true,300091,1385631000000,false,,"Hortensia Road, West Brompton",BikePoints_739
+false,true,300084,1385635440000,false,,"Sirdar Road, Avondale",BikePoints_740
+false,true,300085,1385640120000,false,,"Freston Road, Avondale",BikePoints_741
+false,true,300090,1385649540000,false,,"Blenheim Crescent, Ladbroke Grove",BikePoints_742
+false,true,300078,1385723700000,false,,"Oxford Road, Putney",BikePoints_743
+false,true,300077,1385729760000,false,,"Ingrave Street, Clapham Junction",BikePoints_744
+false,true,300075,1385740020000,false,,"Upcerne Road, West Chelsea",BikePoints_745
+false,true,300076,1385985720000,false,,"Lots Road, West Chelsea",BikePoints_746
+false,true,300089,1385997240000,false,,"Ormonde Gate, Chelsea",BikePoints_747
+false,true,300092,1386159900000,false,,"Hertford Road, De Beauvoir Town",BikePoints_748
+false,true,300081,1386172440000,false,,"Haggerston Road, Haggerston",BikePoints_749
+false,true,300080,1386240360000,false,,"Culvert Road, Battersea",BikePoints_750
+false,true,300074,1386250800000,false,,"Newton Street, Covent Garden",BikePoints_751
+false,true,300079,1650364320000,false,,"London Street, Paddington",BikePoints_752
+false,true,300067,1389003540000,false,,"Grenfell Road, Avondale",BikePoints_754
+false,true,300058,1389008580000,false,,"The Vale, Chelsea",BikePoints_755
+false,true,300073,1390223040000,false,,"Prince of Wales Drive, Battersea Park",BikePoints_756
+false,true,300069,1389094260000,false,,"Harcourt Terrace, West Brompton",BikePoints_757
+false,true,300057,1389178020000,false,,"Westbourne Park Road, Portobello",BikePoints_758
+false,true,300072,1389627480000,false,,"Broadley Terrace, Marylebone",BikePoints_759
+false,true,300068,1389781800000,false,,"Humbolt Road, Fulham",BikePoints_761
+false,true,200202,1392039000000,false,,"Storey's Gate, Westminster",BikePoints_762
+false,true,300027,1392043020000,false,,"Mile End Park Leisure Centre, Mile End",BikePoints_763
+false,true,200185,1392633480000,false,,"St. John's Road, Clapham Junction",BikePoints_764
+false,true,300064,1392986940000,false,,"Ranelagh Gardens, Fulham",BikePoints_765
+false,true,200079,1392894840000,false,,"Ram Street, Wandsworth",BikePoints_766
+false,true,200177,1393406280000,false,,"Santos Road, Wandsworth",BikePoints_767
+false,true,300065,1393494060000,false,,"Clapham Common North Side, Clapham Common",BikePoints_768
+false,true,300001,1393939560000,false,,"Sandilands Road, Walham Green",BikePoints_769
+false,true,300097,1394099280000,false,,"Gwendwr Road, West Kensington",BikePoints_770
+false,true,300007,1394018400000,false,,"Rifle Place, Avondale",BikePoints_771
+false,true,300015,1396442100000,false,,"Binfield Road, Stockwell",BikePoints_772
+false,true,300096,1396262520000,false,,"Tallis Street, Temple",BikePoints_773
+false,true,300098,1396265880000,false,,"Hurlingham Park, Parsons Green",BikePoints_774
+false,true,300101,1396270320000,false,,"Little Brook Green, Brook Green",BikePoints_775
+false,true,300099,1396273320000,false,,"Abyssinia Close, Clapham Junction",BikePoints_776
+false,true,300100,1406282940000,false,,"Limburg Road, Clapham Junction",BikePoints_777
+false,true,200072,1435313700000,false,,"Houndsditch, Aldgate",BikePoints_779
+false,true,300070,1439455200000,false,,"Imperial Wharf Station, Sands End",BikePoints_780
+false,true,300032,1446485340000,false,,"Victoria & Albert Museum, South Kensington",BikePoints_781
+false,true,300210,1446485820000,false,,"Halford Road, West Kensington",BikePoints_782
+false,true,000994,1279026060000,false,,"Tanner Street, Bermondsey",BikePoints_85
+false,true,003434,1279027140000,false,,"Sancroft Street, Vauxhall",BikePoints_86
+false,true,003438,1279027680000,false,,"Devonshire Square, Liverpool Street",BikePoints_87
+false,true,001006,1279028280000,false,,"Bayley Street , Bloomsbury",BikePoints_88
+false,true,003439,1279029360000,false,,"Tavistock Place, Bloomsbury",BikePoints_89
+false,true,001038,1279030020000,false,,"Harrington Square 1, Camden Town",BikePoints_90
+false,true,001076,1279036740000,false,,"Walnut Tree Walk, Vauxhall",BikePoints_91
+false,true,001082,1279037040000,false,,"Borough Road, Elephant & Castle",BikePoints_92
+false,true,002586,1279037760000,false,,"Cloudesley Road, Angel",BikePoints_93
+false,true,001070,1279038420000,false,,"Bricklayers Arms, Borough",BikePoints_94
+false,true,001047,1279096980000,false,,"Falkirk Street, Hoxton",BikePoints_96
+false,true,003447,1279097580000,false,,"Gloucester Road (North), Kensington",BikePoints_97
+false,true,000972,1279099080000,false,,"Hampstead Road, Euston",BikePoints_98
+false,true,001085,1279099680000,false,,"Old Quebec Street, Marylebone",BikePoints_99
+false,true,001059,1279099860000,false,,"Albert Embankment, Vauxhall",BikePoints_100
+false,true,000999,1279102680000,false,,"Queen Street 1, Bank",BikePoints_101
+false,true,001045,1279102860000,false,,"Jewry Street, Aldgate",BikePoints_102
+false,true,003441,1279103520000,false,,"Vicarage Gate, Kensington",BikePoints_103
+false,true,000991,1279103760000,false,,"Crosswall, Tower",BikePoints_104
+false,true,001041,1279105320000,false,,"Westbourne Grove, Bayswater",BikePoints_105
+false,true,001042,1279106880000,false,,"Woodstock Street, Mayfair",BikePoints_106
+false,true,001049,1279107480000,false,,"Finsbury Leisure Centre, St. Luke's",BikePoints_107
+false,true,003429,1279107720000,false,,"Abbey Orchard Street, Westminster",BikePoints_108
+false,true,001052,1279108320000,false,,"Soho Square , Soho",BikePoints_109
+false,true,001055,1279108920000,false,,"Wellington Road, St. John's Wood",BikePoints_110
+false,true,001037,1279109160000,false,,"Park Lane , Hyde Park",BikePoints_111
+false,true,003435,1279116600000,false,,"Gloucester Road (Central), South Kensington",BikePoints_113
+false,true,001050,1279119900000,false,,"Park Road (Baker Street), The Regent's Park",BikePoints_114
+false,true,001062,1279120680000,false,,"Braham Street, Aldgate",BikePoints_115
+false,true,000995,1279122360000,false,,"Little Argyll Street, West End",BikePoints_116
+false,true,000998,1279124220000,false,,"Lollard Street, Vauxhall",BikePoints_117
+false,true,003457,1279124520000,false,,"Rochester Row, Westminster",BikePoints_118
+false,true,000964,1279124760000,false,,"Bath Street, St. Luke's",BikePoints_119
+false,true,001044,1279187040000,false,,"The Guildhall, Guildhall",BikePoints_120
+false,true,001086,1279189200000,false,,"Baker Street, Marylebone",BikePoints_121
+false,true,001068,1279190040000,false,,"Norton Folgate, Liverpool Street",BikePoints_122
+false,true,000992,1279191300000,false,,"St. John Street, Finsbury",BikePoints_123
+false,true,001069,1279191540000,false,,"Eaton Square, Belgravia",BikePoints_124
+false,true,000996,1279192200000,false,,"Borough High Street, The Borough",BikePoints_125
+false,true,001043,1279193340000,false,,"Museum of London, Barbican",BikePoints_126
+false,true,001063,1279193520000,false,,"Wood Street, Guildhall",BikePoints_127
+false,true,001116,1279194060000,false,,"Emperor's Gate, South Kensington",BikePoints_128
+false,true,003451,1279198500000,false,,"Golden Square, Soho",BikePoints_129
+false,true,001071,1279198800000,false,,"Tower Gardens , Tower",BikePoints_130
+false,true,001005,1279199280000,false,,"Eversholt Street , Camden Town",BikePoints_131
+false,true,000973,1279199520000,false,,"Bethnal Green Road, Shoreditch",BikePoints_132
+false,true,003436,1279200240000,false,,"Derry Street, Kensington",BikePoints_133
+false,true,001039,1279200900000,false,,"Wapping High Street, Wapping",BikePoints_134
+false,true,001053,1279201080000,false,,"Clerkenwell Green, Clerkenwell",BikePoints_135
+false,true,001048,1279201200000,false,,"Queen Victoria Street, St. Paul's",BikePoints_136
+false,true,003464,1279205220000,false,,"Green Street, Mayfair",BikePoints_138
+false,true,001078,1279205460000,false,,"Lambeth Road, Vauxhall",BikePoints_139
+false,true,001056,1279205580000,false,,"Finsbury Square , Moorgate",BikePoints_140
+false,true,001003,1279210980000,false,,"Chapel Place, Marylebone",BikePoints_141
+false,true,001001,1279211220000,false,,"West Cromwell Road, Earl's Court",BikePoints_142
+false,true,001114,1279211400000,false,,"Pont Street, Knightsbridge",BikePoints_143
+false,true,001093,1279211580000,false,,"Kennington Cross, Kennington",BikePoints_144
+false,true,001115,1279212180000,false,,"Ilchester Place, Kensington",BikePoints_145
+false,true,001046,1279212360000,false,,"Vauxhall Bridge , Pimlico",BikePoints_146
+false,true,000965,,false,,"Tachbrook Street, Victoria",BikePoints_148
+false,true,001073,1279215360000,false,,"Kennington Road Post Office, Oval",BikePoints_149
+false,true,001002,1279215540000,false,,"Holy Trinity Brompton, Knightsbridge",BikePoints_150
+false,true,001120,1279215720000,false,,"Chepstow Villas, Notting Hill",BikePoints_151
+false,true,001118,1279215900000,false,,"Hampton Street, Walworth",BikePoints_152
+false,true,001096,1279216080000,false,,"Bayswater Road, Hyde Park",BikePoints_153
+false,true,001072,,false,,"Waterloo Station 3, Waterloo",BikePoints_154
+false,true,001121,1279272660000,false,,"Lexham Gardens, Kensington",BikePoints_155
+false,true,000966,1279273080000,false,,"New Kent Road, The Borough",BikePoints_156
+false,true,001094,1279273200000,false,,"Wright's Lane, Kensington",BikePoints_157
+false,true,001113,1279273320000,false,,"Trebovir Road, Earl's Court",BikePoints_158
+false,true,003458,1279274280000,false,,"Waterloo Place, St. James's",BikePoints_160
+false,true,003478,1279286940000,false,,"Guildhouse Street, Victoria",BikePoints_161
+false,true,001123,1279287120000,false,,"Southampton Place, Holborn",BikePoints_162
+false,true,003461,1279287300000,false,,"Sloane Avenue, Knightsbridge",BikePoints_163
+false,true,001178,1279287600000,false,,"Cleveland Gardens, Bayswater",BikePoints_164
+false,true,002585,1279287960000,false,,"Orsett Terrace, Bayswater",BikePoints_165
+false,true,001177,1279288140000,false,,"Seville Street, Knightsbridge",BikePoints_166
+false,true,003465,,false,,"Eccleston Place, Victoria",BikePoints_167
+false,true,003463,1279289400000,false,,"Argyll Road, Kensington",BikePoints_168
+false,true,003477,1279289760000,false,,"Porchester Place, Paddington",BikePoints_169
+false,true,022170,1323346020000,false,,"Kennington Station, Kennington",BikePoints_435
+false,true,022171,1323350220000,false,,"Red Lion Street, Holborn",BikePoints_436
+false,true,200056,1325746380000,false,,"Vauxhall Walk, Vauxhall",BikePoints_437
+false,true,200053,1325705460000,false,,"Killick Street, King's Cross",BikePoints_439
+false,true,200032,1325708160000,false,,"Kennington Oval, Oval",BikePoints_440
+false,true,200039,1325711220000,false,,"Sail Street, Vauxhall",BikePoints_441
+false,true,200035,1325940420000,false,,"Walmer Road, Avondale",BikePoints_442
+false,true,200033,1325941800000,false,,"Philpot Street, Whitechapel",BikePoints_443
+false,true,200047,1325944680000,false,,"Bethnal Green Garden, Bethnal Green",BikePoints_444
+false,true,200003,1325945820000,false,,"Cheshire Street, Bethnal Green",BikePoints_445
+false,true,200042,1325948880000,false,,"York Hall, Bethnal Green",BikePoints_446
+false,true,200054,1325949000000,false,,"Jubilee Crescent, Cubitt Town",BikePoints_447
+false,true,022165,1325952660000,false,,"Fisherman's Walk West, Canary Wharf",BikePoints_448
+false,true,200020,1325952900000,false,,"Shadwell Station, Shadwell",BikePoints_449
+false,true,200002,1326105240000,false,,"Jubilee Street, Stepney",BikePoints_450
+false,true,200021,1325501400000,false,,"Hermitage Court, Wapping",BikePoints_451
+false,true,200049,1326109140000,false,,"St. Katharine's Way, Tower",BikePoints_452
+false,true,200045,1326111060000,false,,"Garnet Street, Shadwell",BikePoints_453
+false,true,200046,1326115380000,false,,"Napier Avenue, Millwall",BikePoints_454
+false,true,200031,1326117780000,false,,"East Ferry Road, Cubitt Town",BikePoints_455
+false,true,200118,1326197580000,false,,"Parkway, Camden Town",BikePoints_456
+false,true,200016,1326203280000,false,,"Castlehaven Road, Camden Town",BikePoints_457
+false,true,200034,1326294780000,false,,"Wapping Lane, Wapping",BikePoints_458
+false,true,200014,,false,,"Gunmakers Lane, Old Ford",BikePoints_459
+false,true,200123,1326284820000,false,,"Burdett Road, Mile End",BikePoints_460
+true,true,200013,1326293640000,false,,"Aston Street, Stepney",BikePoints_461
+false,true,200105,1326294600000,false,,"Bonny Street, Camden Town",BikePoints_462
+false,true,200093,,false,,"Thurtle Road, Haggerston",BikePoints_463
+false,true,200082,1326304980000,false,,"St. Mary & St. Michael Church, Stepney",BikePoints_464
+false,true,200152,1333613280000,false,,"Pitfield Street North,Hoxton",BikePoints_465
+false,true,200158,1326360000000,false,,"Whiston Road, Haggerston",BikePoints_466
+false,true,200168,1326374040000,false,,"Southern Grove, Bow",BikePoints_467
+false,true,200150,1326375720000,false,,"Cantrell Road, Bow",BikePoints_468
+false,true,022178,1326381060000,false,,"Lindfield Street, Poplar",BikePoints_469
+false,true,200174,1326790620000,false,,"Mostyn Grove, Bow",BikePoints_470
+false,true,200006,1326790860000,false,,"Hewison Street, Old Ford",BikePoints_471
+false,true,200019,1326791160000,false,,"Malmesbury Road, Bow",BikePoints_472
+false,true,022167,1326816540000,false,,"Millharbour, Millwall",BikePoints_473
+false,true,200155,1326822960000,false,,"Gascoyne Road, Victoria Park",BikePoints_474
+false,true,200004,1326825480000,false,,"Lightermans Road, Millwall",BikePoints_475
+false,true,200009,1326962100000,false,,"Stebondale Street, Cubitt Town",BikePoints_476
+false,true,200018,1326963780000,false,,"Spindrift Avenue, Millwall",BikePoints_477
+false,true,200012,1326965580000,false,,"Stepney Green Station, Stepney",BikePoints_478
+false,true,200156,1326966240000,false,,"Pott Street, Bethnal Green",BikePoints_479
+false,true,200115,1326975420000,false,,"Flamborough Street, Limehouse",BikePoints_480
+false,true,200022,1326996480000,false,,"Saunders Ness Road, Cubitt Town",BikePoints_481
+false,true,200052,1326996720000,false,,"Exhibition Road Museums 2, South Kensington",BikePoints_482
+false,true,022166,1327088280000,false,,"Albert Gardens, Stepney",BikePoints_483
+false,true,022172,1327339740000,false,,"Bromley High Street, Bow",BikePoints_484
+false,true,022173,1327255440000,false,,"Old Ford Road, Bethnal Green",BikePoints_485
+false,true,022174,1327338660000,false,,"Granby Street, Shoreditch",BikePoints_486
+false,true,022175,1327936860000,false,,"Canton Street, Poplar",BikePoints_487
+false,true,022176,1327254960000,false,,"Reardon Street, Wapping",BikePoints_488
+false,true,200090,,false,,"Pennington Street, Wapping",BikePoints_490
+false,true,200249,1327256220000,false,,"Queen Mary's, Mile End",BikePoints_491
+false,true,200230,1327256520000,false,,"Maplin Street, Mile End",BikePoints_492
+false,true,200233,1327433220000,false,,"South Quay East, Canary Wharf",BikePoints_494
+false,true,200252,1327340460000,false,,"Bow Church Station, Bow",BikePoints_495
+false,true,200255,1327400820000,false,,"Devons Road, Bow",BikePoints_496
+false,true,200242,1327398420000,false,,"Merchant Street, Bow",BikePoints_497
+false,true,200251,1327398660000,false,,"Bow Road Station, Bow",BikePoints_498
+false,true,200011,1327407960000,false,,"Furze Green, Bow",BikePoints_499
+false,true,200148,1327430040000,false,,"Ansell House, Stepney",BikePoints_500
+false,true,200073,1327430220000,false,,"Cephas Street, Bethnal Green",BikePoints_501
+false,true,200241,1563957840000,false,,"Bonner Gate, Victoria Park",BikePoints_502
+false,true,200250,1327492920000,false,,"Cleveland Way, Stepney",BikePoints_503
+false,true,200243,1327937820000,false,,"St. John's Park, Cubitt Town",BikePoints_504
+false,true,200038,1327937460000,false,,"Ackroyd Drive, Bow",BikePoints_505
+false,true,200036,1327938660000,false,,"Bell Lane, Liverpool Street",BikePoints_506
+false,true,200131,1327938420000,false,,"Clarkson Street, Bethnal Green",BikePoints_507
+false,true,200157,1327938180000,false,,"Fournier Street, Whitechapel",BikePoints_508
+false,true,200253,1327938120000,false,,"Fore Street, Guildhall",BikePoints_509
+false,true,200238,,false,,"Westferry DLR, Limehouse",BikePoints_510
+false,true,200256,1327937940000,false,,"Sutton Street, Shadwell",BikePoints_511
+false,true,200083,1328112600000,false,,"Pritchard's Road, Bethnal Green",BikePoints_512
+false,true,200162,,false,,"Watney Market, Stepney",BikePoints_513
+false,true,200008,1328201520000,false,,"Portman Square, Marylebone",BikePoints_514
+false,true,200080,,false,,"Russell Gardens, Olympia",BikePoints_515
+false,true,200089,1328202420000,false,,"Chrisp Street Market, Poplar",BikePoints_516
+false,true,200027,1326790860000,false,,"Ford Road, Old Ford",BikePoints_517
+false,true,200041,,false,,"Antill Road, Mile End",BikePoints_518
+false,true,200254,,false,,"Teviot Street, Poplar",BikePoints_519
+false,true,200234,,false,,"Bancroft Road, Bethnal Green",BikePoints_520
+false,true,200030,,false,,"Driffield Road, Old Ford",BikePoints_521
+false,true,300213,1448529660000,false,,"Monier Road, Hackney Wick",BikePoints_783
+false,true,300200,1452789240000,false,,"East Village, Queen Elizabeth Olympic Park",BikePoints_784
+false,true,300233,1451908440000,false,,"Aquatic Centre, Queen Elizabeth Olympic Park",BikePoints_785
+false,true,300227,1451900700000,false,,"Timber Lodge, Queen Elizabeth Olympic Park",BikePoints_787
+false,true,300226,1451906880000,false,,"Copper Box Arena, Queen Elizabeth Olympic Park",BikePoints_788
+false,true,300021,1452507000000,false,,"Podium, Queen Elizabeth Olympic Park",BikePoints_789
+false,true,300234,1452687420000,false,,"Stratford Station, Stratford",BikePoints_790
+false,true,300214,1454926380000,false,,"Blackfriars Road, Southwark",BikePoints_792
+false,true,300205,1459424760000,false,,"Cromer Street, Bloomsbury",BikePoints_793
+false,true,300204,1456404240000,false,,"Victoria Rise, Clapham Common",BikePoints_794
+false,true,300203,1456744740000,false,,"Euston Square Gardens, Euston",BikePoints_795
+false,true,300201,1456746420000,false,,"Coram Street, Bloomsbury",BikePoints_796
+false,true,300211,1456839540000,false,,"Ossulston Street, Somers Town",BikePoints_797
+false,true,300212,1464787980000,false,,"Birkenhead Street, King's Cross",BikePoints_798
+false,true,300202,1464876480000,false,,"Kings Gate House, Westminster",BikePoints_799
+false,true,300248,1457107140000,false,,"Sopwith Way, Battersea Park",BikePoints_800
+false,true,300208,1458824640000,false,,"Lavington Street, Bankside",BikePoints_801
+false,true,300209,1464865500000,false,,"Albert Square, Stockwell",BikePoints_802
+false,true,300238,1464787860000,false,,"Southwark Street, Bankside",BikePoints_803
+false,true,300243,1459410960000,false,,"Good's Way, King's Cross",BikePoints_804
+false,true,300244,1467626400000,false,,"The Metropolitan, Portobello",BikePoints_805
+false,true,300241,1472723460000,false,,"Handyside Street, King's Cross",BikePoints_806
+false,true,300236,1466715600000,false,,"Bevington Road West, North Kensington",BikePoints_807
+false,true,300207,1461753540000,false,,"Gauden Road, Clapham",BikePoints_808
+false,true,300240,1467640800000,false,,"Lincoln's Inn Fields, Holborn",BikePoints_809
+false,true,300237,1464943200000,false,,"Tate Modern, Bankside",BikePoints_810
+false,true,300228,1469538960000,false,,"Westferry Circus, Canary Wharf",BikePoints_811
+false,true,300217,1469005200000,false,,"Here East North, Queen Elizabeth Olympic Park",BikePoints_812
+false,true,300224,1467627120000,false,,"New Spring Gardens Walk, Vauxhall",BikePoints_813
+false,true,300245,1464870060000,false,,"Clapham Road, Lingham Street, Stockwell",BikePoints_814
+false,true,300231,1462357680000,false,,"Lambeth Palace Road, Waterloo",BikePoints_815
+false,true,300219,1489065360000,false,,"Here East South, Queen Elizabeth Olympic Park",BikePoints_816
+false,true,300232,1464949140000,false,,"Riverlight South, Nine Elms",BikePoints_817
+false,true,300249,1563958740000,false,,"Westminster Pier, Westminster",BikePoints_818
+false,true,300246,1476360120000,false,,"Belvedere Road 2, South Bank",BikePoints_819
+false,true,300239,1481807940000,false,,"Victory Place, Walworth",BikePoints_820
+false,true,300221,1487335920000,false,,"Battersea Power Station, Battersea Park",BikePoints_821
+false,true,300242,1500554880000,false,,"Allington Street, Victoria",BikePoints_826
+false,true,300247,1517788800000,false,,"Cranmer Road, Stockwell",BikePoints_827
+false,true,300225,1517788800000,false,,"Normandy Road, Stockwell",BikePoints_828
+false,true,300230,1517443200000,false,,"Wynne Road, Stockwell",BikePoints_829
+false,true,300229,1517961600000,false,,"Sidney Road, Stockwell",BikePoints_830
+false,true,300215,1517961600000,false,,"St John's Crescent, Brixton",BikePoints_831
+false,true,200240,1517961600000,false,,"Ferndale Road, Brixton",BikePoints_832
+false,true,300206,1517875200000,false,,"Saltoun Road, Brixton",BikePoints_833
+false,true,300216,1529449200000,false,,"Gas Holders, Battersea Park",BikePoints_834
+false,true,300220,,false,,"Farringdon Street, Holborn",BikePoints_835
+false,true,300235,,false,,"York Way, Kings Cross",BikePoints_836
+false,true,300222,1539254700000,false,,"Fore Street Avenue, Guildhall",BikePoints_838
+false,true,200144,1544611140000,false,,"Sea Containers, South Bank",BikePoints_839
+false,true,002679,1599752640000,false,,"George Row, Bermondsey",BikePoints_840
+false,true,002667,,false,,"Tower Wharf, Bermondsey",BikePoints_841
+false,true,300250,1600856400000,false,,"Temple Gardens, Temple",BikePoints_842
+false,true,300252,1608298140000,false,,"Canada Water Station, Rotherhithe",BikePoints_844
+false,true,300253,1608303660000,false,,"Bermondsey Station, Bermondsey",BikePoints_845
+false,true,001057,1279290180000,false,,"Hardwick Street, Clerkenwell",BikePoints_170
+false,true,003459,1279291200000,false,,"Collingham Gardens, Earl's Court",BikePoints_171
+false,true,001124,1279291500000,false,,"Sumner Place, South Kensington",BikePoints_172
+false,true,001176,1279292700000,false,,"Waterloo Road, South Bank",BikePoints_173
+false,true,001100,1279295940000,false,,"Strand, Strand",BikePoints_174
+false,true,000997,1529674980000,false,,"Worship Street, Shoreditch",BikePoints_175
+false,true,001173,1279297560000,false,,"Gloucester Terrace, Bayswater",BikePoints_176
+false,true,001122,1279297740000,false,,"Ashley Place, Victoria",BikePoints_177
+false,true,003460,1279297920000,false,,"Warwick Square, Pimlico",BikePoints_178
+false,true,001126,1279298220000,false,,"North Audley Street, Mayfair",BikePoints_180
+false,true,003473,1279298460000,false,,"Belgrave Square, Belgravia",BikePoints_181
+false,true,001166,1279363140000,false,,"Bell Street , Marylebone",BikePoints_182
+false,true,001165,1279364160000,false,,"Riverlight North, Nine Elms",BikePoints_183
+false,true,001164,1279364280000,false,,"Portland Place, Marylebone",BikePoints_184
+false,true,001174,1279365360000,false,,"Alderney Street, Pimlico",BikePoints_185
+false,true,001167,1279365480000,false,,"South Wharf Road, Paddington",BikePoints_186
+false,true,001172,1279365720000,false,,"Queen's Gate (South), South Kensington",BikePoints_187
+false,true,001112,1279376760000,false,,"Nutford Place, Marylebone",BikePoints_188
+false,true,001104,1279377180000,false,,"Claremont Square, Angel",BikePoints_189
+false,true,001106,1279381080000,false,,"Rampayne Street, Pimlico",BikePoints_190
+false,true,001075,1279383120000,false,,"Hyde Park Corner, Hyde Park",BikePoints_191
+false,true,001163,1279383300000,false,,"Wardour Street, Soho",BikePoints_192
+false,true,000963,1279392479356,false,,"Bankside Mix, Bankside",BikePoints_193
+false,true,000960,1279392479395,false,,"Hop Exchange, The Borough",BikePoints_194
+false,true,000959,1279392479432,false,,"Milroy Walk, South Bank",BikePoints_195
+false,true,000961,1279392479471,false,,"Union Street, The Borough",BikePoints_196
+false,true,000962,1279392479520,false,,"Stamford Street, South Bank",BikePoints_197
+false,true,001080,1279441800000,false,,"Great Tower Street, Monument",BikePoints_199
+false,true,001105,1279441920000,false,,"LMU Commercial Road, Whitechapel",BikePoints_200
+false,true,001162,1279444080000,false,,"Dorset Square, Marylebone",BikePoints_201
+false,true,001102,1279444320000,false,,"Leman Street, Aldgate",BikePoints_202
+false,true,001040,1279445580000,false,,"West Smithfield Rotunda, Farringdon",BikePoints_203
+false,true,003468,1279466640000,false,,"Margery Street, Clerkenwell",BikePoints_204
+false,true,001171,1279471380000,false,,"New Road 1 , Whitechapel",BikePoints_206
+false,true,001169,1279558140000,false,,"Grosvenor Crescent, Belgravia",BikePoints_207
+false,true,001175,1279472580000,false,,"Mallory Street, Marylebone",BikePoints_208
+false,true,003454,1279529160000,false,,"Denyer Street, Knightsbridge",BikePoints_209
+false,true,003476,1279535160000,false,,"Hinde Street, Marylebone",BikePoints_210
+false,true,003469,1279535820000,false,,"Cadogan Place, Knightsbridge",BikePoints_211
+false,true,003487,1279536840000,false,,"Campden Hill Road, Notting Hill",BikePoints_212
+false,true,001109,1279537020000,false,,"Wellington Arch, Hyde Park",BikePoints_213
+false,true,001079,1279537200000,false,,"Endsleigh Gardens, Euston",BikePoints_214
+false,true,001092,1279537380000,false,,"Moorfields, Moorgate",BikePoints_215
+false,true,003479,1279537920000,false,,"Old Brompton Road, South Kensington",BikePoints_216
+false,true,002587,1279538040000,false,,"Wormwood Street, Liverpool Street",BikePoints_217
+false,true,003486,1279543740000,false,,"St. Luke's Church, Chelsea",BikePoints_218
+false,true,001183,1279545900000,false,,"Bramham Gardens, Earl's Court",BikePoints_219
+false,true,001179,1279546320000,false,,"Chelsea Green, Chelsea",BikePoints_220
+false,true,001170,1279552200000,false,,"Horseferry Road, Westminster",BikePoints_221
+false,true,001101,1279614120000,false,,"Knightsbridge, Hyde Park",BikePoints_222
+false,true,003481,1279614420000,false,,"Rodney Road , Walworth",BikePoints_223
+false,true,001150,1279615020000,false,,"Queensway, Kensington Gardens",BikePoints_224
+false,true,001182,1279616280000,false,,"Notting Hill Gate Station, Notting Hill",BikePoints_225
+false,true,003488,1279616520000,false,,"Charles II Street, West End",BikePoints_226
+false,true,003470,1279616700000,false,,"Great Percy Street, Clerkenwell",BikePoints_227
+false,true,001067,1279616880000,false,,"St. James's Square, St. James's",BikePoints_228
+false,true,001151,1279617780000,false,,"Whitehall Place, Strand",BikePoints_229
+false,true,001144,1279618020000,false,,"Poured Lines, Bankside",BikePoints_230
+false,true,001089,1279622820000,false,,"Queen's Gate (Central), South Kensington",BikePoints_231
+false,true,001139,1279623240000,false,,"Carey Street, Holborn",BikePoints_232
+false,true,001153,1279624260000,false,,"Pall Mall East, West End",BikePoints_233
+false,true,001081,1279624680000,false,,"Liverpool Road (N1 Centre), Angel",BikePoints_234
+false,true,001154,1279625640000,false,,"Kennington Road  , Vauxhall",BikePoints_235
+false,true,003483,1279625940000,false,,"Fashion Street, Whitechapel",BikePoints_236
+false,true,003467,1279799040000,false,,"Dock Street, Wapping",BikePoints_237
+false,true,001099,1279627920000,false,,"Frampton Street, Paddington",BikePoints_238
+false,true,001090,1279628160000,false,,"Warren Street Station, Euston",BikePoints_239
+false,true,003482,1279628640000,false,,"Beaumont Street, Marylebone",BikePoints_242
+false,true,001103,1279628940000,false,,"Gloucester Street, Pimlico",BikePoints_243
+false,true,001145,1279629240000,false,,"Earnshaw Street , Covent Garden",BikePoints_244
+false,true,001140,1279629660000,false,,"Grosvenor Road, Pimlico",BikePoints_245
+false,true,001159,1279639740000,false,,"Berry Street, Clerkenwell",BikePoints_246
+false,true,001091,1279639920000,false,,"St. John's Wood Church, The Regent's Park",BikePoints_247
+false,true,001088,1279640160000,false,,"Triangle Car Park, Hyde Park",BikePoints_248
+false,true,001137,1279640400000,false,,"Harper Road, The Borough",BikePoints_249
+false,true,003440,1279641000000,false,,"Royal Avenue 1, Chelsea",BikePoints_250
+false,true,001161,1279700160000,false,,"Brushfield Street, Liverpool Street",BikePoints_251
+false,true,001111,1279700640000,false,,"Jubilee Gardens, South Bank",BikePoints_252
+false,true,001051,1279700820000,false,,"Shoreditch Park, Hoxton",BikePoints_253
+false,true,003471,1279700940000,false,,"Chadwell Street, Angel",BikePoints_254
+false,true,200161,,false,,"Clinton Road, Mile End",BikePoints_522
+false,true,200160,,false,,"Langdon Park, Poplar",BikePoints_523
+false,true,200017,1328515080000,false,,"Lancaster Gate , Bayswater",BikePoints_524
+false,true,200153,1643301180000,false,,"Blythe Road, Olympia",BikePoints_525
+false,true,200143,,false,,"Lancaster Drive, Blackwall",BikePoints_526
+false,true,200154,1328777280000,false,,"Hansard Mews, Holland Park",BikePoints_527
+false,true,200088,1328777880000,false,,"Clarges Street, Mayfair",BikePoints_528
+false,true,200010,,false,,"Manresa Road, Chelsea",BikePoints_529
+false,true,200146,,false,,"Newby Place, Poplar",BikePoints_530
+false,true,200167,1328778840000,false,,"Twig Folly Bridge, Mile End",BikePoints_531
+false,true,200163,1328886360000,false,,"Jubilee Plaza, Canary Wharf",BikePoints_532
+false,true,200165,,false,,"Wellington Row, Bethnal Green",BikePoints_533
+false,true,200159,,false,,"Goldsmith's Row, Haggerston",BikePoints_534
+false,true,200145,,false,,"Gloucester Avenue, Camden Town",BikePoints_535
+false,true,200024,,false,,"Queensbridge Road, Haggerston",BikePoints_536
+false,true,200239,1330352880000,false,,"Old Montague Street, Whitechapel",BikePoints_537
+false,true,200050,,false,,"Naval Row, Blackwall",BikePoints_538
+false,true,200151,,false,,"Hoxton Station, Hoxton",BikePoints_539
+false,true,200134,,false,,"Albany Street, The Regent's Park",BikePoints_540
+false,true,200096,,false,,"Green Park Station, Mayfair",BikePoints_541
+false,true,200147,,false,,"Salmon Lane, Limehouse",BikePoints_542
+false,true,200065,,false,,"Lansdowne Walk, Ladbroke Grove",BikePoints_543
+false,true,200051,,false,,"Percival Street, Finsbury",BikePoints_544
+false,true,200070,,false,,"Arlington Road, Camden Town",BikePoints_545
+false,true,200044,,false,,"New Fetter Lane, Holborn",BikePoints_546
+false,true,200127,,false,,"East India DLR, Blackwall",BikePoints_547
+false,true,200076,,false,,"Westminster Bridge Road, Elephant & Castle",BikePoints_548
+false,true,200132,,false,,"Gaywood  Street, Elephant & Castle",BikePoints_549
+false,true,200102,,false,,"Harford Street, Mile End",BikePoints_550
+false,true,200066,1330071720000,false,,"Import Dock, Canary Wharf",BikePoints_551
+false,true,200149,,false,,"Watney Street, Shadwell",BikePoints_552
+false,true,200064,,false,,"Regent's Row , Haggerston",BikePoints_553
+false,true,200078,,false,,"Aberfeldy Street, Poplar",BikePoints_554
+false,true,200138,,false,,"Heron Quays DLR, Canary Wharf",BikePoints_556
+false,true,200203,,false,,"King Edward Street, St Pauls",BikePoints_557
+false,true,200048,1399635120000,false,,"Page Street, Westminster",BikePoints_558
+false,true,200111,,false,,"Abbotsbury Road, Holland Park",BikePoints_559
+false,true,200015,,false,,"Ladbroke Grove Central, Ladbroke Grove",BikePoints_560
+false,true,200037,1330503540000,false,,"Rectory Square, Stepney",BikePoints_561
+false,true,200074,1330503420000,false,,"Bury Place, Holborn",BikePoints_562
+false,true,200232,,false,,"Preston's Road, Cubitt Town",BikePoints_563
+false,true,200068,,false,,"Somerset House, Strand",BikePoints_564
+false,true,200135,,false,,"Selby Street, Whitechapel",BikePoints_565
+false,true,200141,1330937940000,false,,"Westfield Ariel Way, White City",BikePoints_566
+false,true,200110,,false,,"Bishop's Bridge Road West, Bayswater",BikePoints_568
+false,true,200248,,false,,"Pitfield Street Central, Hoxton",BikePoints_569
+false,true,200099,1330773180000,false,,"Upper Bank Street, Canary Wharf",BikePoints_570
+false,true,200061,1330620180000,false,,"Westfield Southern Terrace ,Shepherd's Bush",BikePoints_571
+false,true,200026,,false,,"Greenland Road, Camden Town",BikePoints_572
+false,true,200001,1331796060000,false,,"Limerston Street, West Chelsea",BikePoints_573
+false,true,200246,1333618560000,false,,"Eagle Wharf Road, Hoxton",BikePoints_574
+false,true,200109,,false,,"Alpha Grove, Millwall",BikePoints_576
+false,true,200247,,false,,"Globe Town Market, Bethnal Green",BikePoints_577
+false,true,200244,1330444680000,false,,"Hollybush Gardens, Bethnal Green",BikePoints_578
+false,true,200128,,false,,"Queen Street 2, Bank",BikePoints_579
+false,true,200084,1392208500000,false,,"Doddington Grove, Kennington",BikePoints_580
+false,true,200005,1331883540000,false,,"New Cavendish Street, Marylebone",BikePoints_581
+false,true,200231,,false,,"Abingdon Green, Westminster",BikePoints_583
+false,true,200086,,false,,"Ilchester Gardens, Bayswater",BikePoints_584
+false,true,200092,1331797200000,false,,"Mudchute DLR, Cubitt Town",BikePoints_586
+false,true,200101,1332406320000,false,,"Monument Street, Monument",BikePoints_587
+false,true,200071,1330937820000,false,,"Hoxton Street, Hoxton",BikePoints_588
+false,true,200060,,false,,"Drayton Gardens, West Chelsea",BikePoints_589
+false,true,200236,,false,,"Greenberry Street, St.John's Wood",BikePoints_590
+false,true,200108,,false,,"Bishop's Bridge Road East, Bayswater",BikePoints_592
+false,true,200058,,false,,"Northdown Street, King's Cross",BikePoints_593
+false,true,200226,1331710680000,false,,"Kingsway Southbound, Strand",BikePoints_594
+false,true,200142,,false,,"Hammersmith Road, Hammersmith",BikePoints_595
+false,true,200237,,false,,"Parson's Green , Parson's Green",BikePoints_596
+false,true,200229,,false,,"Fulham Park Road, Fulham",BikePoints_597
+false,true,200166,1501544700000,false,,"Southerton Road, Hammersmith",BikePoints_598
+false,true,200235,,false,,"Manbre Road, Hammersmith",BikePoints_599
+false,true,200133,,false,,"South Lambeth Road, Vauxhall",BikePoints_600
+false,true,200136,,false,,"BBC White City, White City",BikePoints_601
+false,true,200211,,false,,"Union Grove, Wandsworth Road",BikePoints_602
+false,true,200137,,false,,"Caldwell Street, Stockwell",BikePoints_603
+false,true,200195,,false,,"St Martins Close, Camden Town",BikePoints_604
+false,true,200198,,false,,"Seymour Place, Marylebone",BikePoints_605
+false,true,200218,,false,,"Addison Road, Holland Park",BikePoints_606
+false,true,200125,,false,,"Putney Bridge Station, Fulham",BikePoints_607
+false,true,200224,,false,,"Colet Gardens, Hammersmith",BikePoints_608
+false,true,200208,1380109980000,false,,"Sugden Road, Clapham",BikePoints_609
+false,true,200222,1380113460000,false,,"Danvers Street, West Chelsea",BikePoints_610
+false,true,200067,1380203940000,false,,"Princedale Road , Holland Park",BikePoints_611
+false,true,200175,1380294600000,false,,"Wandsworth Rd, Isley Court, Wandsworth Road",BikePoints_612
+false,true,200214,1380211860000,false,,"Woodstock Grove, Shepherd's Bush",BikePoints_613
+false,true,200025,1380795000000,false,,"London Fields, Hackney Central",BikePoints_614
+false,true,001147,1279702560000,false,,"Clifton Road, Maida Vale",BikePoints_255
+false,true,003484,1279708020000,false,,"Houghton Street, Strand",BikePoints_256
+false,true,001194,1279708140000,false,,"Westminster University, Marylebone",BikePoints_257
+false,true,001193,1279708380000,false,,"Kensington Gore, Knightsbridge",BikePoints_258
+false,true,001180,1279709100000,false,,"Bourne Street, Belgravia",BikePoints_259
+false,true,003489,1279711020000,false,,"Broadwick Street, Soho",BikePoints_260
+false,true,003491,1279711200000,false,,"Princes Square, Bayswater",BikePoints_261
+false,true,001095,1279711620000,false,,"LSBU (Borough Road), Elephant & Castle",BikePoints_262
+false,true,001184,1279712160000,false,,"St. Mary Axe, Aldgate",BikePoints_263
+false,true,001146,1279712520000,false,,"Tysoe Street, Clerkenwell",BikePoints_264
+false,true,003490,1279714320000,false,,"Southwick Street, Paddington",BikePoints_265
+false,true,001204,1279714560000,false,,"Queen's Gate (North), Kensington",BikePoints_266
+false,true,001155,1279714740000,false,,"Regency Street, Westminster",BikePoints_267
+false,true,001087,1279714920000,false,,"Belgrave Road, Victoria",BikePoints_268
+false,true,001209,1279715100000,false,,"Empire Square, The Borough",BikePoints_269
+false,true,001190,1279720380000,false,,"Kennington Lane Rail Bridge, Vauxhall",BikePoints_270
+false,true,001136,1279720920000,false,,"London Zoo,  The Regent's Park",BikePoints_271
+false,true,001133,1279721220000,false,,"Baylis Road, Waterloo",BikePoints_272
+false,true,001186,1279721400000,false,,"Belvedere Road 1, South Bank",BikePoints_273
+false,true,001134,1279721580000,false,,"Warwick Road, Olympia",BikePoints_274
+false,true,001191,1279721880000,false,,"Barbican Centre, Barbican",BikePoints_275
+false,true,001098,1279723200000,false,,"Lower Thames Street, Monument",BikePoints_276
+false,true,001143,1279723320000,false,,"Kensington Church Street, Kensington",BikePoints_277
+false,true,001142,1279723500000,false,,"Tooley Street, Bermondsey",BikePoints_278
+false,true,001108,1279723740000,false,,"North Wharf Road, Paddington",BikePoints_279
+false,true,003462,1279726440000,false,,"Royal Avenue 2, Chelsea",BikePoints_280
+false,true,003480,1279726620000,false,,"Smith Square, Westminster",BikePoints_281
+false,true,001077,1279726980000,false,,"Royal London Hospital, Whitechapel",BikePoints_282
+false,true,001141,1279727220000,false,,"Kingsway, Covent Garden",BikePoints_283
+false,true,001117,1279727580000,false,,"Lambeth North Station, Waterloo",BikePoints_284
+false,true,001187,1279727880000,false,,"St. John's Wood Road, St. John's Wood",BikePoints_286
+false,true,001156,1279728060000,false,,"Bedford Way, Bloomsbury",BikePoints_287
+false,true,001138,1279793820000,false,,"Elizabeth Bridge, Victoria",BikePoints_288
+false,true,003493,1279794060000,false,,"South Audley Street, Mayfair",BikePoints_289
+false,true,003496,1279795140000,false,,"St Mary's Hospital, Paddington",BikePoints_290
+false,true,001135,1279800420000,false,,"Claverton Street, Pimlico",BikePoints_291
+false,true,001206,1279800600000,false,,"Montpelier Street, Knightsbridge",BikePoints_292
+false,true,001214,1279800780000,false,,"Kensington Olympia Station, Olympia",BikePoints_293
+false,true,001195,1279800900000,false,,"St. George's Square, Pimlico",BikePoints_294
+false,true,001216,1279801080000,false,,"Swan Street, The Borough",BikePoints_295
+false,true,200069,1377258960000,false,,"Knaresborough Place, Earl's Court",BikePoints_296
+false,true,003498,1279801560000,false,,"Geraldine Street, Elephant & Castle",BikePoints_297
+false,true,001213,1279805640000,false,,"Curlew Street, Shad Thames",BikePoints_298
+false,true,001196,1279808160000,false,,"Vincent Square, Westminster",BikePoints_299
+false,true,001217,1279808700000,false,,"Serpentine Car Park, Hyde Park",BikePoints_300
+false,true,001152,1279809000000,false,,"Marylebone Lane, Marylebone",BikePoints_301
+false,true,003492,1279812360000,false,,"Putney Pier, Wandsworth",BikePoints_302
+false,true,001132,1279812720000,false,,"Albert Gate, Hyde Park",BikePoints_303
+false,true,003497,1279816260000,false,,"Rathbone Street, Fitzrovia",BikePoints_306
+false,true,001157,1279816500000,false,,"Black Lion Gate, Kensington Gardens",BikePoints_307
+false,true,001189,1279816740000,false,,"Long Lane , Bermondsey",BikePoints_308
+false,true,001192,1279875060000,false,,"Embankment (Savoy), Strand",BikePoints_309
+false,true,001205,1279879560000,false,,"Black Prince Road, Vauxhall",BikePoints_310
+false,true,003494,1279880100000,false,,"Foley Street, Fitzrovia",BikePoints_311
+false,true,001130,1279880340000,false,,"Grove End Road, St. John's Wood",BikePoints_312
+false,true,003495,1279880520000,false,,"Wells Street, Fitzrovia",BikePoints_313
+false,true,003485,1279884480000,false,,"Tyers Gate, Bermondsey",BikePoints_314
+false,true,001199,1279884660000,false,,"The Tennis Courts, The Regent's Park",BikePoints_315
+false,true,000968,1279884840000,false,1539845760000,"Warwick Row, Westminster",BikePoints_316
+false,true,001208,1279885080000,false,,"Dickens Square, Borough",BikePoints_317
+false,true,001197,1279885320000,false,,"Sackville Street, Mayfair",BikePoints_318
+false,true,003500,1279890360000,false,,"Baldwin Street, St. Luke's",BikePoints_319
+false,true,001148,1279890840000,false,,"Queen Mother Sports Centre, Victoria",BikePoints_320
+false,true,002637,1279891020000,false,,"Bermondsey Street, Bermondsey",BikePoints_321
+false,true,003502,1279891920000,false,,"Palissy Street, Shoreditch",BikePoints_322
+false,true,003501,1279892040000,false,,"Clifton Street, Shoreditch",BikePoints_323
+false,true,001200,1279894920000,false,,"Ontario Street, Elephant & Castle",BikePoints_324
+false,true,001158,1279896660000,false,,"St. Martin's Street, West End",BikePoints_325
+false,true,001131,1279896840000,false,,"Graham Street, Angel",BikePoints_326
+false,true,001128,1280133420000,false,,"New North Road 1, Hoxton",BikePoints_327
+false,true,002641,1280133540000,false,,"New North Road 2, Hoxton",BikePoints_328
+false,true,002636,1280133720000,false,,"Prince Albert Road, The Regent's Park",BikePoints_329
+false,true,001203,1280141280000,false,,"Eastbourne Mews, Paddington",BikePoints_330
+false,true,001211,1280141460000,false,,"Bunhill Row, Moorgate",BikePoints_331
+false,true,001210,1280142360000,false,,"Nevern Place, Earl's Court",BikePoints_332
+false,true,002633,1280142540000,false,,"Palace Gardens Terrace, Notting Hill",BikePoints_333
+false,true,002635,1280147580000,false,,"Concert Hall Approach 1, South Bank",BikePoints_334
+false,true,001207,1280152560000,false,,"Tavistock Street, Covent Garden",BikePoints_335
+false,true,001212,1280152800000,false,,"Concert Hall Approach 2, South Bank",BikePoints_336
+false,true,002589,1280153100000,false,,"Pembridge Villas, Notting Hill",BikePoints_337
+false,true,200029,1380288900000,false,,"Finlay Street, Fulham",BikePoints_615
+false,true,200098,,false,,"Aintree Street, Fulham",BikePoints_616
+false,true,200028,1380531540000,false,,"Elysium Place, Fulham",BikePoints_617
+false,true,300003,1380546540000,false,,"Eel Brook Common, Walham Green",BikePoints_618
+false,true,300012,1380552360000,false,,"Irene Road, Parsons Green",BikePoints_619
+false,true,300010,1380629040000,false,,"Surrey Lane, Battersea",BikePoints_620
+false,true,200091,1380899280000,false,,"Wandsworth Town Station, Wandsworth",BikePoints_621
+false,true,200172,1380901680000,false,,"Lansdowne Road, Ladbroke Grove",BikePoints_622
+false,true,200186,1381135320000,false,,"Nantes Close, Wandsworth",BikePoints_623
+false,true,200173,1381224240000,false,,"Courland Grove, Wandsworth Road",BikePoints_624
+false,true,200190,1381227480000,false,,"Queen's Circus, Battersea Park",BikePoints_625
+false,true,300008,1381920300000,false,,"Normand Park, West Kensington",BikePoints_626
+false,true,200007,1381931400000,false,,"Holden Street, Battersea",BikePoints_627
+false,true,200062,1381414980000,false,,"William Morris Way, Sands End",BikePoints_628
+false,true,200187,1381479480000,false,,"Morie Street, Wandsworth",BikePoints_629
+false,true,200194,1381487100000,false,,"Clarence Walk, Stockwell",BikePoints_630
+false,true,200183,1381245300000,false,,"Battersea Park Road, Nine Elms",BikePoints_631
+false,true,200176,1381220700000,false,,"Sheepcote Lane, Battersea",BikePoints_632
+false,true,200116,1381402920000,false,,"Vereker Road, West Kensington",BikePoints_633
+false,true,300002,1381743780000,false,,"Brook Green South, Brook Green",BikePoints_634
+false,true,200215,1381756440000,false,,"Greyhound Road, Hammersmith",BikePoints_635
+false,true,200180,1381846320000,false,,"South Park, Sands End",BikePoints_636
+false,true,200191,1381933680000,false,,"Spencer Park, Wandsworth Common",BikePoints_637
+false,true,300014,1381834020000,false,,"Falcon Road, Clapham Junction",BikePoints_638
+false,true,200081,1381835700000,false,,"Coomer Place, West Kensington",BikePoints_639
+false,true,200179,1382010420000,false,,"Silverthorne Road, Battersea",BikePoints_640
+false,true,300025,1381926900000,false,,"Archbishop's Park, Waterloo",BikePoints_641
+false,true,200192,1381934220000,false,,"Fawcett Close, Battersea",BikePoints_642
+false,true,300026,1382010720000,false,,"All Saints' Road, Portobello",BikePoints_643
+false,true,200182,1382278560000,false,,"Rainville Road, Hammersmith",BikePoints_644
+false,true,200200,1382110800000,false,,"Great Suffolk Street, The Borough",BikePoints_645
+false,true,200178,1382084340000,false,,"Buckingham Gate, Westminster",BikePoints_646
+false,true,200181,1382347140000,false,,"Richmond Way, Shepherd's Bush",BikePoints_647
+false,true,200171,1382352840000,false,,"Peterborough Road, Sands End",BikePoints_648
+false,true,300009,1382348400000,false,,"World's End Place, West Chelsea",BikePoints_649
+false,true,300034,1382438520000,false,,"St. Mark's Road, North Kensington",BikePoints_650
+false,true,300030,1382441580000,false,,"Thorndike Close, West Chelsea",BikePoints_651
+false,true,300022,1381848540000,false,,"Evesham Street, Avondale",BikePoints_652
+false,true,200196,1382539860000,false,,"Simpson Street, Clapham Junction",BikePoints_653
+false,true,200223,1382520000000,false,,"Ashmole Estate, Oval",BikePoints_654
+false,true,200221,1382611200000,false,,"Crabtree Lane, Fulham",BikePoints_655
+false,true,200040,1382614560000,false,,"Broomhouse Lane, Parsons Green",BikePoints_656
+false,true,200220,1382621400000,false,,"Blythe Road West, Shepherd's Bush",BikePoints_657
+false,true,300005,1383731100000,false,,"Ethelburga Estate, Battersea Park",BikePoints_658
+false,true,200212,1382697060000,false,,"Blackfriars Station, St. Paul's",BikePoints_659
+false,true,300020,1382705340000,false,,"West Kensington Station, West Kensington",BikePoints_660
+false,true,300023,1382887680000,false,,"All Saints Church, Portobello",BikePoints_661
+false,true,200189,1382866680000,false,,"Phene Street, Chelsea",BikePoints_662
+false,true,200124,1382870040000,false,,"Clarendon Road, Avondale",BikePoints_663
+false,true,300013,1382964300000,false,,"Austin Road, Battersea Park",BikePoints_664
+false,true,200113,1382975700000,false,,"Smugglers Way, Wandsworth",BikePoints_665
+false,true,200209,1383136140000,false,,"Shepherd's Bush Road North, Shepherd's Bush",BikePoints_667
+false,true,300037,1383143160000,false,,"Ravenscourt Park Station, Hammersmith",BikePoints_668
+false,true,300036,1383147660000,false,,"Teversham Lane, Stockwell",BikePoints_669
+false,true,200169,1383212640000,false,,"Ashley Crescent, Battersea",BikePoints_670
+false,true,300052,1383217920000,false,,"Parsons Green Station, Parsons Green",BikePoints_671
+false,true,300051,1383319500000,false,,"Hibbert Street, Battersea",BikePoints_673
+false,true,300035,,false,,"Carnegie Street, King's Cross",BikePoints_674
+false,true,200126,1383322320000,false,,"Usk Road, Clapham Junction",BikePoints_675
+false,true,200207,1383584400000,false,,"Hartington Road, Stockwell",BikePoints_676
+false,true,200023,1383476160000,false,,"Heath Road, Battersea",BikePoints_677
+false,true,200170,1383653580000,false,,"Esmond Street, Putney",BikePoints_678
+false,true,200114,1383661200000,false,,"Orbel Street, Battersea",BikePoints_679
+false,true,200210,1383657480000,false,,"Westbridge Road, Battersea",BikePoints_680
+false,true,200043,1383733440000,false,,"Bishop's Avenue, Fulham",BikePoints_681
+false,true,200059,1383738240000,false,,"Crisp Road, Hammersmith",BikePoints_682
+false,true,200119,1383750420000,false,,"Dorothy Road, Clapham Junction",BikePoints_683
+false,true,200188,1383823380000,false,,"Neville Gill Close, Wandsworth",BikePoints_684
+false,true,200219,1383827400000,false,,"Osiers Road, Wandsworth",BikePoints_685
+false,true,200097,1383835560000,false,,"Beryl Road, Hammersmith",BikePoints_686
+false,true,200204,1383915240000,false,,"Northfields, Wandsworth",BikePoints_688
+false,true,200106,1383918180000,false,,"Spanish Road, Clapham Junction",BikePoints_689
+false,true,200199,1383924660000,false,,"Stanley Grove, Battersea",BikePoints_690
+false,true,200184,1384763520000,false,,"Erin Close, Walham Green",BikePoints_691
+false,true,200112,1384166220000,false,,"Cadogan Close, Victoria Park",BikePoints_692
+false,true,300019,1384001160000,false,,"Felsham Road, Putney",BikePoints_693
+false,true,300033,1384004640000,false,,"Putney Rail Station, Putney",BikePoints_694
+false,true,300031,1384172820000,false,,"Islington Green, Angel",BikePoints_695
+false,true,300018,1384180020000,false,,"Charing Cross Hospital, Hammersmith",BikePoints_696
+false,true,200129,1384251120000,false,,"Charlotte Terrace, Angel",BikePoints_697
+false,true,200122,1384774620000,false,,"Hawley Crescent, Camden Town",BikePoints_713
