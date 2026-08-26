@@ -3,6 +3,11 @@ name: Publish data to Kaggle
 on:
   schedule:
   - cron: "0 17 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: kaggle
+  cancel-in-progress: false
 
 jobs:
   publish_data:
@@ -10,15 +15,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python 3.8
-      uses: actions/setup-python@v2
+    - uses: actions/checkout@v4
+    - name: Set up Python
+      uses: actions/setup-python@v5
       with:
-        python-version: "3.8"
+        python-version: "3.12"
+        cache: pip
+        cache-dependency-path: requirements-kaggle.txt
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r requirements.txt
+        pip install -r requirements-kaggle.txt
     - name: Upload data to Kaggle
       env:
         KAGGLE_KEY: ${{ secrets.KAGGLE_KEY }}

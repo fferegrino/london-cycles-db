@@ -1,0 +1,2 @@
+# Dependencies for kaggle_upload.py (the daily publish to Kaggle).
+kaggle==1.5.12

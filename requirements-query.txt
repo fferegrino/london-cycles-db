@@ -1,0 +1,3 @@
+# Dependencies for dataset.py (the every-15-minutes TfL query).
+# Deliberately minimal: pure-Python, no build step, installs in seconds.
+mind-the-gap==2.1.1

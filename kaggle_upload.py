@@ -24,7 +24,7 @@ dates = []
 
 today = date.today()
 
-cutoff_date = today - timedelta(days=-365)
+cutoff_date = today - timedelta(days=365)
 
 
 for file in sorted(glob("data/*.csv")):
@@ -57,6 +57,9 @@ for file in sorted(glob("data/*.csv")):
         "schema": {"fields": schema},
     }
     resources.append(resource)
+
+if not dates:
+    raise SystemExit("No data files in the publishable date range; nothing to upload.")
 
 dataset_metadata["resources"] = resources
 

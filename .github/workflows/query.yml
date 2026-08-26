@@ -3,6 +3,17 @@ name: Download dataset
 on:
   schedule:
   - cron: "*/15 * * * *"
+  workflow_dispatch:
+
+# Only one run at a time. Without this, overlapping runs race on `git push`
+# and the loser's snapshot is lost silently. Never cancel a run in progress:
+# a cancelled run means a permanently missing snapshot.
+concurrency:
+  group: query
+  cancel-in-progress: false
+
+permissions:
+  contents: write
 
 jobs:
   download_dataset:
@@ -10,22 +21,42 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python 3.8
-      uses: actions/setup-python@v2
+    - uses: actions/checkout@v4
+    - name: Set up Python
+      uses: actions/setup-python@v5
       with:
-        python-version: "3.8"
+        python-version: "3.12"
+        cache: pip
+        cache-dependency-path: requirements-query.txt
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r requirements.txt
+        pip install -r requirements-query.txt
     - name: Download dataset
       run: python dataset.py
     - name: Commit changes
       run: |
-        msg="Updated: `date +'%Y-%m-%d %H:%M'`"
         git config --global user.email "antonio.feregrino+datasets@gmail.com"
         git config --global user.name "Antonio Feregrino"
+
         git add data/
-        git diff --quiet && git diff --staged --quiet || git commit -m "$msg"
-        git push
+        if git diff --staged --quiet; then
+          echo "No changes to commit."
+          exit 0
+        fi
+
+        git commit -m "Updated: $(date +'%Y-%m-%d %H:%M')"
+
+        # Retry with backoff: a concurrent run (or the Kaggle job) may have
+        # pushed since checkout, which makes a plain push non-fast-forward.
+        for attempt in 1 2 3 4 5; do
+          if git pull --rebase --autostash && git push; then
+            echo "Pushed on attempt $attempt."
+            exit 0
+          fi
+          echo "Push attempt $attempt failed; retrying in $((attempt * 5))s."
+          sleep $((attempt * 5))
+        done
+
+        echo "::error::Failed to push after 5 attempts."
+        exit 1
