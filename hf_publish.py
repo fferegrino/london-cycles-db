@@ -12,7 +12,10 @@ import os
 
 from huggingface_hub import CommitOperationAdd, CommitOperationDelete, HfApi
 
-REPO_ID = os.environ.get("HF_DATASET_REPO", "feregrino/london-cycles")
+# `or` rather than a get() default: GitHub Actions sets the env var to an
+# empty string when ${{ vars.HF_DATASET_REPO }} is undefined, and a get()
+# default would not fire for "".
+REPO_ID = os.environ.get("HF_DATASET_REPO") or "feregrino/london-cycles"
 REPO_TYPE = "dataset"
 
 
