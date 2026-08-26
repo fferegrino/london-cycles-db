@@ -1,13 +1,12 @@
-name: Download dataset
+name: Query TfL and publish snapshot
 
 on:
   schedule:
   - cron: "*/15 * * * *"
   workflow_dispatch:
 
-# Only one run at a time. Without this, overlapping runs race on `git push`
-# and the loser's snapshot is lost silently. Never cancel a run in progress:
-# a cancelled run means a permanently missing snapshot.
+# Only one run at a time. Overlapping runs would race on the stations.csv
+# commit. Never cancel a run in progress: that means a lost snapshot.
 concurrency:
   group: query
   cancel-in-progress: false
@@ -16,39 +15,57 @@ permissions:
   contents: write
 
 jobs:
-  download_dataset:
-    name: Download dataset
+  snapshot:
+    name: Publish snapshot
     runs-on: ubuntu-latest
 
     steps:
+    # Fetch only what the job needs. Without this the runner pulls the whole
+    # data/ tree just to append one 35 KB file, which is what made these runs
+    # slow enough to overlap and fail. This helps immediately, before any
+    # history rewrite.
     - uses: actions/checkout@v4
+      with:
+        filter: blob:none
+        sparse-checkout: |
+          *.py
+          stations.csv
+          requirements-query.txt
+        sparse-checkout-cone-mode: false
+
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
         python-version: "3.12"
         cache: pip
         cache-dependency-path: requirements-query.txt
+
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements-query.txt
-    - name: Download dataset
+
+    - name: Query and publish
+      env:
+        HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        HF_DATASET_REPO: ${{ vars.HF_DATASET_REPO }}
       run: python dataset.py
-    - name: Commit changes
+
+    # The snapshot itself went to the Hub. Only stations.csv lives in git, and
+    # it changes a handful of times a year, so this is usually a no-op.
+    - name: Commit stations.csv if it changed
       run: |
         git config --global user.email "antonio.feregrino+datasets@gmail.com"
         git config --global user.name "Antonio Feregrino"
 
-        git add data/
+        git add stations.csv
         if git diff --staged --quiet; then
-          echo "No changes to commit."
+          echo "stations.csv unchanged."
           exit 0
         fi
 
-        git commit -m "Updated: $(date +'%Y-%m-%d %H:%M')"
+        git commit -m "Station attributes changed: $(date +'%Y-%m-%d %H:%M')"
 
-        # Retry with backoff: a concurrent run (or the Kaggle job) may have
-        # pushed since checkout, which makes a plain push non-fast-forward.
         for attempt in 1 2 3 4 5; do
           if git pull --rebase --autostash && git push; then
             echo "Pushed on attempt $attempt."

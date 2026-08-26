@@ -1,61 +1,96 @@
-import csv
-import re
-from datetime import datetime
-from pathlib import Path
+"""Query the TfL bike-point API and publish one snapshot.
 
+Runs every 15 minutes. Each run writes exactly one small immutable file to the
+HuggingFace dataset and never rewrites anything, so the work per run does not
+grow with the size of the dataset.
+
+Fact rows carry no lat/lon -- those are station attributes and live in the
+versioned ``stations.csv`` (see stations.py). Timestamps are whole seconds:
+the old microsecond precision was a single snapshot time stamped onto ~800
+rows, so the extra digits were noise rather than resolution.
+"""
+
+import csv
+import io
+from datetime import datetime, timezone
+
+import hf_publish
+import stations
 from tfl.api import bike_point
 
-execution_time = datetime.utcnow()
-
-csv_file = Path("data", f"{execution_time.strftime('%Y-%m-%d')}.csv")
+HEADERS = ["query_time", "place_id", "bikes", "empty_docks", "docks"]
 
 
 def get_number(additional_properties, key):
-    [nb] = [prop.value for prop in additional_properties if prop.key == key]
-    return int(nb)
+    """Return the named counter, or None if TfL omitted it.
+
+    The original code destructured (``[nb] = [...]``), which raises ValueError
+    when a property is missing -- one newly-installed or broken dock would then
+    lose the entire snapshot.
+    """
+    values = [prop.value for prop in additional_properties if prop.key == key]
+    if len(values) != 1:
+        return None
+    try:
+        return int(values[0])
+    except (TypeError, ValueError):
+        return None
 
 
-def get_stations(all_bike_points):
-    data = []
-    for place in all_bike_points:
-        bikes = get_number(place.additionalProperties, "NbBikes")
-        empty_docks = get_number(place.additionalProperties, "NbEmptyDocks")
-        docks = get_number(place.additionalProperties, "NbDocks")
-        data.append((execution_time.isoformat(), place.id, place.lat, place.lon, bikes, empty_docks, docks,))
-
-    return data
-
-
-headers = ["query_time", "place_id", "lat", "lon", "bikes", "empty_docks", "docks"]
+def snapshot_rows(bike_points, execution_time):
+    timestamp = execution_time.isoformat()
+    rows, skipped = [], []
+    for place in bike_points:
+        counts = [get_number(place.additionalProperties, key) for key in ("NbBikes", "NbEmptyDocks", "NbDocks")]
+        if any(count is None for count in counts):
+            skipped.append(place.id)
+            continue
+        rows.append((timestamp, place.id, *counts))
+    return rows, skipped
 
 
-first_file_of_the_day = not csv_file.exists()
-with open(csv_file, "a") as w:
-    writer = csv.writer(w)
-    if first_file_of_the_day:
-        writer.writerow(headers)
+def to_csv(rows):
+    buffer = io.StringIO()
+    writer = csv.writer(buffer)
+    writer.writerow(HEADERS)
+    writer.writerows(rows)
+    return buffer.getvalue()
+
+
+def main():
+    # Naive UTC, whole seconds -- same shape as the existing history, no
+    # +00:00 suffix, and no datetime.utcnow() deprecation warning.
+    execution_time = datetime.now(timezone.utc).replace(microsecond=0, tzinfo=None)
+
     bike_points = bike_point.all()
-    for station_row in get_stations(bike_points):
-        writer.writerow(station_row)
+    if not bike_points:
+        raise SystemExit("TfL returned no bike points; refusing to publish an empty snapshot.")
+
+    rows, skipped = snapshot_rows(bike_points, execution_time)
+    if skipped:
+        print(f"Skipped {len(skipped)} station(s) with incomplete counters: {', '.join(sorted(skipped)[:10])}")
+    if not rows:
+        raise SystemExit("No usable rows in this snapshot; refusing to publish.")
+
+    operations = [hf_publish.add(hf_publish.snapshot_path(execution_time), to_csv(rows))]
+
+    # Fold today's station attributes into the versioned table, and only
+    # re-publish it when something actually changed.
+    history = stations.read_history()
+    updated, changed = stations.apply_observations(
+        history,
+        stations.observations_from_bike_points(bike_points),
+        execution_time.strftime("%Y-%m-%d"),
+    )
+    if changed or updated != history:
+        stations.write_history(updated)
+        with open(stations.STATIONS_FILE, newline="") as handle:
+            operations.append(hf_publish.add("stations.csv", handle.read()))
+        print(f"stations.csv updated ({changed} version(s) opened)")
+
+    hf_publish.commit(operations, f"Snapshot {execution_time.isoformat()} ({len(rows)} stations)")
+    print(f"Published {len(rows)} rows for {execution_time.isoformat()}")
 
 
-if first_file_of_the_day:
-    information_file = Path("data", f"stations-{execution_time.strftime('%Y-%m-%d')}.csv")
-    # This is very inefficient, needs refactoring.
-    dictionaries = []
-    properties = set()
-    pattern = re.compile(r"(?<!^)(?=[A-Z])")
-    for bike_point in bike_points:
-        props = {
-            pattern.sub("_", prop.key).lower(): prop.value
-            for prop in bike_point.additionalProperties
-            if not prop.key.startswith("Nb")
-        }
-        station_dict = {"common_name": bike_point.commonName, "place_id": bike_point.id, **props}
-        properties.update(station_dict.keys())
-        dictionaries.append(station_dict)
-    with open(information_file, "w") as w:
-        writer = csv.DictWriter(w, fieldnames=list(set(properties)))
-        writer.writeheader()
-        for dd in dictionaries:
-            writer.writerow(dd)
+if __name__ == "__main__":
+    main()
