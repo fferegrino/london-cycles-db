@@ -12,7 +12,7 @@ import os
 
 from huggingface_hub import CommitOperationAdd, CommitOperationDelete, HfApi
 
-REPO_ID = os.environ.get("HF_DATASET_REPO", "ioexception/london-cycles")
+REPO_ID = os.environ.get("HF_DATASET_REPO", "feregrino/london-cycles")
 REPO_TYPE = "dataset"
 
 

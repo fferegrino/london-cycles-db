@@ -4,7 +4,6 @@
 
 *.mp4
 .DS_Store
-data/dataset-metadata.json
 
 __pycache__/
 backfill-out/

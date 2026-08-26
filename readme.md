@@ -73,7 +73,7 @@ These are artifacts of the upstream API, kept documented rather than silently pa
 pip install -r requirements-query.txt
 
 export HF_TOKEN=...                          # write access to the dataset repo
-export HF_DATASET_REPO=ioexception/london-cycles
+export HF_DATASET_REPO=feregrino/london-cycles
 
 python dataset.py                            # publish one snapshot
 python compact.py 2026-08-25                 # merge a day's snapshots

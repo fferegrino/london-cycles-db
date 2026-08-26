@@ -142,6 +142,8 @@ def main():
         nonlocal pending
         if not pending:
             return
+        size = sum(len(payload) for _, payload in pending)
+        print(f"  {label}: {len(pending)} file(s), {size/1e6:.1f} MB", flush=True)
         if args.dry_run:
             for path_in_repo, payload in pending:
                 target = Path(args.out, path_in_repo)
