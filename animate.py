@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # %%
 import datetime
-from pathlib import Path
 
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -16,14 +15,57 @@ import seaborn as sns
 # %% [markdown]
 # ## Load all the data
 #
-# The data for the cycles stations is split by days; I can use a *glob* pattern to read all of them into a list only to concatenate them into a single dataframe afterwards:
+# The observations live in the [`feregrino/london-cycles`](https://huggingface.co/datasets/feregrino/london-cycles) dataset on the Hugging Face Hub, stored one file per day under a `year=/month=/day=` layout. Rather than pull all four years, I download only the days I am about to plot.
+#
+# One thing to be aware of: the observation rows carry no coordinates. `lat` and `lon` are attributes of a *station*, not of a measurement, so repeating them on every row was pure duplication and they now live in a separate `stations.csv`. That table is **versioned** — stations do occasionally get relocated or renamed — so every row is valid over a `[valid_from, valid_to)` interval, and I have to pick the version that was current when the observation was taken.
 
 # %% gist="read_frames.py" dataframe="initial_data.png"
-frames = []
-for csv_file in Path("data").glob("*.csv"):
-    df = pd.read_csv(csv_file, parse_dates=["query_time"])
-    frames.append(df)
-all_data = pd.concat(frames)
+from huggingface_hub import hf_hub_download
+
+DATASET = "feregrino/london-cycles"
+START = datetime.date(2022, 5, 7)
+END = datetime.date(2022, 5, 14)
+
+
+def load_observations(start, end):
+    """Download one file per day and stack them into a single dataframe."""
+    frames = []
+    day = start
+    while day <= end:
+        path = hf_hub_download(
+            DATASET,
+            f"data/year={day:%Y}/month={day:%m}/day={day:%d}/part.csv",
+            repo_type="dataset",
+        )
+        frames.append(pd.read_csv(path, parse_dates=["query_time"]))
+        day += datetime.timedelta(days=1)
+    return pd.concat(frames, ignore_index=True)
+
+
+def add_station_attributes(observations):
+    """Attach lat/lon by resolving the versioned station table.
+
+    A plain merge on `place_id` alone would multiply rows for every station
+    that has more than one version, so the interval condition is what keeps
+    the row count unchanged.
+    """
+    stations = pd.read_csv(
+        hf_hub_download(DATASET, "stations.csv", repo_type="dataset"),
+        parse_dates=["valid_from", "valid_to"],
+    )
+    merged = observations.merge(
+        stations[["place_id", "lat", "lon", "valid_from", "valid_to"]],
+        on="place_id",
+        how="left",
+    )
+    observed_day = merged["query_time"].dt.normalize()
+    is_current = (merged["valid_from"] <= observed_day) & (
+        merged["valid_to"].isna() | (observed_day < merged["valid_to"])
+    )
+    return merged[is_current].drop(columns=["valid_from", "valid_to"]).reset_index(drop=True)
+
+
+all_data = add_station_attributes(load_observations(START, END))
 
 all_data.sample(10, random_state=42)
 
