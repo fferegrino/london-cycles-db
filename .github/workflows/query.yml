@@ -2,11 +2,19 @@ name: Query TfL and publish snapshot
 
 on:
   schedule:
-  - cron: "*/15 * * * *"
+  # Hourly, not */15. GitHub delivers `schedule` events on a best-effort queue
+  # and silently drops delayed ones, so asking for 96 triggers a day yielded
+  # about 26. Asking for one an hour is far more likely to be honoured, and the
+  # job below takes four snapshots itself -- so the 15-minute resolution no
+  # longer depends on the scheduler at all.
+  - cron: "5 * * * *"
   workflow_dispatch:
+    inputs:
+      snapshots:
+        description: "Number of snapshots to take (default 4, one every 15 minutes)"
+        required: false
+        default: "4"
 
-# Only one run at a time. Overlapping runs would race on the stations.csv
-# commit. Never cancel a run in progress: that means a lost snapshot.
 concurrency:
   group: query
   cancel-in-progress: false
@@ -16,14 +24,15 @@ permissions:
 
 jobs:
   snapshot:
-    name: Publish snapshot
+    name: Publish snapshots
     runs-on: ubuntu-latest
+    # Four snapshots spaced 15 minutes apart is ~45 minutes; this only bounds a
+    # hung run so it cannot block the next hour's trigger indefinitely.
+    timeout-minutes: 70
 
     steps:
-    # Fetch only what the job needs. Without this the runner pulls the whole
-    # data/ tree just to append one 35 KB file, which is what made these runs
-    # slow enough to overlap and fail. This helps immediately, before any
-    # history rewrite.
+    # Fetch only what the job needs. This is what took the run from ~17 minutes
+    # (16m38s of it checking out the old data/ tree) down to seconds.
     - uses: actions/checkout@v4
       with:
         filter: blob:none
@@ -49,11 +58,37 @@ jobs:
       env:
         HF_TOKEN: ${{ secrets.HF_TOKEN }}
         HF_DATASET_REPO: ${{ vars.HF_DATASET_REPO }}
-      run: python dataset.py
+        SNAPSHOTS: ${{ github.event.inputs.snapshots || '4' }}
+      run: |
+        interval=900
+        failures=0
 
-    # The snapshot itself went to the Hub. Only stations.csv lives in git, and
-    # it changes a handful of times a year, so this is usually a no-op.
+        for i in $(seq 1 "$SNAPSHOTS"); do
+          if python dataset.py; then
+            echo "snapshot $i/$SNAPSHOTS published"
+          else
+            failures=$((failures + 1))
+            # A single TfL or Hub hiccup must not cost the whole batch.
+            echo "::warning::snapshot $i/$SNAPSHOTS failed"
+          fi
+
+          if [ "$i" -lt "$SNAPSHOTS" ]; then
+            sleep "$interval"
+          fi
+        done
+
+        if [ "$failures" -eq "$SNAPSHOTS" ]; then
+          echo "::error::all $SNAPSHOTS snapshots failed"
+          exit 1
+        fi
+
+        echo "$((SNAPSHOTS - failures))/$SNAPSHOTS snapshots published"
+
+    # The snapshots went to the Hub. Only stations.csv lives in git, and it
+    # changes a handful of times a year, so this is usually a no-op. It runs
+    # once after the batch rather than after each snapshot.
     - name: Commit stations.csv if it changed
+      if: always()
       run: |
         git config --global user.email "antonio.feregrino+datasets@gmail.com"
         git config --global user.name "Antonio Feregrino"
