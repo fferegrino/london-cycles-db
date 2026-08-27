@@ -8,6 +8,18 @@ function log(level, fields) {
 }
 
 export default {
+  // This Worker is driven entirely by its cron trigger. A fetch handler exists
+  // only so that stray HTTP requests get a plain 404 instead of the runtime's
+  // "Handler does not export a fetch() function" error. Dispatching from here
+  // is deliberately not offered: an unauthenticated endpoint that fires a
+  // workflow would be an open trigger for anyone who found the URL.
+  async fetch() {
+    return new Response("Cron-only Worker; nothing is served here.\n", {
+      status: 404,
+      headers: { "Content-Type": "text/plain" },
+    });
+  },
+
   async scheduled(event, env) {
     const started = Date.now();
     const base = {

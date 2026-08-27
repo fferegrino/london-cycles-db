@@ -2,6 +2,10 @@ name = "london-cycles-cron"
 main = "src/index.js"
 compatibility_date = "2026-01-01"
 
+# Nothing should reach this Worker over HTTP, so do not publish a
+# *.workers.dev URL for it. The cron trigger is unaffected.
+workers_dev = false
+
 [triggers]
 crons = ["*/15 * * * *"]
 

@@ -9,6 +9,16 @@ In practice this repo saw roughly one in nine hourly triggers honoured. This
 Worker takes over as the normal path; the `schedule` entry in `query.yml`
 remains as a backstop.
 
+There is no HTTP endpoint: `workers_dev = false`, and the `fetch` handler exists
+only to return 404 rather than a runtime error. To fire it by hand, use the
+Worker's **Trigger scheduled event** in the dashboard, or locally:
+
+```bash
+cd cron && npx wrangler dev --test-scheduled
+# then, in another shell
+curl "http://localhost:8787/__scheduled?cron=*/15+*+*+*+*"
+```
+
 ## Setup
 
 The GitHub PAT (scope: `repo`, or `actions: write` on a fine-grained token)
