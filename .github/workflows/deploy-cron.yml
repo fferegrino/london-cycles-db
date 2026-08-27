@@ -38,3 +38,7 @@ jobs:
         apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         workingDirectory: cron
+        # Secrets Store bindings need wrangler >= 4.14; an older wrangler parses
+        # the config, ignores the binding it does not know about, and deploys a
+        # Worker whose env.GH_PAT is undefined at runtime.
+        wranglerVersion: "4"

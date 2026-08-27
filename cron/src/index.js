@@ -33,6 +33,20 @@ export default {
 
     log("log", { event: "dispatch.start", ...base });
 
+    // An unattached binding shows up as a bare TypeError deep in the handler,
+    // which reads like a code bug rather than a deploy that dropped the
+    // binding. Say which it is.
+    if (!env.GH_PAT) {
+      log("error", {
+        event: "dispatch.misconfigured",
+        ...base,
+        error:
+          "GH_PAT binding is not attached to this Worker; check the Secrets Store binding in wrangler.toml and the deploy log's bindings list",
+        bindings: Object.keys(env),
+      });
+      throw new Error("GH_PAT binding is missing");
+    }
+
     let response;
     try {
       const token = await env.GH_PAT.get();
