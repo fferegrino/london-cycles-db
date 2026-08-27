@@ -1,0 +1,40 @@
+name: Deploy cron Worker
+
+on:
+  push:
+    branches: [main]
+    paths:
+    - "cron/**"
+    - ".github/workflows/deploy-cron.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-cron
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    name: wrangler deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        filter: blob:none
+        sparse-checkout: cron
+
+    - name: Set up Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: "22"
+
+    - name: Deploy
+      uses: cloudflare/wrangler-action@v3
+      with:
+        apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        workingDirectory: cron
