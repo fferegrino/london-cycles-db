@@ -63,8 +63,9 @@ healthchecks.io check, not these logs, is what alerts.
 `.github/workflows/deploy-cron.yml` deploys on every push to `main` that
 touches `cron/`. It needs two repository secrets:
 
-- `CLOUDFLARE_API_TOKEN` — permissions: Workers Scripts:Edit, and
-  Secrets Store:Read so the binding can be attached at deploy time.
+- `CLOUDFLARE_API_TOKEN` — permissions: **Workers Scripts: Edit** and
+  **Secrets Store: Edit** (Cloudflare requires *Edit*, not just *Read*, to bind
+  a secret to a Worker during deployment).
 - `CLOUDFLARE_ACCOUNT_ID`
 
 To deploy by hand instead:
