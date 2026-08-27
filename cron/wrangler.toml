@@ -9,5 +9,5 @@ crons = ["*/15 * * * *"]
 # id with: wrangler secrets-store store list --remote
 [[secrets_store_secrets]]
 binding = "GH_PAT"
-store_id = "REPLACE_WITH_SECRETS_STORE_ID"
+store_id = "b542b969de4a42309165a1f8930ed836"
 secret_name = "GH_PAT_LONDON_CYCLES_DB"
