@@ -19,6 +19,19 @@ the Worker as `GH_PAT`. Fill `store_id` in `wrangler.toml` with the id from:
 wrangler secrets-store store list --remote
 ```
 
+## Monitoring
+
+An external scheduler fails silently, so `query.yml` pings a healthchecks.io
+check after every successful snapshot and pings `/fail` if the run breaks. One
+check covers both failure modes — the Worker not firing, and a run firing but
+failing — because either one stops the pings.
+
+Set the repository secret `HEALTHCHECK_URL` to the check's ping URL (no trailing
+slash), and configure the check with a period of 15 minutes and a grace of 25,
+giving the ~40-minute silence window. The ping is per snapshot rather than per
+run on purpose: a four-snapshot backstop run takes 45 minutes, and a per-run
+ping would look like an outage while it was working correctly.
+
 ## Deploying
 
 `.github/workflows/deploy-cron.yml` deploys on every push to `main` that

@@ -62,6 +62,7 @@ jobs:
         # Dispatched runs pass their own value (1 by default); the fallback is
         # what the schedule backstop gets, since it supplies no inputs.
         SNAPSHOTS: ${{ github.event.inputs.snapshots || '4' }}
+        HEALTHCHECK_URL: ${{ secrets.HEALTHCHECK_URL }}
       run: |
         interval=900
         failures=0
@@ -69,6 +70,13 @@ jobs:
         for i in $(seq 1 "$SNAPSHOTS"); do
           if python dataset.py; then
             echo "snapshot $i/$SNAPSHOTS published"
+            # Ping per snapshot, not just per run: a four-snapshot backstop run
+            # takes 45 minutes, which on its own would look like silence to a
+            # 40-minute check while it is still working perfectly well.
+            if [ -n "$HEALTHCHECK_URL" ]; then
+              curl -fsS -m 10 --retry 3 -o /dev/null "$HEALTHCHECK_URL" \
+                || echo "::warning::Failed to ping healthchecks.io."
+            fi
           else
             failures=$((failures + 1))
             # A single TfL or Hub hiccup must not cost the whole batch.
@@ -115,3 +123,21 @@ jobs:
 
         echo "::error::Failed to push after 5 attempts."
         exit 1
+
+    # The other half of the dead man's switch. Successful snapshots ping as they
+    # happen, above; this reports a broken run straight away instead of making
+    # the check wait out its grace period. The ping never fails the job -- a
+    # missed ping alerts by itself, and losing snapshots to a monitoring hiccup
+    # would be perverse.
+    - name: Report failure to dead man's switch
+      if: failure()
+      env:
+        HEALTHCHECK_URL: ${{ secrets.HEALTHCHECK_URL }}
+      run: |
+        if [ -z "$HEALTHCHECK_URL" ]; then
+          echo "::warning::HEALTHCHECK_URL is not set; skipping ping."
+          exit 0
+        fi
+
+        curl -fsS -m 10 --retry 3 -o /dev/null "$HEALTHCHECK_URL/fail" \
+          || echo "::warning::Failed to ping healthchecks.io."
