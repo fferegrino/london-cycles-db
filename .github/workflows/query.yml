@@ -1,19 +1,20 @@
 name: Query TfL and publish snapshot
 
 on:
+  # Backstop only. GitHub delivers `schedule` events on a best-effort queue and
+  # silently drops delayed ones; hourly fared no better than */15 (nine expected
+  # triggers, one delivered, twenty minutes late). The normal path is now a
+  # Cloudflare Worker cron that dispatches this workflow every 15 minutes -- see
+  # cron/. This entry stays so a dead external scheduler degrades coverage to
+  # hourly batches instead of stopping it, hence four snapshots here.
   schedule:
-  # Hourly, not */15. GitHub delivers `schedule` events on a best-effort queue
-  # and silently drops delayed ones, so asking for 96 triggers a day yielded
-  # about 26. Asking for one an hour is far more likely to be honoured, and the
-  # job below takes four snapshots itself -- so the 15-minute resolution no
-  # longer depends on the scheduler at all.
   - cron: "5 * * * *"
   workflow_dispatch:
     inputs:
       snapshots:
-        description: "Number of snapshots to take (default 4, one every 15 minutes)"
+        description: "Number of snapshots to take, one every 15 minutes"
         required: false
-        default: "4"
+        default: "1"
 
 concurrency:
   group: query
@@ -58,6 +59,8 @@ jobs:
       env:
         HF_TOKEN: ${{ secrets.HF_TOKEN }}
         HF_DATASET_REPO: ${{ vars.HF_DATASET_REPO }}
+        # Dispatched runs pass their own value (1 by default); the fallback is
+        # what the schedule backstop gets, since it supplies no inputs.
         SNAPSHOTS: ${{ github.event.inputs.snapshots || '4' }}
       run: |
         interval=900
