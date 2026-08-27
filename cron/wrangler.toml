@@ -1,0 +1,13 @@
+name = "london-cycles-cron"
+main = "src/index.js"
+compatibility_date = "2026-01-01"
+
+[triggers]
+crons = ["*/15 * * * *"]
+
+# The PAT lives in the account Secrets Store, not in this repo. Find the store
+# id with: wrangler secrets-store store list --remote
+[[secrets_store_secrets]]
+binding = "GH_PAT"
+store_id = "REPLACE_WITH_SECRETS_STORE_ID"
+secret_name = "GH_PAT_LONDON_CYCLES_DB"

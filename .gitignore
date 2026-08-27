@@ -9,3 +9,6 @@ __pycache__/
 backfill-out/
 
 .env
+
+node_modules/
+.wrangler/
