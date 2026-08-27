@@ -5,6 +5,13 @@ compatibility_date = "2026-01-01"
 [triggers]
 crons = ["*/15 * * * *"]
 
+# Persist console output to Workers Logs, queryable from the dashboard. At 96
+# invocations a day this is nowhere near the free plan's 200k events; logs are
+# kept 3 days on free, 7 on paid.
+[observability]
+enabled = true
+head_sampling_rate = 1
+
 # The PAT lives in the account Secrets Store, not in this repo. Find the store
 # id with: wrangler secrets-store store list --remote
 [[secrets_store_secrets]]

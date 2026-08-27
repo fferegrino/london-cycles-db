@@ -32,6 +32,22 @@ giving the ~40-minute silence window. The ping is per snapshot rather than per
 run on purpose: a four-snapshot backstop run takes 45 minutes, and a per-run
 ping would look like an outage while it was working correctly.
 
+### Worker logs
+
+The Worker emits one JSON line per invocation (`dispatch.start` and then
+`dispatch.ok` or `dispatch.failed`/`dispatch.error`), persisted to Workers Logs
+via the `[observability]` block in `wrangler.toml`. Read them in the dashboard
+under the Worker's **Logs** tab, or live with:
+
+```bash
+cd cron && npx wrangler tail
+```
+
+Every line carries `scheduledTime` and `lagMs`, so if Cloudflare's cron ever
+starts drifting the way GitHub's did, that shows up directly rather than having
+to be inferred from run timestamps. Retention is 3 days on the free plan; the
+healthchecks.io check, not these logs, is what alerts.
+
 ## Deploying
 
 `.github/workflows/deploy-cron.yml` deploys on every push to `main` that
