@@ -3,7 +3,7 @@
 # locally, or bump them, if you want to run the animation again.
 astral==2.2
 colour==0.1.5
-geopandas==0.10.2
+geopandas==1.1.4
 huggingface_hub==1.28.0
 matplotlib==3.5.1
 pandas==1.4.2
