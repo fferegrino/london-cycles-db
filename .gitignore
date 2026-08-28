@@ -3,6 +3,7 @@
 .ipynb_checkpoints/
 
 *.mp4
+*.gif
 .DS_Store
 
 __pycache__/
