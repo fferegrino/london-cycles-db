@@ -285,7 +285,7 @@ def render_animation(
 def upload_to_imagekit(
     file_path: Path,
     file_name: Optional[str] = None,
-    folder: str = "/london-cycles-db",
+    folder: str = "/projects/london-cycles-db",
     private_key: Optional[str] = None,
     public_key: Optional[str] = None,
 ) -> None:
@@ -385,7 +385,7 @@ def main(
         help="Upload the generated animation to ImageKit.",
     ),
     imagekit_folder: str = typer.Option(
-        "/london-cycles-db",
+        "/projects/london-cycles-db",
         "--imagekit-folder",
         help="Folder in ImageKit to upload the file to.",
     ),
