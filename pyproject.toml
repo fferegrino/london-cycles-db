@@ -19,6 +19,7 @@ viz = [
     "colour>=0.1.5",
     "geopandas>=1.0.0",
     "huggingface-hub>=1.28.0",
+    "imagekitio>=5.9.0",
     "matplotlib>=3.8.0",
     "pandas>=2.2.0",
     "pytz",
