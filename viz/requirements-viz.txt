@@ -1,7 +1,7 @@
 # Dependencies for animate.py / animate.ipynb only. Not used by any workflow.
 # These pins are old and have no wheels for Python >= 3.11; use Python 3.10
 # locally, or bump them, if you want to run the animation again.
-astral==2.2
+astral==3.2
 colour==0.1.5
 geopandas==0.10.2
 huggingface_hub==1.28.0
