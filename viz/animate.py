@@ -94,8 +94,8 @@ all_data.sample(10, random_state=42)
 # This is entirely optional; for the time being, I'll restrict the animation to a week's worth of data. Keep in mind that the more data I include, the more time it will take the processing to be done.
 
 # %% gist="select_timeframe.py"
-beginning = datetime.datetime(2022, 5, 7, tzinfo=london_tz)
-end = datetime.datetime(2022, 5, 14, tzinfo=london_tz)
+beginning = london_tz.localize(datetime.datetime(2022, 5, 7))
+end = london_tz.localize(datetime.datetime(2022, 5, 14))
 
 if beginning and end:
     data_to_plot = all_data[(all_data["query_time"] >= beginning) & (all_data["query_time"] <= end)]
@@ -136,7 +136,7 @@ bikepoint_resampled.head()
 # Then I can use `.resample` passing on the value `"15min"` since I want 15-minute intervals. But what resample returns is still not what I am after, I need to specify what to do with the newly resampled times that do not have a value assigned to them, I can use `.median()` to achieve my goal:
 
 # %% gist="resampled_to_15minutes.py" dataframe="resampled_to_15.png"
-bikepoint_resampled = bikepoint_resampled.resample("15min").median()
+bikepoint_resampled = bikepoint_resampled.resample("15min").median(numeric_only=True)
 bikepoint_resampled.head()
 
 # %% [markdown]
@@ -167,7 +167,7 @@ bikepoint_resampled.head()
 def interpolate_bikepoint(dataframe):
     resampled = dataframe.copy()
     resampled = resampled.set_index("query_time")
-    resampled = resampled.resample("15min").median()
+    resampled = resampled.resample("15min").median(numeric_only=True)
     resampled = resampled.interpolate()
     return resampled.reset_index()
 
@@ -236,11 +236,14 @@ utc = pytz.timezone("UTC")
 
 
 def get_colors_by_time(date):
-    date = date.replace(minute=0, hour=0, second=0, microsecond=0, tzinfo=london_tz)
+    if hasattr(date, "tzinfo") and date.tzinfo is not None:
+        date = date.replace(minute=0, hour=0, second=0, microsecond=0)
+    else:
+        date = london_tz.localize(date.replace(minute=0, hour=0, second=0, microsecond=0))
     sun_intervals = get_sun_intervals(date)
 
     # Calculate the time between sun positions in seconds
-    minutes = [math.ceil((t2 - t1).seconds / 60) for t1, t2 in zip(sun_intervals[:-1], sun_intervals[1:])]
+    minutes = [math.ceil((t2 - t1).total_seconds() / 60) for t1, t2 in zip(sun_intervals[:-1], sun_intervals[1:])]
 
     # Change if you want a different colour palette
     darkness = Color("#5D5D5E")
@@ -449,12 +452,12 @@ def show_figure(figure):
 
 
 # %% [markdown]
-# For example, plotting the data corresponding to the 30th of April 2022 at 1:30 PM.
+# For example, plotting the data corresponding to the 7th of May 2022 at 1:30 PM.
 
 # %% gist="sow_figure_test.py" dataframe="single_date_figure.png" image="test_fig.png"
 fig, ax = get_fig_and_ax()
 
-date_to_plot = datetime.datetime(2022, 4, 30, 13, 30, tzinfo=utc)
+date_to_plot = london_tz.localize(datetime.datetime(2022, 5, 7, 13, 30))
 temporary_data = all_data[all_data["query_time"] == date_to_plot]
 
 plot_map(ax, temporary_data, "#F4F6F7")
@@ -539,9 +542,12 @@ animation.save("animation.mp4", fps=15)
 # If all went well, you should see a video playing below:
 
 # %% gist="show_animation.py"
-from IPython.display import Video
+try:
+    from IPython.display import Video
 
-Video("animation.mp4")
+    Video("animation.mp4")
+except ImportError:
+    pass
 
 # %% [markdown]
 # ## Conclusion and resources
