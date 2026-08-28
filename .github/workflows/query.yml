@@ -40,7 +40,7 @@ jobs:
         sparse-checkout: |
           *.py
           stations.csv
-          requirements-query.txt
+          requirements.txt
         sparse-checkout-cone-mode: false
 
     - name: Set up Python
@@ -48,12 +48,12 @@ jobs:
       with:
         python-version: "3.12"
         cache: pip
-        cache-dependency-path: requirements-query.txt
+        cache-dependency-path: requirements.txt
 
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install -r requirements-query.txt
+        pip install -r requirements.txt
 
     - name: Query and publish
       env:

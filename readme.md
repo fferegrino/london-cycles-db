@@ -70,7 +70,7 @@ These are artifacts of the upstream API, kept documented rather than silently pa
 ## Running it
 
 ```sh
-pip install -r requirements-query.txt
+pip install -r requirements.txt
 
 export HF_TOKEN=...                          # write access to the dataset repo
 export HF_DATASET_REPO=feregrino/london-cycles
@@ -80,7 +80,7 @@ python compact.py 2026-08-25                 # merge a day's snapshots
 python backfill.py --dry-run --out /tmp/out   # migrate historical CSVs, locally
 ```
 
-`requirements-viz.txt` covers `animate.py` only; those pins are old and need Python 3.10.
+`viz/requirements-viz.txt` covers `viz/animate.py` only; those pins are old and need Python 3.10.
 
 ## Licence
 
