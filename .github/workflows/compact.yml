@@ -32,3 +32,17 @@ jobs:
         HF_TOKEN: ${{ secrets.HF_TOKEN }}
         HF_DATASET_REPO: ${{ vars.HF_DATASET_REPO }}
       run: uv run --frozen --no-dev compact.py ${{ github.event.inputs.days }}
+
+    - name: Render animation and upload to ImageKit
+      env:
+        HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        HF_DATASET_REPO: ${{ vars.HF_DATASET_REPO }}
+        IMAGEKIT_PRIVATE_KEY: ${{ secrets.IMAGEKIT_PRIVATE_KEY }}
+        IMAGEKIT_PUBLIC_KEY: ${{ secrets.IMAGEKIT_PUBLIC_KEY }}
+        IMAGEKIT_URL_ENDPOINT: ${{ secrets.IMAGEKIT_URL_ENDPOINT }}
+      run: |
+        uv run --frozen --group viz viz/animate.py \
+          --format gif \
+          --output animation.gif \
+          --upload-imagekit \
+          --imagekit-file-name latest.gif

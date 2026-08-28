@@ -1,5 +1,6 @@
 import datetime
 import math
+import os
 from enum import Enum
 from functools import partial
 from pathlib import Path
@@ -22,7 +23,7 @@ from matplotlib.colors import Colormap
 from matplotlib.lines import Line2D
 from matplotlib.offsetbox import AnchoredText
 
-DATASET = "feregrino/london-cycles"
+DATASET = os.environ.get("HF_DATASET_REPO") or "feregrino/london-cycles"
 VIZ_DIR = Path(__file__).parent
 LONDON_TZ = pytz.timezone("Europe/London")
 PADDING = 0.005
@@ -40,6 +41,7 @@ roboto_mono = fm.FontProperties(fname=VIZ_DIR / "Roboto_Mono" / "RobotoMono-Ital
 
 def load_observations(start: datetime.date, end: datetime.date) -> pd.DataFrame:
     """Download one file per day and stack them into a single dataframe."""
+    token = os.environ.get("HF_TOKEN")
     frames = []
     day = start
     while day <= end:
@@ -47,6 +49,7 @@ def load_observations(start: datetime.date, end: datetime.date) -> pd.DataFrame:
             DATASET,
             f"data/year={day:%Y}/month={day:%m}/day={day:%d}/part.csv",
             repo_type="dataset",
+            token=token,
         )
         frames.append(pd.read_csv(path, parse_dates=["query_time"]))
         day += datetime.timedelta(days=1)
@@ -60,8 +63,9 @@ def add_station_attributes(observations: pd.DataFrame) -> pd.DataFrame:
     that has more than one version, so the interval condition is what keeps
     the row count unchanged.
     """
+    token = os.environ.get("HF_TOKEN")
     stations = pd.read_csv(
-        hf_hub_download(DATASET, "stations.csv", repo_type="dataset"),
+        hf_hub_download(DATASET, "stations.csv", repo_type="dataset", token=token),
         parse_dates=["valid_from", "valid_to"],
     )
     merged = observations.merge(
@@ -258,6 +262,47 @@ def render_animation(
         animation.save(str(output_path), fps=fps)
 
 
+def upload_to_imagekit(
+    file_path: Path,
+    file_name: Optional[str] = None,
+    folder: str = "/london-cycles",
+    private_key: Optional[str] = None,
+    url_endpoint: Optional[str] = None,
+    public_key: Optional[str] = None,
+) -> None:
+    from imagekitio import ImageKit
+
+    key = private_key or os.environ.get("IMAGEKIT_PRIVATE_KEY")
+    endpoint = url_endpoint or os.environ.get("IMAGEKIT_URL_ENDPOINT")
+    pub_key = public_key or os.environ.get("IMAGEKIT_PUBLIC_KEY")
+    if not key:
+        raise ValueError(
+            "ImageKit private key not provided. Set IMAGEKIT_PRIVATE_KEY environment variable or pass --imagekit-private-key."
+        )
+
+    ik = ImageKit(private_key=key, base_url=endpoint)
+    target_name = file_name or file_path.name
+
+    print(f"Uploading {file_path} to ImageKit as {target_name} in folder '{folder}'...")
+
+    upload_kwargs = {
+        "file": file_path.read_bytes(),
+        "file_name": target_name,
+        "folder": folder,
+        "use_unique_file_name": False,
+        "overwrite_file": True,
+    }
+    if pub_key:
+        upload_kwargs["public_key"] = pub_key
+
+    upload_response = ik.files.upload(**upload_kwargs)
+    file_url = getattr(upload_response, "url", None)
+    if file_url:
+        print(f"Uploaded successfully to ImageKit: {file_url}")
+    else:
+        print(f"Uploaded successfully to ImageKit: {upload_response}")
+
+
 class OutputFormat(str, Enum):
     mp4 = "mp4"
     gif = "gif"
@@ -304,6 +349,21 @@ def main(
         "--fps",
         help="Frames per second for the output animation.",
     ),
+    upload_imagekit: bool = typer.Option(
+        False,
+        "--upload-imagekit",
+        help="Upload the generated animation to ImageKit.",
+    ),
+    imagekit_folder: str = typer.Option(
+        "/london-cycles",
+        "--imagekit-folder",
+        help="Folder in ImageKit to upload the file to.",
+    ),
+    imagekit_file_name: Optional[str] = typer.Option(
+        None,
+        "--imagekit-file-name",
+        help="File name in ImageKit. Defaults to the output file name.",
+    ),
 ):
     if end_date is None:
         end_d = datetime.date.today() - datetime.timedelta(days=1)
@@ -338,6 +398,13 @@ def main(
         fps=fps,
     )
     print(f"Animation saved to {output_path}")
+
+    if upload_imagekit:
+        upload_to_imagekit(
+            file_path=output_path,
+            file_name=imagekit_file_name,
+            folder=imagekit_folder,
+        )
 
 
 if __name__ == "__main__":
