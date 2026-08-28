@@ -1,17 +1,3 @@
-# /// script
-# requires-python = ">=3.11"
-# dependencies = [
-#     "astral>=3.2",
-#     "colour>=0.1.5",
-#     "geopandas>=1.0.0",
-#     "huggingface_hub>=1.28.0",
-#     "matplotlib>=3.8.0",
-#     "pandas>=2.2.0",
-#     "pytz",
-#     "seaborn>=0.13.0",
-# ]
-# ///
-# -*- coding: utf-8 -*-
 # %%
 import datetime
 from pathlib import Path
@@ -20,6 +6,8 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import pytz
 import seaborn as sns
+# %% gist="read_frames.py" dataframe="initial_data.png"
+from huggingface_hub import hf_hub_download
 
 # %% [markdown]
 # ## Gathering the data
@@ -33,8 +21,6 @@ import seaborn as sns
 #
 # One thing to be aware of: the observation rows carry no coordinates. `lat` and `lon` are attributes of a *station*, not of a measurement, so repeating them on every row was pure duplication and they now live in a separate `stations.csv`. That table is **versioned** — stations do occasionally get relocated or renamed — so every row is valid over a `[valid_from, valid_to)` interval, and I have to pick the version that was current when the observation was taken.
 
-# %% gist="read_frames.py" dataframe="initial_data.png"
-from huggingface_hub import hf_hub_download
 
 DATASET = "feregrino/london-cycles"
 START = datetime.date(2022, 5, 7)
@@ -175,6 +161,7 @@ bikepoint_resampled.head()
 
 # %% [markdown]
 # And to apply those transformations to the whole dataset, the only thing that came to my mind was to create a function that does everything we have been discussing so far:
+
 
 # %% gist="interpolate_function.py"
 def interpolate_bikepoint(dataframe):
@@ -388,7 +375,6 @@ def set_custom_legend(ax: plt.Axes, cmap: Colormap):
 # %% gist="plot_map.py"
 import geopandas as gpd
 
-
 VIZ_DIR = Path(__file__).parent
 
 
@@ -444,6 +430,7 @@ def plot_clock(axes, time_of_day):
 
 # %% [markdown]
 # It is possible to test the above functions by plotting the data for a specific time – to do so, I will create a couple of helper functions:
+
 
 # %% gist="get_fig_and_ax.py"
 def get_fig_and_ax():
@@ -502,6 +489,7 @@ print(times[0], times[-1])
 #  5. Plot the map
 #  6. Add the clock to the map
 #
+
 
 # %% gist="create_frame.py"
 def create_frame(step, ax):

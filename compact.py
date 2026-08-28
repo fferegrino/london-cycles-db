@@ -30,8 +30,9 @@ def day_prefix(day):
 
 
 def day_files(client, prefix):
-    return sorted(path for path in client.list_repo_files(hf_publish.REPO_ID, repo_type="dataset")
-                  if path.startswith(prefix))
+    return sorted(
+        path for path in client.list_repo_files(hf_publish.REPO_ID, repo_type="dataset") if path.startswith(prefix)
+    )
 
 
 def read_remote(path):
@@ -43,8 +44,8 @@ def read_remote(path):
 def compact(day, client):
     prefix = day_prefix(day)
     paths = day_files(client, prefix)
-    snapshots = [p for p in paths if SNAPSHOT_RE.match(p[len(prefix):])]
-    existing = [p for p in paths if p[len(prefix):] == COMPACTED]
+    snapshots = [p for p in paths if SNAPSHOT_RE.match(p[len(prefix) :])]
+    existing = [p for p in paths if p[len(prefix) :] == COMPACTED]
 
     if not snapshots:
         print(f"{day}: nothing to compact ({len(paths)} file(s) present)")
@@ -71,8 +72,9 @@ def compact(day, client):
         f"Compact {day} ({snapshot_count} snapshots, {len(ordered)} rows, {len(snapshots)} files merged)",
         client=client,
     )
-    print(f"{day}: merged {len(snapshots)} file(s) -> {COMPACTED} "
-          f"({snapshot_count} snapshots, {len(ordered)} rows)")
+    print(
+        f"{day}: merged {len(snapshots)} file(s) -> {COMPACTED} " f"({snapshot_count} snapshots, {len(ordered)} rows)"
+    )
 
 
 def main(argv):

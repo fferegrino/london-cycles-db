@@ -14,9 +14,10 @@ import csv
 import io
 from datetime import datetime, timezone
 
+from tfl.api import bike_point
+
 import hf_publish
 import stations
-from tfl.api import bike_point
 
 HEADERS = ["query_time", "place_id", "bikes", "empty_docks", "docks"]
 

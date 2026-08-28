@@ -89,21 +89,22 @@ def convert_day(day, path, data_dir="data", seed=None):
             if key in seen:
                 continue
             seen.add(key)
-            rows.append({
-                "query_time": timestamp,
-                "place_id": place_id,
-                "bikes": row.get("bikes", ""),
-                "empty_docks": row.get("empty_docks", ""),
-                "docks": row.get("docks", ""),
-            })
+            rows.append(
+                {
+                    "query_time": timestamp,
+                    "place_id": place_id,
+                    "bikes": row.get("bikes", ""),
+                    "empty_docks": row.get("empty_docks", ""),
+                    "docks": row.get("docks", ""),
+                }
+            )
             if place_id not in observed:
                 extra = attributes.get(place_id) or seed.get(place_id) or {}
                 observed[place_id] = {
                     "common_name": extra.get("common_name", ""),
                     "lat": row.get("lat", ""),
                     "lon": row.get("lon", ""),
-                    **{k: extra.get(k, "") for k in stations.ATTRIBUTES
-                       if k not in ("common_name", "lat", "lon")},
+                    **{k: extra.get(k, "") for k in stations.ATTRIBUTES if k not in ("common_name", "lat", "lon")},
                 }
 
     rows.sort(key=lambda r: (r["query_time"], r["place_id"]))
@@ -136,6 +137,7 @@ def main():
 
     if not args.dry_run:
         import hf_publish
+
         client = hf_publish.api()
 
     def flush(label):
@@ -161,8 +163,7 @@ def main():
         payload, count, observed = convert_day(day, path, args.data_dir, seed)
         history, _ = stations.apply_observations(history, observed, day.isoformat())
 
-        path_in_repo = (f"data/year={day.year:04d}/month={day.month:02d}"
-                        f"/day={day.day:02d}/part.csv")
+        path_in_repo = f"data/year={day.year:04d}/month={day.month:02d}" f"/day={day.day:02d}/part.csv"
         pending.append((path_in_repo, payload))
 
         totals["days"] += 1
@@ -181,18 +182,22 @@ def main():
     stations.write_history(history, stations_path)
     if not args.dry_run:
         with open(stations_path, newline="") as handle:
-            hf_publish.commit([hf_publish.add("stations.csv", handle.read())],
-                              f"Station history ({len(history)} versions)", client=client)
+            hf_publish.commit(
+                [hf_publish.add("stations.csv", handle.read())],
+                f"Station history ({len(history)} versions)",
+                client=client,
+            )
 
     versions = len(history)
     ids = len({row["place_id"] for row in history})
     print(f"\ndays        : {totals['days']:,}")
     print(f"rows        : {totals['rows']:,}")
     print(f"input       : {totals['in_bytes']/1e9:.2f} GB")
-    print(f"output      : {totals['out_bytes']/1e9:.2f} GB "
-          f"({totals['in_bytes']/max(totals['out_bytes'],1):.2f}x smaller)")
-    print(f"stations    : {ids} distinct, {versions} versions "
-          f"({versions - ids} attribute change(s) captured)")
+    print(
+        f"output      : {totals['out_bytes']/1e9:.2f} GB "
+        f"({totals['in_bytes']/max(totals['out_bytes'],1):.2f}x smaller)"
+    )
+    print(f"stations    : {ids} distinct, {versions} versions " f"({versions - ids} attribute change(s) captured)")
 
 
 if __name__ == "__main__":
