@@ -42,6 +42,7 @@ jobs:
       run: |
         uv run --frozen --group viz viz/animate.py \
           --format gif \
+          --days 3 \
           --interval 1h \
           --fps 10 \
           --output animation.gif \

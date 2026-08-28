@@ -356,7 +356,13 @@ def main(
         "--start-date",
         "-s",
         formats=["%Y-%m-%d", "%Y-%m-%dT%H:%M:%S"],
-        help="Start date (YYYY-MM-DD). Defaults to end date minus 7 days.",
+        help="Start date (YYYY-MM-DD). Defaults to end date minus `days`.",
+    ),
+    days: int = typer.Option(
+        3,
+        "--days",
+        "-d",
+        help="Number of days to animate if start date is omitted.",
     ),
     day_night: bool = typer.Option(
         True,
@@ -401,7 +407,7 @@ def main(
         end_d = end_date.date()
 
     if start_date is None:
-        start_d = end_d - datetime.timedelta(days=7)
+        start_d = end_d - datetime.timedelta(days=days)
     else:
         start_d = start_date.date()
 

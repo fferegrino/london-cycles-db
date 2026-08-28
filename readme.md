@@ -2,7 +2,7 @@
 
 15-minute snapshots of every docking station in London's cycle hire scheme, collected from the [TfL BikePoint API](https://api.tfl.gov.uk/) since **2022-04-29**.
 
-![London Cycle Hire Network Usage Animation](https://ik.imagekit.io/thatcsharpguy/projects/london-cycles-db/latest.gif?tr=f-webp)
+![London Cycle Hire Network Usage Animation](https://ik.imagekit.io/thatcsharpguy/projects/london-cycles-db/latest.gif)
 
 Data is published to the Hugging Face Hub: **[`feregrino/london-cycles`](https://huggingface.co/datasets/feregrino/london-cycles)**. This repository holds the collection code and the station reference table; it does not hold the observations.
 
