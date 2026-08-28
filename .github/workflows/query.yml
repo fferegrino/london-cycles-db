@@ -32,28 +32,12 @@ jobs:
     timeout-minutes: 70
 
     steps:
-    # Fetch only what the job needs. This is what took the run from ~17 minutes
-    # (16m38s of it checking out the old data/ tree) down to seconds.
     - uses: actions/checkout@v4
-      with:
-        filter: blob:none
-        sparse-checkout: |
-          *.py
-          stations.csv
-          requirements.txt
-        sparse-checkout-cone-mode: false
 
-    - name: Set up Python
-      uses: actions/setup-python@v5
+    - name: Install uv
+      uses: astral-sh/setup-uv@v5
       with:
-        python-version: "3.12"
-        cache: pip
-        cache-dependency-path: requirements.txt
-
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
+        enable-cache: true
 
     - name: Query and publish
       env:
@@ -68,7 +52,7 @@ jobs:
         failures=0
 
         for i in $(seq 1 "$SNAPSHOTS"); do
-          if python dataset.py; then
+          if uv run --frozen --no-dev dataset.py; then
             echo "snapshot $i/$SNAPSHOTS published"
             # Ping per snapshot, not just per run: a four-snapshot backstop run
             # takes 45 minutes, which on its own would look like silence to a

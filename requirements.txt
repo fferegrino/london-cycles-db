@@ -1,4 +1,0 @@
-# Dependencies for dataset.py (the every-15-minutes TfL query) and for
-# compact.py / backfill.py. Deliberately minimal: pure-Python, no build step.
-mind-the-gap==2.1.1
-huggingface_hub==1.28.0

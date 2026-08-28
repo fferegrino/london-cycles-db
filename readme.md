@@ -70,23 +70,21 @@ These are artifacts of the upstream API, kept documented rather than silently pa
 ## Running it
 
 ```sh
-pip install -r requirements.txt
+uv sync
 
 export HF_TOKEN=...                          # write access to the dataset repo
 export HF_DATASET_REPO=feregrino/london-cycles
 
-python dataset.py                            # publish one snapshot
-python compact.py 2026-08-25                 # merge a day's snapshots
-python backfill.py --dry-run --out /tmp/out   # migrate historical CSVs, locally
+uv run dataset.py                            # publish one snapshot
+uv run compact.py 2026-08-25                 # merge a day's snapshots
+uv run backfill.py --dry-run --out /tmp/out   # migrate historical CSVs, locally
 ```
 
-To run the visualization animation with `uv`:
+To run the visualization animation:
 
 ```sh
-uv run viz/animate.py
+uv run --group viz viz/animate.py
 ```
-
-`viz/requirements-viz.txt` is also available if you prefer installing dependencies into an existing virtual environment with `uv pip install -r viz/requirements-viz.txt`.
 
 ## Licence
 

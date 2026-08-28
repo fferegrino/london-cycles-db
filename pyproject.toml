@@ -1,0 +1,26 @@
+[project]
+name = "london-cycles-db"
+version = "0.1.0"
+description = "London cycle hire docking station data collector and archive"
+readme = "readme.md"
+requires-python = ">=3.11"
+dependencies = [
+    "mind-the-gap==2.1.1",
+    "huggingface-hub>=1.28.0",
+]
+
+[dependency-groups]
+dev = [
+    "black>=24.0.0",
+    "isort>=5.13.0",
+]
+viz = [
+    "astral>=3.2",
+    "colour>=0.1.5",
+    "geopandas>=1.0.0",
+    "huggingface-hub>=1.28.0",
+    "matplotlib>=3.8.0",
+    "pandas>=2.2.0",
+    "pytz",
+    "seaborn>=0.13.0",
+]
