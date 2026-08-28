@@ -23,4 +23,5 @@ viz = [
     "pandas>=2.2.0",
     "pytz",
     "seaborn>=0.13.0",
+    "typer>=0.27.1",
 ]
