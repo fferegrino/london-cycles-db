@@ -364,12 +364,12 @@ def main(
         help="Whether to animate the background colour based on day/night sunlight in London.",
     ),
     fps: int = typer.Option(
-        15,
+        10,
         "--fps",
         help="Frames per second for the output animation.",
     ),
     interval: str = typer.Option(
-        "30min",
+        "1h",
         "--interval",
         "-i",
         help="Time resampling interval (e.g. 15min, 30min, 1h).",
