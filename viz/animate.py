@@ -1,6 +1,20 @@
+# /// script
+# requires-python = ">=3.11"
+# dependencies = [
+#     "astral>=3.2",
+#     "colour>=0.1.5",
+#     "geopandas>=1.0.0",
+#     "huggingface_hub>=1.28.0",
+#     "matplotlib>=3.8.0",
+#     "pandas>=2.2.0",
+#     "pytz",
+#     "seaborn>=0.13.0",
+# ]
+# ///
 # -*- coding: utf-8 -*-
 # %%
 import datetime
+from pathlib import Path
 
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -375,13 +389,16 @@ def set_custom_legend(ax: plt.Axes, cmap: Colormap):
 import geopandas as gpd
 
 
+VIZ_DIR = Path(__file__).parent
+
+
 def plot_map(ax, cycles_info, map_color):
     # Calculate & set map boundaries
     min_x, max_x, min_y, max_y = prepare_axes(ax, cycles_info)
 
     # Get external resources
     cmap = plt.get_cmap("OrRd")
-    london_map = gpd.read_file("shapefiles/London_Borough_Excluding_MHW.shp").to_crs(epsg=4326)
+    london_map = gpd.read_file(VIZ_DIR / "shapefiles" / "London_Borough_Excluding_MHW.shp").to_crs(epsg=4326)
 
     # Plot elements
     ax.fill_between([min_x, max_x], min_y, max_y, color="#9CC0F9")
@@ -403,7 +420,7 @@ def plot_map(ax, cycles_info, map_color):
 import matplotlib.patches as patches
 from matplotlib import font_manager as fm
 
-roboto_mono = fm.FontProperties(fname="Roboto_Mono/RobotoMono-Italic-VariableFont_wght.ttf", size=30)
+roboto_mono = fm.FontProperties(fname=VIZ_DIR / "Roboto_Mono" / "RobotoMono-Italic-VariableFont_wght.ttf", size=30)
 
 
 def plot_clock(axes, time_of_day):

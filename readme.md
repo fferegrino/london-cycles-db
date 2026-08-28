@@ -80,7 +80,13 @@ python compact.py 2026-08-25                 # merge a day's snapshots
 python backfill.py --dry-run --out /tmp/out   # migrate historical CSVs, locally
 ```
 
-`viz/requirements-viz.txt` covers `viz/animate.py` only; those pins are old and need Python 3.10.
+To run the visualization animation with `uv`:
+
+```sh
+uv run viz/animate.py
+```
+
+`viz/requirements-viz.txt` is also available if you prefer installing dependencies into an existing virtual environment with `uv pip install -r viz/requirements-viz.txt`.
 
 ## Licence
 
