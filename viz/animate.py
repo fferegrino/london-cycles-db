@@ -16,7 +16,8 @@ import typer
 from astral import LocationInfo
 from astral.sun import sun
 from colour import Color
-from huggingface_hub import hf_hub_download
+from huggingface_hub import HfApi, hf_hub_download
+from huggingface_hub.utils import EntryNotFoundError
 from matplotlib import font_manager as fm
 from matplotlib.animation import FuncAnimation
 from matplotlib.colors import Colormap
@@ -42,17 +43,33 @@ roboto_mono = fm.FontProperties(fname=VIZ_DIR / "Roboto_Mono" / "RobotoMono-Ital
 def load_observations(start: datetime.date, end: datetime.date) -> pd.DataFrame:
     """Download one file per day and stack them into a single dataframe."""
     token = os.environ.get("HF_TOKEN")
+    api = HfApi(token=token)
     frames = []
     day = start
     while day <= end:
-        path = hf_hub_download(
-            DATASET,
-            f"data/year={day:%Y}/month={day:%m}/day={day:%d}/part.csv",
-            repo_type="dataset",
-            token=token,
-        )
-        frames.append(pd.read_csv(path, parse_dates=["query_time"]))
+        try:
+            path = hf_hub_download(
+                DATASET,
+                f"data/year={day:%Y}/month={day:%m}/day={day:%d}/part.csv",
+                repo_type="dataset",
+                token=token,
+            )
+            frames.append(pd.read_csv(path, parse_dates=["query_time"]))
+        except EntryNotFoundError:
+            prefix = f"data/year={day:%Y}/month={day:%m}/day={day:%d}/"
+            try:
+                day_files = sorted(f for f in api.list_repo_files(DATASET, repo_type="dataset") if f.startswith(prefix))
+            except Exception:
+                day_files = []
+            if day_files:
+                for f in day_files:
+                    p = hf_hub_download(DATASET, f, repo_type="dataset", token=token)
+                    frames.append(pd.read_csv(p, parse_dates=["query_time"]))
+            else:
+                print(f"Warning: No observation data found for {day:%Y-%m-%d}")
         day += datetime.timedelta(days=1)
+    if not frames:
+        return pd.DataFrame(columns=["query_time", "place_id", "bikes", "empty_docks", "docks"])
     return pd.concat(frames, ignore_index=True)
 
 
@@ -80,20 +97,22 @@ def add_station_attributes(observations: pd.DataFrame) -> pd.DataFrame:
     return merged[is_current].drop(columns=["valid_from", "valid_to"]).reset_index(drop=True)
 
 
-def interpolate_bikepoint(dataframe: pd.DataFrame) -> pd.DataFrame:
+def interpolate_bikepoint(dataframe: pd.DataFrame, interval: str = "15min") -> pd.DataFrame:
     resampled = dataframe.copy()
     resampled = resampled.set_index("query_time")
-    resampled = resampled.resample("15min").median(numeric_only=True)
+    resampled = resampled.resample(interval).median(numeric_only=True)
     resampled = resampled.interpolate()
     return resampled.reset_index()
 
 
-def prepare_dataset(start_date: datetime.date, end_date: datetime.date) -> tuple[pd.DataFrame, list[pd.Timestamp]]:
+def prepare_dataset(
+    start_date: datetime.date, end_date: datetime.date, interval: str = "15min"
+) -> tuple[pd.DataFrame, list[pd.Timestamp]]:
     observations = load_observations(start_date, end_date)
     all_data = add_station_attributes(observations)
 
     all_data["query_time"] = pd.to_datetime(
-        all_data["query_time"].dt.tz_localize("utc").dt.tz_convert(LONDON_TZ).dt.floor("15min")
+        all_data["query_time"].dt.tz_localize("utc").dt.tz_convert(LONDON_TZ).dt.floor(interval)
     )
     all_data["proportion"] = (all_data["docks"] - all_data["empty_docks"]) / all_data["docks"]
 
@@ -105,7 +124,7 @@ def prepare_dataset(start_date: datetime.date, end_date: datetime.date) -> tuple
     all_bikepoints = data_to_plot["place_id"].unique()
     resampled_frames = []
     for bikepoint in all_bikepoints:
-        resampled = interpolate_bikepoint(data_to_plot[data_to_plot["place_id"] == bikepoint])
+        resampled = interpolate_bikepoint(data_to_plot[data_to_plot["place_id"] == bikepoint], interval=interval)
         resampled["place_id"] = bikepoint
         resampled_frames.append(resampled)
 
@@ -218,8 +237,8 @@ def plot_clock(axes: plt.Axes, time_of_day: datetime.datetime):
     axes.text(clock_center[0], clock_center[1] - 0.004, text_time, fontsize=20, ha="center", fontproperties=roboto_mono)
 
 
-def get_fig_and_ax():
-    fig = plt.Figure(figsize=(6, 4), dpi=170, frameon=False)
+def get_fig_and_ax(dpi: int = 100):
+    fig = plt.Figure(figsize=(6, 4), dpi=dpi, frameon=False)
     ax = plt.Axes(fig, [0.0, 0.0, 1.0, 1.0])
     fig.add_axes(ax)
     return fig, ax
@@ -231,8 +250,9 @@ def render_animation(
     output_path: Path,
     day_night: bool = True,
     fps: int = 15,
+    dpi: int = 100,
 ):
-    fig, ax = get_fig_and_ax()
+    fig, ax = get_fig_and_ax(dpi=dpi)
     london_map = gpd.read_file(VIZ_DIR / "shapefiles" / "London_Borough_Excluding_MHW.shp").to_crs(epsg=4326)
 
     cached_colors: dict[datetime.date, dict[datetime.datetime, str]] = {}
@@ -257,38 +277,37 @@ def render_animation(
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
     if output_path.suffix.lower() == ".gif":
-        animation.save(str(output_path), writer="pillow", fps=fps)
+        animation.save(str(output_path), writer="pillow", fps=fps, dpi=dpi)
     else:
-        animation.save(str(output_path), fps=fps)
+        animation.save(str(output_path), fps=fps, dpi=dpi)
 
 
 def upload_to_imagekit(
     file_path: Path,
     file_name: Optional[str] = None,
-    folder: str = "/london-cycles",
+    folder: str = "/london-cycles-db",
     private_key: Optional[str] = None,
-    url_endpoint: Optional[str] = None,
     public_key: Optional[str] = None,
 ) -> None:
     from imagekitio import ImageKit
 
     key = private_key or os.environ.get("IMAGEKIT_PRIVATE_KEY")
-    endpoint = url_endpoint or os.environ.get("IMAGEKIT_URL_ENDPOINT")
     pub_key = public_key or os.environ.get("IMAGEKIT_PUBLIC_KEY")
     if not key:
         raise ValueError(
             "ImageKit private key not provided. Set IMAGEKIT_PRIVATE_KEY environment variable or pass --imagekit-private-key."
         )
 
-    ik = ImageKit(private_key=key, base_url=endpoint)
+    ik = ImageKit(private_key=key)
     target_name = file_name or file_path.name
+    normalized_folder = f"/{folder.strip('/')}" if folder else "/"
 
-    print(f"Uploading {file_path} to ImageKit as {target_name} in folder '{folder}'...")
+    print(f"Uploading {file_path} to ImageKit as {target_name} in folder '{normalized_folder}'...")
 
     upload_kwargs = {
         "file": file_path.read_bytes(),
         "file_name": target_name,
-        "folder": folder,
+        "folder": normalized_folder,
         "use_unique_file_name": False,
         "overwrite_file": True,
     }
@@ -349,13 +368,24 @@ def main(
         "--fps",
         help="Frames per second for the output animation.",
     ),
+    interval: str = typer.Option(
+        "30min",
+        "--interval",
+        "-i",
+        help="Time resampling interval (e.g. 15min, 30min, 1h).",
+    ),
+    dpi: int = typer.Option(
+        100,
+        "--dpi",
+        help="DPI resolution for the animation output.",
+    ),
     upload_imagekit: bool = typer.Option(
         False,
         "--upload-imagekit",
         help="Upload the generated animation to ImageKit.",
     ),
     imagekit_folder: str = typer.Option(
-        "/london-cycles",
+        "/london-cycles-db",
         "--imagekit-folder",
         help="Folder in ImageKit to upload the file to.",
     ),
@@ -383,19 +413,20 @@ def main(
             output_path = output_path.with_suffix(f".{format.value}")
 
     print(f"Loading data from {start_d} to {end_d}...")
-    data_to_plot, times = prepare_dataset(start_d, end_d)
+    data_to_plot, times = prepare_dataset(start_d, end_d, interval=interval)
 
     if not times:
         typer.echo("No observation data found for the given date range.", err=True)
         raise typer.Exit(code=1)
 
-    print(f"Rendering {len(times)} frames to {output_path} (day_night={day_night}, fps={fps})...")
+    print(f"Rendering {len(times)} frames to {output_path} (day_night={day_night}, fps={fps}, dpi={dpi})...")
     render_animation(
         data_to_plot=data_to_plot,
         times=times,
         output_path=output_path,
         day_night=day_night,
         fps=fps,
+        dpi=dpi,
     )
     print(f"Animation saved to {output_path}")
 
