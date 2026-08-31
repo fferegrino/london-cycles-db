@@ -71,15 +71,17 @@ These are artifacts of the upstream API, kept documented rather than silently pa
 
 ## Running it
 
+Collection and processing code lives in the `london_cycles_db` package under `src/` (`dataset.py` polls TfL, `compact.py` merges a day's snapshots, `stations.py` maintains the version table, `hf_publish.py` wraps the Hub commits, `backfill.py` is the one-off migration). Visualization lives in `viz/`.
+
 ```sh
 uv sync
 
 export HF_TOKEN=...                          # write access to the dataset repo
 export HF_DATASET_REPO=feregrino/london-cycles
 
-uv run dataset.py                            # publish one snapshot
-uv run compact.py 2026-08-25                 # merge a day's snapshots
-uv run backfill.py --dry-run --out /tmp/out   # migrate historical CSVs, locally
+uv run -m london_cycles_db.dataset                             # publish one snapshot
+uv run -m london_cycles_db.compact 2026-08-25                  # merge a day's snapshots
+uv run -m london_cycles_db.backfill --dry-run --out /tmp/out   # migrate historical CSVs, locally
 ```
 
 To run the visualization animation:

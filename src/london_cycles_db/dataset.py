@@ -5,7 +5,7 @@ HuggingFace dataset and never rewrites anything, so the work per run does not
 grow with the size of the dataset.
 
 Fact rows carry no lat/lon -- those are station attributes and live in the
-versioned ``stations.csv`` (see stations.py). Timestamps are whole seconds:
+versioned ``stations.csv`` (see ``src/london_cycles_db/stations.py``). Timestamps are whole seconds:
 the old microsecond precision was a single snapshot time stamped onto ~800
 rows, so the extra digits were noise rather than resolution.
 """
@@ -16,8 +16,7 @@ from datetime import datetime, timezone
 
 from tfl.api import bike_point
 
-import hf_publish
-import stations
+from london_cycles_db import hf_publish, stations
 
 HEADERS = ["query_time", "place_id", "bikes", "empty_docks", "docks"]
 

@@ -11,8 +11,8 @@ For each historical day it:
 Commits are batched, since 1,581 separate commits would be unkind to the Hub.
 
 Usage:
-    python backfill.py --dry-run --out /tmp/out    # verify locally, no upload
-    python backfill.py                             # upload to the Hub
+    python -m london_cycles_db.backfill --dry-run --out /tmp/out    # verify locally, no upload
+    python -m london_cycles_db.backfill                             # upload to the Hub
 """
 
 import argparse
@@ -24,7 +24,7 @@ from datetime import date
 from glob import glob
 from pathlib import Path
 
-import stations
+from london_cycles_db import stations
 
 DAILY_RE = re.compile(r"^data/(\d{4})-(\d{2})-(\d{2})\.csv$")
 HEADERS = ["query_time", "place_id", "bikes", "empty_docks", "docks"]
@@ -136,7 +136,7 @@ def main():
     totals = {"days": 0, "rows": 0, "in_bytes": 0, "out_bytes": 0}
 
     if not args.dry_run:
-        import hf_publish
+        from london_cycles_db import hf_publish
 
         client = hf_publish.api()
 

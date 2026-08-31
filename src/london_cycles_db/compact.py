@@ -6,7 +6,7 @@ file. It runs as a *single* commit that adds the compacted file and deletes the
 snapshots together, so there is no window in which the day's data is missing or
 duplicated.
 
-Usage:  python compact.py [YYYY-MM-DD ...]
+Usage:  python -m london_cycles_db.compact [YYYY-MM-DD ...]
 Default: yesterday (UTC), since today is still accumulating snapshots.
 """
 
@@ -18,8 +18,8 @@ from datetime import datetime, timedelta, timezone
 
 from huggingface_hub import hf_hub_download
 
-import hf_publish
-from dataset import HEADERS
+from london_cycles_db import hf_publish
+from london_cycles_db.dataset import HEADERS
 
 COMPACTED = "part.csv"
 SNAPSHOT_RE = re.compile(r"^\d{6}\.csv$")
