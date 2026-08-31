@@ -649,7 +649,7 @@ dependencies = [
 [package.metadata]
 requires-dist = [
     { name = "huggingface-hub", specifier = ">=1.28.0" },
-    { name = "mind-the-gap", specifier = "==2.1.1" },
+    { name = "mind-the-gap", specifier = "==2.1.2" },
 ]
 
 [[package]]
@@ -729,14 +729,14 @@ wheels = [
 
 [[package]]
 name = "mind-the-gap"
-version = "2.1.1"
+version = "2.1.2"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "requests" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/ac/09/aa7ab04c1b8ecca7e9bf4d85350d3f1ec55ef31a900e49ae8d055ff1c6d2/mind-the-gap-2.1.1.tar.gz", hash = "sha256:23c28bac93605e1184b19965d5a2c479db06932fb872be445b8192a25a7ff27c", size = 6243, upload-time = "2021-09-04T15:54:32.981Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/97/51/6ff06d76ca7b700903da10a7681ce308605cd408aa7c10f7011011d63857/mind_the_gap-2.1.2.tar.gz", hash = "sha256:0f8f5f423d705aca1912a9cdc48024b617f547e8a9699d730fac4d226638e38b", size = 4290, upload-time = "2024-11-28T20:48:45.158Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/2e/de/c3fe162d77b0ca014cb53d2fb107bf1c4197edcd0774f8abead90b4f30fc/mind_the_gap-2.1.1-py3-none-any.whl", hash = "sha256:a9ab372f445ee919f16f44b1799d21241df4f9b4367b9463397c6f48f705fa03", size = 10330, upload-time = "2021-09-04T15:54:34.145Z" },
+    { url = "https://files.pythonhosted.org/packages/3e/f3/8ab0ef0c3b9a1ef1f8bce00e98853b33937301d313786cc61a4e0ae1e973/mind_the_gap-2.1.2-py3-none-any.whl", hash = "sha256:4017bd4279cbb9297ae8edc33540126ad7a86385465308ea925e38978c325f5e", size = 8395, upload-time = "2024-11-28T20:48:43.722Z" },
 ]
 
 [[package]]
