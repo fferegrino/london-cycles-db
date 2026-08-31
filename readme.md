@@ -4,7 +4,50 @@
 
 ![London Cycle Hire Network Usage Animation](https://ik.imagekit.io/thatcsharpguy/projects/london-cycles-db/latest.gif)
 
-Data is published to the Hugging Face Hub: **[`feregrino/london-cycles`](https://huggingface.co/datasets/feregrino/london-cycles)**. This repository holds the collection code and the station reference table; it does not hold the observations.
+Data is published to the Hugging Face Hub: **[`feregrino/london-cycles`](https://huggingface.co/datasets/feregrino/london-cycles)**. This repository holds the reader package, the collection code, and the station reference table; it does not hold the observations.
+
+## Reading the data
+
+```bash
+pip install london-cycles
+```
+
+Only `huggingface_hub` is required. Set `HF_TOKEN` if you point `repo_id=` at a private fork; the cycles dataset itself is public.
+
+```python
+from london_cycles import stream, stations, jitter_events
+
+for event in stream(start="2023-07-01", end="2023-07-02"):
+    print(event)  # {'place_id': 'BikePoints_1', 'query_time': ..., 'bikes': 12, ...}
+```
+
+### Streaming a range
+
+The full history runs to hundreds of millions of rows, so `stream` takes inclusive day bounds and fetches one file at a time rather than snapshotting the repo. Files arrive in chronological order and are cached under `HF_HOME`, so a re-run reads from disk. Bounds select whole days; they do not trim rows inside a day.
+
+```python
+list_files(start="2023-07-01", end="2023-07-31")  # what would be read
+stream(loop=True)  # replay forever, for a demo feed
+stream_local("./mirror")  # a local copy of the same layout
+```
+
+### Station attributes
+
+`stations()` returns one row per station per version, oldest first, valid over `[valid_from, valid_to)`; see [`stations.csv`](#stationscsv) below for the columns. Resolving a fact row to its coordinates is an as-of join on `query_time` against that interval.
+
+```python
+stations()  # [{'place_id': 'BikePoints_14', 'valid_from': '2022-04-29', 'valid_to': '2023-07-18', ...}]
+```
+
+### Jitter
+
+Every station in a poll is stamped with the same `query_time`, to the second, which makes event-time windows degenerate — each one holds a single instant. `jitter_events` nudges each row forward by up to `spread` seconds, derived from a hash of `(seed, place_id, query_time)`:
+
+```python
+jitter_events(stream(start="2023-07-01"), spread=45.0)
+```
+
+The offset is reproducible (a pure function of the row, so a second reader sees the same instants) and forward-only, so as long as `spread` stays under the 15-minute polling interval, event time still advances across the replay. Downstream watermark tolerance has to be at least `spread`. Pass `spread=0` to replay the stored timestamps verbatim.
 
 ## Layout
 
@@ -69,12 +112,22 @@ These are artifacts of the upstream API, kept documented rather than silently pa
 - **Gaps.** Snapshots are taken every 15 minutes, but the count per day varies and you should never assume a fixed cadence. Collection runs on GitHub Actions, whose `schedule` events are best-effort: delayed triggers are dropped rather than backfilled. Asking for 96 triggers a day yielded about 26, so the job is now triggered hourly and takes four snapshots per run, which needs GitHub to honour one trigger an hour instead of four. Historic coverage is worse than current: 2022-2024 averaged ~85-95 snapshots/day, 2025 ~65, and early 2026 fell as low as ~16/day before the collection job was repaired.
 - **`locked` is not recorded.** It is live dock status rather than a station attribute, and flips constantly (32,794 changes across the history, against 34 for coordinates). It was excluded rather than pollute the version table.
 
-## Running it
+## Collecting the data
 
-Collection and processing code lives in the `london_cycles_db` package under `src/` (`dataset.py` polls TfL, `compact.py` merges a day's snapshots, `stations.py` maintains the version table, `hf_publish.py` wraps the Hub commits, `backfill.py` is the one-off migration). Visualization lives in `viz/`.
+The `london_cycles` package above reads the archive; `london_cycles_db` writes it. The repository is a uv workspace so the two stay separate distributions — the collector lives in `collector/`, is never published, and its TfL dependency never reaches anyone installing the reader.
+
+| module | role |
+|---|---|
+| `london_cycles_db.dataset` | polls TfL and publishes one snapshot |
+| `london_cycles_db.compact` | merges a day's snapshots into `part.csv` |
+| `london_cycles_db.stations` | maintains the versioned station table |
+| `london_cycles_db.hf_publish` | wraps the Hub commits |
+| `london_cycles_db.backfill` | one-off migration of the original git-stored CSVs |
+
+Visualization lives in `viz/`.
 
 ```sh
-uv sync
+uv sync --all-packages
 
 export HF_TOKEN=...                          # write access to the dataset repo
 export HF_DATASET_REPO=feregrino/london-cycles
@@ -89,6 +142,16 @@ To run the visualization animation:
 ```sh
 uv run --group viz viz/animate.py
 ```
+
+## Development
+
+```sh
+make fmt     # ruff format + ruff check --fix
+make lint    # check without writing
+make test    # pytest over tests/ (the Hub is stubbed, nothing reaches the network)
+```
+
+`uv build` produces the reader alone; `london_cycles_db` is excluded by construction, since it is a separate project under `collector/`.
 
 ## Licence
 

@@ -4,10 +4,8 @@ import os
 from enum import Enum
 from functools import partial
 from pathlib import Path
-from typing import Optional
 
 import geopandas as gpd
-import matplotlib.patches as patches
 import matplotlib.pyplot as plt
 import pandas as pd
 import pytz
@@ -19,6 +17,7 @@ from colour import Color
 from huggingface_hub import HfApi, hf_hub_download
 from huggingface_hub.utils import EntryNotFoundError
 from matplotlib import font_manager as fm
+from matplotlib import patches
 from matplotlib.animation import FuncAnimation
 from matplotlib.colors import Colormap
 from matplotlib.lines import Line2D
@@ -284,10 +283,10 @@ def render_animation(
 
 def upload_to_imagekit(
     file_path: Path,
-    file_name: Optional[str] = None,
+    file_name: str | None = None,
     folder: str = "/projects/london-cycles-db",
-    private_key: Optional[str] = None,
-    public_key: Optional[str] = None,
+    private_key: str | None = None,
+    public_key: str | None = None,
 ) -> None:
     from imagekitio import ImageKit
 
@@ -332,7 +331,7 @@ app = typer.Typer(help="Animate London cycle network usage over time.")
 
 @app.command()
 def main(
-    output: Optional[Path] = typer.Option(
+    output: Path | None = typer.Option(
         None,
         "--output",
         "-o",
@@ -344,14 +343,14 @@ def main(
         "-f",
         help="Animation format: mp4 or gif.",
     ),
-    end_date: Optional[datetime.datetime] = typer.Option(
+    end_date: datetime.datetime | None = typer.Option(
         None,
         "--end-date",
         "-e",
         formats=["%Y-%m-%d", "%Y-%m-%dT%H:%M:%S"],
         help="End date (YYYY-MM-DD). Defaults to yesterday.",
     ),
-    start_date: Optional[datetime.datetime] = typer.Option(
+    start_date: datetime.datetime | None = typer.Option(
         None,
         "--start-date",
         "-s",
@@ -395,7 +394,7 @@ def main(
         "--imagekit-folder",
         help="Folder in ImageKit to upload the file to.",
     ),
-    imagekit_file_name: Optional[str] = typer.Option(
+    imagekit_file_name: str | None = typer.Option(
         None,
         "--imagekit-file-name",
         help="File name in ImageKit. Defaults to the output file name.",

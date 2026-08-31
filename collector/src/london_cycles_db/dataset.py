@@ -12,7 +12,7 @@ rows, so the extra digits were noise rather than resolution.
 
 import csv
 import io
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 
 from tfl.api import bike_point
 
@@ -60,7 +60,7 @@ def to_csv(rows):
 def main():
     # Naive UTC, whole seconds -- same shape as the existing history, no
     # +00:00 suffix, and no datetime.utcnow() deprecation warning.
-    execution_time = datetime.now(timezone.utc).replace(microsecond=0, tzinfo=None)
+    execution_time = datetime.now(UTC).replace(microsecond=0, tzinfo=None)
 
     bike_points = bike_point.all()
     if not bike_points:

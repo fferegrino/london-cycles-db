@@ -145,7 +145,7 @@ def main():
         if not pending:
             return
         size = sum(len(payload) for _, payload in pending)
-        print(f"  {label}: {len(pending)} file(s), {size/1e6:.1f} MB", flush=True)
+        print(f"  {label}: {len(pending)} file(s), {size / 1e6:.1f} MB", flush=True)
         if args.dry_run:
             for path_in_repo, payload in pending:
                 target = Path(args.out, path_in_repo)
@@ -163,7 +163,7 @@ def main():
         payload, count, observed = convert_day(day, path, args.data_dir, seed)
         history, _ = stations.apply_observations(history, observed, day.isoformat())
 
-        path_in_repo = f"data/year={day.year:04d}/month={day.month:02d}" f"/day={day.day:02d}/part.csv"
+        path_in_repo = f"data/year={day.year:04d}/month={day.month:02d}/day={day.day:02d}/part.csv"
         pending.append((path_in_repo, payload))
 
         totals["days"] += 1
@@ -192,12 +192,12 @@ def main():
     ids = len({row["place_id"] for row in history})
     print(f"\ndays        : {totals['days']:,}")
     print(f"rows        : {totals['rows']:,}")
-    print(f"input       : {totals['in_bytes']/1e9:.2f} GB")
+    print(f"input       : {totals['in_bytes'] / 1e9:.2f} GB")
     print(
-        f"output      : {totals['out_bytes']/1e9:.2f} GB "
-        f"({totals['in_bytes']/max(totals['out_bytes'],1):.2f}x smaller)"
+        f"output      : {totals['out_bytes'] / 1e9:.2f} GB "
+        f"({totals['in_bytes'] / max(totals['out_bytes'], 1):.2f}x smaller)"
     )
-    print(f"stations    : {ids} distinct, {versions} versions " f"({versions - ids} attribute change(s) captured)")
+    print(f"stations    : {ids} distinct, {versions} versions ({versions - ids} attribute change(s) captured)")
 
 
 if __name__ == "__main__":

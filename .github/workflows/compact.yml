@@ -31,7 +31,7 @@ jobs:
       env:
         HF_TOKEN: ${{ secrets.HF_TOKEN }}
         HF_DATASET_REPO: ${{ vars.HF_DATASET_REPO }}
-      run: uv run --frozen --no-dev -m london_cycles_db.compact ${{ github.event.inputs.days }}
+      run: uv run --frozen --no-dev --package london-cycles-db -m london_cycles_db.compact ${{ github.event.inputs.days }}
 
     - name: Render animation and upload to ImageKit
       env:

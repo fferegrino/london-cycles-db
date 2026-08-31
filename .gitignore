@@ -13,3 +13,7 @@ backfill-out/
 
 node_modules/
 .wrangler/
+
+.pytest_cache/
+.ruff_cache/
+dist/

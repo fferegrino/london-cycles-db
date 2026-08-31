@@ -16,7 +16,7 @@ whose interval contains the row's ``query_time``.
 """
 
 import csv
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 STATIONS_FILE = Path("stations.csv")
@@ -70,7 +70,7 @@ def _epoch_millis_to_date(value):
         return text
     if millis <= 0:
         return ""
-    return datetime.fromtimestamp(millis / 1000, tz=timezone.utc).strftime("%Y-%m-%d")
+    return datetime.fromtimestamp(millis / 1000, tz=UTC).strftime("%Y-%m-%d")
 
 
 def _normalise(record):

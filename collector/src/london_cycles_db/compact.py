@@ -14,7 +14,7 @@ import csv
 import io
 import re
 import sys
-from datetime import datetime, timedelta, timezone
+from datetime import UTC, datetime, timedelta
 
 from huggingface_hub import hf_hub_download
 
@@ -72,16 +72,14 @@ def compact(day, client):
         f"Compact {day} ({snapshot_count} snapshots, {len(ordered)} rows, {len(snapshots)} files merged)",
         client=client,
     )
-    print(
-        f"{day}: merged {len(snapshots)} file(s) -> {COMPACTED} " f"({snapshot_count} snapshots, {len(ordered)} rows)"
-    )
+    print(f"{day}: merged {len(snapshots)} file(s) -> {COMPACTED} ({snapshot_count} snapshots, {len(ordered)} rows)")
 
 
 def main(argv):
     if argv:
         days = [datetime.strptime(arg, "%Y-%m-%d").date() for arg in argv]
     else:
-        days = [(datetime.now(timezone.utc) - timedelta(days=1)).date()]
+        days = [(datetime.now(UTC) - timedelta(days=1)).date()]
 
     client = hf_publish.api()
     for day in days:

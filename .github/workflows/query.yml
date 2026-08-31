@@ -52,7 +52,7 @@ jobs:
         failures=0
 
         for i in $(seq 1 "$SNAPSHOTS"); do
-          if uv run --frozen --no-dev -m london_cycles_db.dataset; then
+          if uv run --frozen --no-dev --package london-cycles-db -m london_cycles_db.dataset; then
             echo "snapshot $i/$SNAPSHOTS published"
             # Ping per snapshot, not just per run: a four-snapshot backstop run
             # takes 45 minutes, which on its own would look like silence to a
