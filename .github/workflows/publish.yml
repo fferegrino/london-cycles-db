@@ -1,0 +1,115 @@
+name: Publish london-cycles to PyPI
+
+on:
+  push:
+    tags:
+      # A tag is the release: bump version in pyproject.toml, commit, then
+      # `git tag v0.1.0 && git push --tags`. The patterns reject v1 or v1.2.
+      - "v[0-9]+.[0-9]+.[0-9]+"
+      - "v[0-9]+.[0-9]+.[0-9]+rc[0-9]+"
+      - "v[0-9]+.[0-9]+.[0-9]+[ab][0-9]+"
+  workflow_dispatch:
+
+concurrency:
+  group: publish
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+# Trusted Publishing (OIDC), not an API token. Before the first upload:
+#
+# 1. GitHub: Settings → Environments → new environment named `pypi`.
+#    The name is part of the publisher identity; renaming it here without
+#    updating PyPI will fail the OIDC exchange.
+# 2. PyPI: https://pypi.org/manage/account/publishing/ → pending publisher
+#      PyPI project name: london-cycles
+#      Owner:             fferegrino
+#      Repository:       london-cycles-db
+#      Workflow filename: publish.yml   (this file; the name is the identity)
+#      Environment:       pypi
+#
+# A pending publisher becomes a real one on the first successful upload.
+# `london-cycles-db` (the collector) is a separate workspace member and is
+# never built by this workflow.
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      UV_PYTHON: "3.12"
+
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        persist-credentials: false
+
+    - name: Install uv
+      uses: astral-sh/setup-uv@v5
+      with:
+        enable-cache: true
+        python-version: "3.12"
+
+    - name: Check tag matches pyproject.toml
+      if: startsWith(github.ref, 'refs/tags/v')
+      run: |
+        tag="${GITHUB_REF_NAME#v}"
+        version=$(uv version --short)
+        if [ "$tag" != "$version" ]; then
+          echo "::error::tag ${GITHUB_REF_NAME} does not match pyproject.toml version ${version}"
+          exit 1
+        fi
+
+    - name: Test
+      run: uv run --frozen --group dev pytest
+
+    # `--no-sources` so the sdist builds the same way a non-uv consumer would,
+    # without workspace path overrides. `--package` is the reader; the
+    # collector lives under collector/ and is a different project.
+    - name: Build
+      run: uv build --package london-cycles --no-sources
+
+    - name: Smoke test (wheel)
+      run: uv run --isolated --no-project --with dist/*.whl -- python -c "from london_cycles import stream, stations, jitter_events"
+
+    - name: Smoke test (sdist)
+      run: uv run --isolated --no-project --with dist/*.tar.gz -- python -c "from london_cycles import stream, stations, jitter_events"
+
+    - name: Upload distributions
+      uses: actions/upload-artifact@v4
+      with:
+        name: dist
+        path: dist/
+        if-no-files-found: error
+
+  publish:
+    name: Upload to PyPI
+    needs: build
+    if: github.repository == 'fferegrino/london-cycles-db' && startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment:
+      name: pypi
+      url: https://pypi.org/p/london-cycles
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+    - name: Install uv
+      uses: astral-sh/setup-uv@v5
+      with:
+        enable-cache: false
+
+    - name: Download distributions
+      uses: actions/download-artifact@v4
+      with:
+        name: dist
+        path: dist/
+
+    # `always` fails the job if the publisher is missing rather than looking
+    # for a token that this repository does not store.
+    - name: Publish
+      run: uv publish --trusted-publishing always

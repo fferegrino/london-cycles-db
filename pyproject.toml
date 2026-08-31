@@ -15,6 +15,15 @@ build-backend = "hatchling.build"
 [tool.hatch.build.targets.wheel]
 packages = ["src/london_cycles"]
 
+# Hatchling's default sdist is the git tree, which would ship the collector,
+# the Cloudflare Worker, viz fonts/shapefiles, and stations.csv. Those are
+# not the reader package; keep the tarball to what `pip install` needs.
+[tool.hatch.build.targets.sdist]
+only-include = [
+    "src/london_cycles",
+    "tests",
+]
+
 [tool.uv.workspace]
 members = ["collector"]
 
