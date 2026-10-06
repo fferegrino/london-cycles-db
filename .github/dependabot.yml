@@ -4,13 +4,26 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    groups:
+      # Majors (e.g. pandas 3) stay as their own PRs so a breaking bump doesn't block the rest.
+      python:
+        patterns: ["*"]
+        update-types: ["minor", "patch"]
 
   - package-ecosystem: "npm"
     directory: "/cron"
     schedule:
       interval: "weekly"
+    groups:
+      npm:
+        patterns: ["*"]
+        update-types: ["minor", "patch"]
 
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
       interval: "weekly"
+    groups:
+      # Actions only move by major tags, so filtering out majors would group nothing.
+      github-actions:
+        patterns: ["*"]
