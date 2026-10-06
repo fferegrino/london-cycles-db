@@ -9,6 +9,10 @@ on:
         description: "Space-separated YYYY-MM-DD dates (default: yesterday)"
         required: false
         default: ""
+      coverage_months:
+        description: "Months of history in the coverage graph"
+        required: false
+        default: "3"
 
 concurrency:
   group: compact
@@ -31,7 +35,17 @@ jobs:
       env:
         HF_TOKEN: ${{ secrets.HF_TOKEN }}
         HF_DATASET_REPO: ${{ vars.HF_DATASET_REPO }}
-      run: uv run --frozen --no-dev --package london-cycles-db -m london_cycles_db.compact ${{ github.event.inputs.days }}
+        DAYS: ${{ github.event.inputs.days }}
+      # Unquoted on purpose: DAYS is a space-separated list of dates.
+      run: uv run --frozen --no-dev --package london-cycles-db -m london_cycles_db.compact $DAYS
+
+    - name: Refresh coverage graph
+      id: coverage
+      env:
+        HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        HF_DATASET_REPO: ${{ vars.HF_DATASET_REPO }}
+        COVERAGE_MONTHS: ${{ github.event.inputs.coverage_months || '3' }}
+      run: uv run --frozen --no-dev -m london_cycles.coverage --months "$COVERAGE_MONTHS" --output viz/coverage.svg
 
     - name: Render animation and upload to ImageKit
       env:
@@ -49,3 +63,12 @@ jobs:
           --upload-imagekit \
           --imagekit-folder projects/london-cycles-db \
           --imagekit-file-name latest.gif
+
+    # The README embeds this from ImageKit. Uploaded even if the animation
+    # failed, since yesterday's square depends on the compact this job just ran.
+    - name: Upload coverage graph to ImageKit
+      if: always() && steps.coverage.outcome == 'success'
+      env:
+        IMAGEKIT_PRIVATE_KEY: ${{ secrets.IMAGEKIT_PRIVATE_KEY }}
+        IMAGEKIT_PUBLIC_KEY: ${{ secrets.IMAGEKIT_PUBLIC_KEY }}
+      run: uv run --frozen --group viz viz/upload_imagekit.py viz/coverage.svg --folder projects/london-cycles-db

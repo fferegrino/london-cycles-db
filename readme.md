@@ -4,6 +4,8 @@
 
 ![London Cycle Hire Network Usage Animation](https://ik.imagekit.io/thatcsharpguy/projects/london-cycles-db/latest.gif)
 
+![Snapshots collected over the last 3 months. A full day is 96.](https://ik.imagekit.io/thatcsharpguy/projects/london-cycles-db/coverage.svg)
+
 Data is published to the Hugging Face Hub: **[`feregrino/london-cycles`](https://huggingface.co/datasets/feregrino/london-cycles)**. This repository holds the reader package, the collection code, and the station reference table; it does not hold the observations.
 
 ## Reading the data
@@ -141,6 +143,8 @@ To run the visualization animation:
 
 ```sh
 uv run --group viz viz/animate.py
+uv run -m london_cycles.coverage                 # redraw viz/coverage.svg, last 3 months
+uv run -m london_cycles.coverage --months 6      # a longer window
 ```
 
 ## Development

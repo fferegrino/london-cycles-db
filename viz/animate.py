@@ -22,6 +22,7 @@ from matplotlib.animation import FuncAnimation
 from matplotlib.colors import Colormap
 from matplotlib.lines import Line2D
 from matplotlib.offsetbox import AnchoredText
+from upload_imagekit import upload_to_imagekit
 
 DATASET = os.environ.get("HF_DATASET_REPO") or "feregrino/london-cycles"
 VIZ_DIR = Path(__file__).parent
@@ -279,46 +280,6 @@ def render_animation(
         animation.save(str(output_path), writer="pillow", fps=fps, dpi=dpi)
     else:
         animation.save(str(output_path), fps=fps, dpi=dpi)
-
-
-def upload_to_imagekit(
-    file_path: Path,
-    file_name: str | None = None,
-    folder: str = "/projects/london-cycles-db",
-    private_key: str | None = None,
-    public_key: str | None = None,
-) -> None:
-    from imagekitio import ImageKit
-
-    key = private_key or os.environ.get("IMAGEKIT_PRIVATE_KEY")
-    pub_key = public_key or os.environ.get("IMAGEKIT_PUBLIC_KEY")
-    if not key:
-        raise ValueError(
-            "ImageKit private key not provided. Set IMAGEKIT_PRIVATE_KEY environment variable or pass --imagekit-private-key."
-        )
-
-    ik = ImageKit(private_key=key)
-    target_name = file_name or file_path.name
-    normalized_folder = f"/{folder.strip('/')}" if folder else "/"
-
-    print(f"Uploading {file_path} to ImageKit as {target_name} in folder '{normalized_folder}'...")
-
-    upload_kwargs = {
-        "file": file_path.read_bytes(),
-        "file_name": target_name,
-        "folder": normalized_folder,
-        "use_unique_file_name": False,
-        "overwrite_file": True,
-    }
-    if pub_key:
-        upload_kwargs["public_key"] = pub_key
-
-    upload_response = ik.files.upload(**upload_kwargs)
-    file_url = getattr(upload_response, "url", None)
-    if file_url:
-        print(f"Uploaded successfully to ImageKit: {file_url}")
-    else:
-        print(f"Uploaded successfully to ImageKit: {upload_response}")
 
 
 class OutputFormat(str, Enum):
