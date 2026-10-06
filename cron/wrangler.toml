@@ -22,3 +22,10 @@ head_sampling_rate = 1
 binding = "GH_PAT"
 store_id = "b542b969de4a42309165a1f8930ed836"
 secret_name = "GH_PAT_LONDON_CYCLES_DB"
+
+# Ping URL for the Worker-only healthchecks.io check. Distinct from the
+# repository secret HEALTHCHECK_URL, which query.yml pings per snapshot.
+[[secrets_store_secrets]]
+binding = "HEALTHCHECK_URL"
+store_id = "b542b969de4a42309165a1f8930ed836"
+secret_name = "HEALTHCHECK_URL_LONDON_CYCLES_CRON"

@@ -96,5 +96,53 @@ export default {
       status: response.status,
       rateLimitRemaining: response.headers.get("x-ratelimit-remaining"),
     });
+
+    // Separate from the snapshot check that query.yml pings. That one stays
+    // green through an hourly backstop run, so a Worker that has stopped
+    // dispatching looks like flapping rather than an outage, and the alert
+    // never names the Worker. This ping moves only when a dispatch succeeded.
+    // A failed ping must not fail the invocation: the dispatch already landed,
+    // and silence on the check is itself the alert.
+    await pingHealthcheck(env, base, started);
   },
 };
+
+async function pingHealthcheck(env, base, started) {
+  if (!env.HEALTHCHECK_URL) {
+    log("warn", {
+      event: "healthcheck.skipped",
+      ...base,
+      durationMs: Date.now() - started,
+      error:
+        "HEALTHCHECK_URL binding is not attached to this Worker; check the Secrets Store binding in wrangler.toml",
+    });
+    return;
+  }
+
+  try {
+    const url = await env.HEALTHCHECK_URL.get();
+    const response = await fetch(url, { method: "GET" });
+    if (!response.ok) {
+      log("warn", {
+        event: "healthcheck.failed",
+        ...base,
+        durationMs: Date.now() - started,
+        status: response.status,
+      });
+      return;
+    }
+    log("log", {
+      event: "healthcheck.ok",
+      ...base,
+      durationMs: Date.now() - started,
+      status: response.status,
+    });
+  } catch (error) {
+    log("warn", {
+      event: "healthcheck.error",
+      ...base,
+      durationMs: Date.now() - started,
+      error: String(error),
+    });
+  }
+}
