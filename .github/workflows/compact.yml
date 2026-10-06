@@ -49,3 +49,21 @@ jobs:
           --upload-imagekit \
           --imagekit-folder projects/london-cycles-db \
           --imagekit-file-name latest.gif
+
+    # Camo keeps its own copy of README images, so the ImageKit purge alone
+    # would not reach GitHub viewers. Purge Camo, then fetch through it once so
+    # no visitor pays for the cold fetch.
+    - name: Refresh GitHub's Camo cache
+      env:
+        GH_TOKEN: ${{ github.token }}
+      run: |
+        urls=$(gh api "repos/${{ github.repository }}/readme" -H "Accept: application/vnd.github.html" \
+          | grep -oE 'https://camo\.githubusercontent\.com/[^"]+' | sort -u)
+        if [ -z "$urls" ]; then
+          echo "No Camo URLs found in the rendered README"
+          exit 0
+        fi
+        for url in $urls; do
+          curl -sS -X PURGE "$url"; echo
+          curl -sS -o /dev/null -w "warmed $url: %{http_code} %{size_download} bytes %{time_total}s\n" "$url"
+        done

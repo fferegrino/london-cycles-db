@@ -315,10 +315,56 @@ def upload_to_imagekit(
 
     upload_response = ik.files.upload(**upload_kwargs)
     file_url = getattr(upload_response, "url", None)
-    if file_url:
-        print(f"Uploaded successfully to ImageKit: {file_url}")
-    else:
+    if not file_url:
         print(f"Uploaded successfully to ImageKit: {upload_response}")
+        return
+    print(f"Uploaded successfully to ImageKit: {file_url}")
+
+    # overwrite_file replaces the stored original but the CDN keeps serving the
+    # previous version under its one-year max-age until the URL is purged.
+    purge_imagekit_cache(ik, file_url)
+    warm_url(file_url)
+
+
+def purge_imagekit_cache(ik, url: str, timeout: float = 300.0, poll: float = 5.0) -> None:
+    import time
+
+    request_id = ik.cache.invalidation.create(url=url).request_id
+    print(f"Purging ImageKit cache for {url} (request {request_id})...")
+    deadline = time.monotonic() + timeout
+    while time.monotonic() < deadline:
+        if ik.cache.invalidation.get(request_id).status == "Completed":
+            print("Purge completed.")
+            return
+        time.sleep(poll)
+    # Warming before the purge lands would just re-cache the old file, but the
+    # upload itself succeeded, so don't fail the job over it.
+    print(f"Purge still pending after {timeout:.0f}s; skipping warm-up.")
+
+
+# ImageKit varies on Accept, so each format negotiation is cached separately.
+# These cover what Camo forwards from Chromium, Firefox and Safari, plus bare clients.
+WARM_ACCEPT_HEADERS = (
+    "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
+    "image/avif,image/webp,*/*",
+    "image/webp,image/avif,image/jxl,image/heic,image/heic-sequence,video/*;q=0.8,image/png,image/svg+xml,image/*;q=0.8,*/*;q=0.5",
+    "image/*",
+    "*/*",
+)
+
+
+def warm_url(url: str) -> None:
+    """Fetch every Accept variant once so the slow first-hit transformation
+    (seconds, long enough for Camo to time out) happens here instead."""
+    import httpx
+
+    with httpx.Client(timeout=60.0) as client:
+        for accept in WARM_ACCEPT_HEADERS:
+            response = client.get(url, headers={"Accept": accept})
+            print(
+                f"Warmed {url} [{accept.split(',')[0]}]: {response.status_code}, "
+                f"{len(response.content)} bytes, {response.headers.get('server-timing', '')}"
+            )
 
 
 class OutputFormat(str, Enum):
