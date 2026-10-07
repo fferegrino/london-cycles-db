@@ -22,7 +22,6 @@ from matplotlib.animation import FuncAnimation
 from matplotlib.colors import Colormap
 from matplotlib.lines import Line2D
 from matplotlib.offsetbox import AnchoredText
-from upload_imagekit import upload_to_imagekit
 
 DATASET = os.environ.get("HF_DATASET_REPO") or "feregrino/london-cycles"
 VIZ_DIR = Path(__file__).parent
@@ -345,21 +344,6 @@ def main(
         "--dpi",
         help="DPI resolution for the animation output.",
     ),
-    upload_imagekit: bool = typer.Option(
-        False,
-        "--upload-imagekit",
-        help="Upload the generated animation to ImageKit.",
-    ),
-    imagekit_folder: str = typer.Option(
-        "/projects/london-cycles-db",
-        "--imagekit-folder",
-        help="Folder in ImageKit to upload the file to.",
-    ),
-    imagekit_file_name: str | None = typer.Option(
-        None,
-        "--imagekit-file-name",
-        help="File name in ImageKit. Defaults to the output file name.",
-    ),
 ):
     if end_date is None:
         end_d = datetime.date.today() - datetime.timedelta(days=1)
@@ -395,13 +379,6 @@ def main(
         dpi=dpi,
     )
     print(f"Animation saved to {output_path}")
-
-    if upload_imagekit:
-        upload_to_imagekit(
-            file_path=output_path,
-            file_name=imagekit_file_name,
-            folder=imagekit_folder,
-        )
 
 
 if __name__ == "__main__":
