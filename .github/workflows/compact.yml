@@ -9,6 +9,10 @@ on:
         description: "Space-separated YYYY-MM-DD dates (default: yesterday)"
         required: false
         default: ""
+      coverage_months:
+        description: "Months of history in the coverage graph"
+        required: false
+        default: "3"
 
 concurrency:
   group: compact
@@ -31,21 +35,20 @@ jobs:
       env:
         HF_TOKEN: ${{ secrets.HF_TOKEN }}
         HF_DATASET_REPO: ${{ vars.HF_DATASET_REPO }}
-      run: uv run --frozen --no-dev --package london-cycles-db -m london_cycles_db.compact ${{ github.event.inputs.days }}
+        DAYS: ${{ github.event.inputs.days }}
+      # Unquoted on purpose: DAYS is a space-separated list of dates.
+      run: uv run --frozen --no-dev --package london-cycles-db -m london_cycles_db.compact $DAYS
 
-    - name: Render animation and upload to ImageKit
+    - name: Refresh coverage graph
       env:
         HF_TOKEN: ${{ secrets.HF_TOKEN }}
         HF_DATASET_REPO: ${{ vars.HF_DATASET_REPO }}
+        COVERAGE_MONTHS: ${{ github.event.inputs.coverage_months || '3' }}
+      run: uv run --frozen --no-dev -m london_cycles.coverage --months "$COVERAGE_MONTHS" --output viz/coverage.svg
+
+    # The README embeds this from ImageKit rather than from the repo.
+    - name: Upload coverage graph to ImageKit
+      env:
         IMAGEKIT_PRIVATE_KEY: ${{ secrets.IMAGEKIT_PRIVATE_KEY }}
         IMAGEKIT_PUBLIC_KEY: ${{ secrets.IMAGEKIT_PUBLIC_KEY }}
-      run: |
-        uv run --frozen --group viz viz/animate.py \
-          --format gif \
-          --days 3 \
-          --interval 1h \
-          --fps 10 \
-          --output animation.gif \
-          --upload-imagekit \
-          --imagekit-folder projects/london-cycles-db \
-          --imagekit-file-name latest.gif
+      run: uv run --frozen --group viz viz/upload_imagekit.py viz/coverage.svg --folder projects/london-cycles-db

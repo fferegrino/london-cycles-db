@@ -4,6 +4,8 @@
 
 *.mp4
 *.gif
+# Published to ImageKit by the compact workflow.
+viz/coverage.svg
 .DS_Store
 
 __pycache__/

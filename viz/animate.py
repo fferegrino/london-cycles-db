@@ -281,46 +281,6 @@ def render_animation(
         animation.save(str(output_path), fps=fps, dpi=dpi)
 
 
-def upload_to_imagekit(
-    file_path: Path,
-    file_name: str | None = None,
-    folder: str = "/projects/london-cycles-db",
-    private_key: str | None = None,
-    public_key: str | None = None,
-) -> None:
-    from imagekitio import ImageKit
-
-    key = private_key or os.environ.get("IMAGEKIT_PRIVATE_KEY")
-    pub_key = public_key or os.environ.get("IMAGEKIT_PUBLIC_KEY")
-    if not key:
-        raise ValueError(
-            "ImageKit private key not provided. Set IMAGEKIT_PRIVATE_KEY environment variable or pass --imagekit-private-key."
-        )
-
-    ik = ImageKit(private_key=key)
-    target_name = file_name or file_path.name
-    normalized_folder = f"/{folder.strip('/')}" if folder else "/"
-
-    print(f"Uploading {file_path} to ImageKit as {target_name} in folder '{normalized_folder}'...")
-
-    upload_kwargs = {
-        "file": file_path.read_bytes(),
-        "file_name": target_name,
-        "folder": normalized_folder,
-        "use_unique_file_name": False,
-        "overwrite_file": True,
-    }
-    if pub_key:
-        upload_kwargs["public_key"] = pub_key
-
-    upload_response = ik.files.upload(**upload_kwargs)
-    file_url = getattr(upload_response, "url", None)
-    if file_url:
-        print(f"Uploaded successfully to ImageKit: {file_url}")
-    else:
-        print(f"Uploaded successfully to ImageKit: {upload_response}")
-
-
 class OutputFormat(str, Enum):
     mp4 = "mp4"
     gif = "gif"
@@ -384,21 +344,6 @@ def main(
         "--dpi",
         help="DPI resolution for the animation output.",
     ),
-    upload_imagekit: bool = typer.Option(
-        False,
-        "--upload-imagekit",
-        help="Upload the generated animation to ImageKit.",
-    ),
-    imagekit_folder: str = typer.Option(
-        "/projects/london-cycles-db",
-        "--imagekit-folder",
-        help="Folder in ImageKit to upload the file to.",
-    ),
-    imagekit_file_name: str | None = typer.Option(
-        None,
-        "--imagekit-file-name",
-        help="File name in ImageKit. Defaults to the output file name.",
-    ),
 ):
     if end_date is None:
         end_d = datetime.date.today() - datetime.timedelta(days=1)
@@ -434,13 +379,6 @@ def main(
         dpi=dpi,
     )
     print(f"Animation saved to {output_path}")
-
-    if upload_imagekit:
-        upload_to_imagekit(
-            file_path=output_path,
-            file_name=imagekit_file_name,
-            folder=imagekit_folder,
-        )
 
 
 if __name__ == "__main__":
