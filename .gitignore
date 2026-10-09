@@ -4,7 +4,7 @@
 
 *.mp4
 *.gif
-# Published to ImageKit by the compact workflow.
+# Published to R2 by the compact workflow.
 viz/coverage.svg
 .DS_Store
 
