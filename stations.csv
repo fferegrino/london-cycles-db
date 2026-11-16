@@ -104,7 +104,8 @@ BikePoints_89,"Tavistock Place, Bloomsbury",51.52625,-0.123509,003439,true,false
 BikePoints_90,"Harrington Square 1, Camden Town",51.533019,-0.139174,001038,true,false,2010-07-13,,2022-04-29,
 BikePoints_91,"Walnut Tree Walk, Vauxhall",51.493686,-0.111014,001076,true,false,2010-07-13,,2022-04-29,
 BikePoints_92,"Borough Road, Elephant & Castle",51.498898,-0.10044,001082,true,false,2010-07-13,,2022-04-29,
-BikePoints_93,"Cloudesley Road, Angel",51.534408,-0.109025,002586,true,false,2010-07-13,,2022-04-29,
+BikePoints_93,"Cloudesley Road, Angel",51.534408,-0.109025,002586,true,false,2010-07-13,,2022-04-29,2026-11-16
+BikePoints_93,"Cloudesley Road, Angel",51.534408,-0.109025,STAT-0093,true,false,2010-07-13,,2026-11-16,
 BikePoints_94,"Bricklayers Arms, Borough",51.495061,-0.085814,001070,true,false,2010-07-13,,2022-04-29,
 BikePoints_95,"Aldersgate Street, Barbican",51.520841,-0.09734,001065,true,false,2010-07-14,,2022-04-29,
 BikePoints_96,"Falkirk Street, Hoxton",51.53095,-0.078505,001047,true,false,2010-07-14,,2022-04-29,
@@ -203,13 +204,15 @@ BikePoints_185,"Alderney Street, Pimlico",51.488057,-0.140741,001174,true,false,
 BikePoints_186,"South Wharf Road, Paddington",51.517335,-0.17581,001167,true,false,2010-07-17,,2022-04-29,
 BikePoints_187,"Queen's Gate (South), South Kensington",51.492479,-0.178433,001172,true,false,2010-07-17,,2022-04-29,
 BikePoints_188,"Nutford Place, Marylebone",51.516517,-0.164393,001112,true,false,2010-07-17,,2022-04-29,
-BikePoints_189,"Claremont Square, Angel",51.531666,-0.109914,001104,true,false,2010-07-17,,2022-04-29,
+BikePoints_189,"Claremont Square, Angel",51.531666,-0.109914,001104,true,false,2010-07-17,,2022-04-29,2026-11-16
+BikePoints_189,"Claremont Square, Angel",51.531666,-0.109914,STAT-0189,true,false,2010-07-17,,2026-11-16,
 BikePoints_190,"Rampayne Street, Pimlico",51.489975,-0.132845,001106,true,false,2010-07-17,,2022-04-29,
 BikePoints_191,"Hyde Park Corner, Hyde Park",51.503117,-0.15352,001075,true,false,2010-07-17,,2022-04-29,
 BikePoints_192,"Wardour Street, Soho",51.512515,-0.133201,001163,true,false,2010-07-17,,2022-04-29,
 BikePoints_193,"Bankside Mix, Bankside",51.505817,-0.100186,000963,true,false,2010-07-17,,2022-04-29,
 BikePoints_194,"Hop Exchange, The Borough",51.504627,-0.091773,000960,true,false,2010-07-17,,2022-04-29,
-BikePoints_195,"Milroy Walk, South Bank",51.507244,-0.106237,000959,true,false,2010-07-17,,2022-04-29,
+BikePoints_195,"Milroy Walk, South Bank",51.507244,-0.106237,000959,true,false,2010-07-17,,2022-04-29,2026-11-16
+BikePoints_195,"Milroy Walk, South Bank",51.507244,-0.106237,STAT-0195,true,false,2010-07-17,,2026-11-16,
 BikePoints_196,"Union Street, The Borough",51.503688,-0.098497,000961,true,false,2010-07-17,,2022-04-29,
 BikePoints_197,"Stamford Street, South Bank",51.505569,-0.111606,000962,true,false,2010-07-17,,2022-04-29,
 BikePoints_199,"Great Tower Street, Monument",51.510484,-0.082989,001080,true,false,2010-07-18,,2022-04-29,
@@ -254,7 +257,8 @@ BikePoints_236,"Fashion Street, Whitechapel",51.51838,-0.073438,003483,true,fals
 BikePoints_237,"Dock Street, Wapping",51.509786,-0.068161,003467,true,false,2010-07-22,,2022-04-29,
 BikePoints_238,"Frampton Street, Paddington",51.523353,-0.175116,001099,true,false,2010-07-20,,2022-04-29,
 BikePoints_239,"Warren Street Station, Euston",51.524438,-0.138019,001090,true,false,2010-07-20,,2022-04-29,
-BikePoints_240,"Colombo Street, Southwark",51.505459,-0.105692,003472,true,false,2010-07-20,,2022-04-29,
+BikePoints_240,"Colombo Street, Southwark",51.505459,-0.105692,003472,true,false,2010-07-20,,2022-04-29,2026-11-16
+BikePoints_240,"Colombo Street, Southwark",51.505459,-0.105692,STAT-0240,true,false,2010-07-20,,2026-11-16,
 BikePoints_242,"Beaumont Street, Marylebone",51.522008,-0.151359,003482,true,false,2010-07-20,,2022-04-29,
 BikePoints_243,"Gloucester Street, Pimlico",51.490962,-0.139625,001103,true,false,2010-07-20,,2022-04-29,
 BikePoints_244,"Earnshaw Street , Covent Garden",51.516118,-0.128585,001145,true,false,2010-07-20,,2022-04-29,2025-04-11
@@ -825,7 +829,8 @@ BikePoints_787,"Timber Lodge, Queen Elizabeth Olympic Park",51.546805,-0.014691,
 BikePoints_788,"Copper Box Arena, Queen Elizabeth Olympic Park",51.544909,-0.020542,300226,true,false,2016-01-04,,2022-04-29,
 BikePoints_789,"Podium, Queen Elizabeth Olympic Park",51.538718,-0.011889,300021,true,false,2016-01-11,,2022-04-29,
 BikePoints_790,"Stratford Station, Stratford",51.541793,-0.00481,300234,true,false,2016-01-13,,2022-04-29,
-BikePoints_792,"Blackfriars Road, Southwark",51.505461,-0.10454,300214,true,false,2016-02-08,,2022-04-29,
+BikePoints_792,"Blackfriars Road, Southwark",51.505461,-0.10454,300214,true,false,2016-02-08,,2022-04-29,2026-11-16
+BikePoints_792,"Blackfriars Road, Southwark",51.505461,-0.10454,STAT-0792,true,false,2016-02-08,,2026-11-16,
 BikePoints_793,"Cromer Street, Bloomsbury",51.528279,-0.119558,300205,true,false,2016-03-31,,2022-04-29,
 BikePoints_794,"Victoria Rise, Clapham Common",51.461376,-0.147804,300204,true,false,2016-02-25,,2022-04-29,
 BikePoints_795,"Euston Square Gardens, Euston",51.527068,-0.131861,300203,true,false,2016-02-29,,2022-04-29,
@@ -872,7 +877,8 @@ BikePoints_835,"Farringdon Street, Holborn",51.516785,-0.104947,300220,true,fals
 BikePoints_836,"York Way, Kings Cross",51.541596,-0.125441,300235,true,false,,,2022-04-29,
 BikePoints_838,"Fore Street Avenue, Guildhall",51.518093,-0.091401,300222,true,false,2018-10-11,,2022-04-29,2023-07-18
 BikePoints_838,"Fore Street, Guildhall",51.518093,-0.091401,300222,true,false,2018-10-11,,2023-07-18,
-BikePoints_839,"Sea Containers, South Bank",51.508033,-0.106823,200144,true,false,2018-12-12,,2022-04-29,
+BikePoints_839,"Sea Containers, South Bank",51.508033,-0.106823,200144,true,false,2018-12-12,,2022-04-29,2026-11-16
+BikePoints_839,"Sea Containers, South Bank",51.508033,-0.106823,STAT-0839,true,false,2018-12-12,,2026-11-16,
 BikePoints_840,"George Row, Bermondsey",51.498585,-0.068981,002679,true,false,2020-09-10,,2022-04-29,
 BikePoints_841,"Tower Wharf, Bermondsey",51.500845,-0.074704,002667,true,false,,,2022-04-29,
 BikePoints_842,"Temple Gardens, Temple",51.510981,-0.108322,300250,true,false,2020-09-23,,2022-04-29,
@@ -937,7 +943,8 @@ BikePoints_868,"Kennington Lane Rail Bridge, Vauxhall",51.486343,-0.122492,00119
 BikePoints_869,"Albert Embankment, Vauxhall",51.490435,-0.122806,001059,true,false,2010-07-14,,2025-02-06,
 BikePoints_870,"Lower Marsh, Waterloo",51.500139,-0.113935,001219,true,false,2010-09-06,,2025-02-12,
 BikePoints_872,"Risinghill Street, Angel",51.533319,0.111781,001127,true,false,2010-07-26,,2025-03-06,2025-03-07
-BikePoints_872,"Risinghill Street, Angel",51.533319,-0.111781,001127,true,false,2010-07-26,,2025-03-07,
+BikePoints_872,"Risinghill Street, Angel",51.533319,-0.111781,001127,true,false,2010-07-26,,2025-03-07,2026-11-16
+BikePoints_872,"Risinghill Street, Angel",51.533319,-0.111781,STAT-0872,true,false,2010-07-26,,2026-11-16,
 BikePoints_873,"St. Pancras Way, Camden Town",51.537071,-0.13285,001111,false,false,2010-07-21,,2025-05-02,2025-05-09
 BikePoints_873,"St. Pancras Way, Camden Town",51.537071,-0.13285,001111,true,false,2010-07-21,,2025-05-09,
 BikePoints_874,"Handyside Street, King's Cross",51.53724,-0.124807,300241,true,false,2016-09-01,,2025-04-04,
